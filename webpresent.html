@@ -1,0 +1,2520 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>風琦有限公司 × SAP 導入評估｜第一次報告</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <style>
+    /* ═══ 字級：內文25pt≈42px、標題45pt≈75px（1600px 舞台） ═══ */
+    :root {
+      --navy-1: #081A38;
+      --navy-2: #10305F;
+      --navy-3: #1A4386;
+      --blue: #2563EB;
+      --blue-d: #0D2B5C;
+      --sky: #6DB6FF;
+      --sky-2: #BAD9FF;
+      --bg: #F3F7FD;
+      --card: #FFFFFF;
+      --txt: #1E2A3B;
+      --mut: #5A6B84;
+      --amber: #F59E0B;
+      --red: #E4574D;
+      --green: #1FA265;
+      --sh: 0 16px 40px rgba(13, 43, 92, .12);
+      --sh-lg: 0 24px 60px rgba(13, 43, 92, .22);
+      --fs-body: 42px;
+      --fs-title: 75px;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box
+    }
+
+    html,
+    body {
+      height: 100%;
+      overflow: hidden;
+      background: var(--navy-1)
+    }
+
+    body {
+      font-family: 'Noto Sans TC', 'Microsoft JhengHei', sans-serif;
+      color: var(--txt)
+    }
+
+    #stageWrap {
+      position: fixed;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center
+    }
+
+    #stage {
+      width: 1600px;
+      height: 900px;
+      position: relative;
+      flex: none;
+      transform-origin: center center
+    }
+
+    .slide {
+      position: absolute;
+      inset: 0;
+      background: var(--bg);
+      padding: 64px 90px;
+      display: none;
+      overflow: hidden
+    }
+
+    .slide.active {
+      display: block;
+      animation: sIn .45s ease
+    }
+
+    @keyframes sIn {
+      from {
+        opacity: 0;
+        transform: translateY(14px)
+      }
+
+      to {
+        opacity: 1;
+        transform: none
+      }
+    }
+
+    .dark {
+      background: linear-gradient(135deg, var(--navy-1) 0%, var(--navy-2) 55%, var(--navy-3) 100%);
+      color: #fff
+    }
+
+    .dark::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      background: radial-gradient(circle at 85% 15%, rgba(109, 182, 255, .14), transparent 45%), radial-gradient(circle at 10% 90%, rgba(37, 99, 235, .18), transparent 40%)
+    }
+
+    .dark::after {
+      content: "";
+      position: absolute;
+      right: -140px;
+      top: -140px;
+      width: 460px;
+      height: 460px;
+      border-radius: 50%;
+      border: 2px solid rgba(109, 182, 255, .25);
+      pointer-events: none
+    }
+
+    .kicker {
+      display: inline-flex;
+      align-items: center;
+      gap: 14px;
+      font-size: 26px;
+      font-weight: 900;
+      letter-spacing: .22em;
+      color: var(--blue);
+      margin-bottom: 10px
+    }
+
+    .kicker::before {
+      content: "";
+      width: 46px;
+      height: 6px;
+      border-radius: 3px;
+      background: linear-gradient(90deg, var(--blue), var(--sky))
+    }
+
+    h2.stitle {
+      font-size: var(--fs-title);
+      font-weight: 900;
+      line-height: 1.15;
+      color: var(--blue-d);
+      letter-spacing: .01em
+    }
+
+    .divNum {
+      font-size: 230px;
+      font-weight: 900;
+      line-height: 1;
+      color: rgba(109, 182, 255, .16);
+      position: absolute;
+      right: 110px;
+      bottom: 60px
+    }
+
+    .divInner {
+      position: relative;
+      z-index: 2;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center
+    }
+
+    .divTag {
+      display: inline-flex;
+      align-items: center;
+      gap: 14px;
+      font-size: 30px;
+      font-weight: 700;
+      letter-spacing: .28em;
+      color: var(--sky);
+      margin-bottom: 26px
+    }
+
+    .divTag::before {
+      content: "";
+      width: 60px;
+      height: 5px;
+      background: var(--sky);
+      border-radius: 3px
+    }
+
+    .divTitle {
+      font-size: 100px;
+      font-weight: 900;
+      line-height: 1.15
+    }
+
+    .divSub {
+      font-size: var(--fs-body);
+      color: var(--sky-2);
+      margin-top: 26px;
+      font-weight: 500;
+      line-height: 1.5
+    }
+
+    .dots {
+      display: flex;
+      gap: 14px;
+      margin-top: 56px
+    }
+
+    .dots span {
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, .18)
+    }
+
+    .dots span.on {
+      background: var(--sky);
+      box-shadow: 0 0 14px rgba(109, 182, 255, .8)
+    }
+
+    .chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 8px 26px;
+      border-radius: 999px;
+      font-size: 28px;
+      font-weight: 700
+    }
+
+    .chip.line {
+      border: 2.5px solid rgba(255, 255, 255, .5);
+      color: #fff
+    }
+
+    .chip.sky {
+      background: rgba(109, 182, 255, .18);
+      color: var(--sky);
+      border: 2px solid rgba(109, 182, 255, .45)
+    }
+
+    .chip.solid {
+      background: var(--blue);
+      color: #fff
+    }
+
+    .stat {
+      background: var(--card);
+      border-radius: 24px;
+      box-shadow: var(--sh);
+      padding: 24px 32px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      position: relative;
+      overflow: hidden
+    }
+
+    .stat::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 10px;
+      background: linear-gradient(180deg, var(--blue), var(--sky))
+    }
+
+    .stat .bn {
+      font-size: 58px;
+      font-weight: 900;
+      color: var(--blue-d);
+      line-height: 1.1
+    }
+
+    .stat .bl {
+      font-size: 30px;
+      font-weight: 700;
+      color: var(--blue)
+    }
+
+    .stat .bs {
+      font-size: 25px;
+      color: var(--mut)
+    }
+
+    .stat.warn::before {
+      background: linear-gradient(180deg, var(--amber), #FBBF24)
+    }
+
+    .stat.warn .bn {
+      color: #B45309
+    }
+
+    .stat.warn .bl {
+      color: #B45309
+    }
+
+    .chain {
+      display: flex;
+      align-items: center;
+      gap: 0
+    }
+
+    .chain .cnode {
+      flex: 1;
+      background: var(--card);
+      border-radius: 20px;
+      box-shadow: var(--sh);
+      padding: 22px 18px;
+      text-align: center;
+      font-size: 32px;
+      font-weight: 900;
+      color: var(--blue-d);
+      line-height: 1.35
+    }
+
+    .chain .cnode small {
+      display: block;
+      font-size: 24px;
+      font-weight: 500;
+      color: var(--mut);
+      margin-top: 6px
+    }
+
+    .chain .carr {
+      flex: none;
+      font-size: 44px;
+      font-weight: 900;
+      color: var(--blue);
+      padding: 0 14px
+    }
+
+    .chain.red .cnode {
+      color: #9F1D15;
+      background: #FDF0EE
+    }
+
+    .chain.red .carr {
+      color: var(--red)
+    }
+
+    .keybar {
+      position: absolute;
+      left: 90px;
+      right: 90px;
+      bottom: 52px;
+      background: linear-gradient(90deg, var(--blue-d), var(--blue));
+      color: #fff;
+      border-radius: 22px;
+      padding: 20px 34px;
+      font-size: 31px;
+      font-weight: 700;
+      line-height: 1.4;
+      box-shadow: var(--sh);
+      display: flex;
+      gap: 20px;
+      align-items: center
+    }
+
+    .keybar .tag {
+      flex: none;
+      background: rgba(255, 255, 255, .92);
+      color: var(--blue-d);
+      border-radius: 12px;
+      padding: 4px 20px;
+      font-size: 26px;
+      font-weight: 900
+    }
+
+    .keybar.warn {
+      background: linear-gradient(90deg, #B45309, var(--amber))
+    }
+
+    .keybar.warn .tag {
+      color: #B45309
+    }
+
+    .keybar.raised {
+      bottom: 100px
+    }
+
+    .tocGrid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 22px 28px;
+      margin-top: 40px
+    }
+
+    .tocItem {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      background: var(--card);
+      border-radius: 20px;
+      padding: 24px 30px;
+      cursor: pointer;
+      box-shadow: var(--sh);
+      transition: .18s
+    }
+
+    .tocItem:hover {
+      transform: translateY(-5px);
+      box-shadow: var(--sh-lg)
+    }
+
+    .tocItem .no {
+      flex: none;
+      width: 74px;
+      height: 74px;
+      border-radius: 20px;
+      background: linear-gradient(135deg, var(--blue), var(--navy-3));
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 34px;
+      font-weight: 900
+    }
+
+    .tocItem .t {
+      font-size: 36px;
+      font-weight: 900;
+      color: var(--blue-d)
+    }
+
+    .tocItem .d {
+      font-size: 25px;
+      color: var(--mut);
+      margin-top: 2px
+    }
+
+    .pimg {
+      object-fit: cover;
+      display: block;
+      border-radius: 28px;
+      box-shadow: var(--sh-lg)
+    }
+
+    .photoSide {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      right: 0;
+      width: 46%;
+      display: flex;
+      flex-direction: column;
+      gap: 10px
+    }
+
+    .photoSide .ph {
+      position: relative;
+      flex: 1;
+      overflow: hidden
+    }
+
+    .photoSide img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block
+    }
+
+    .pcap {
+      position: absolute;
+      left: 26px;
+      bottom: 24px;
+      background: rgba(8, 26, 56, .78);
+      backdrop-filter: blur(4px);
+      color: #fff;
+      font-size: 26px;
+      font-weight: 700;
+      padding: 10px 24px;
+      border-radius: 999px
+    }
+
+    .slide.hasPhoto {
+      padding-right: calc(46% + 60px)
+    }
+
+    .phFill {
+      position: relative;
+      flex: 1;
+      overflow: hidden;
+      border: none
+    }
+
+    .placeholder {
+      position: relative;
+      flex: 1;
+      border: 4px dashed #9BB4D8;
+      border-radius: 0;
+      background: repeating-linear-gradient(45deg, #eef3fb, #eef3fb 22px, #e4ecf9 22px, #e4ecf9 44px);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 14px;
+      text-align: center
+    }
+
+    .placeholder .pi {
+      font-size: 70px
+    }
+
+    .placeholder .pt {
+      font-size: 30px;
+      font-weight: 900;
+      color: var(--blue-d);
+      line-height: 1.4
+    }
+
+    .placeholder .ps {
+      font-size: 24px;
+      color: var(--mut)
+    }
+
+    .stepTrail {
+      display: flex;
+      gap: 10px;
+      margin: 18px 0 8px;
+      flex-wrap: wrap
+    }
+
+    .stepTrail span {
+      font-size: 24px;
+      font-weight: 700;
+      padding: 8px 20px;
+      border-radius: 999px;
+      background: #E2ECFA;
+      color: #41546F
+    }
+
+    .stepTrail span.on {
+      background: var(--blue);
+      color: #fff;
+      box-shadow: 0 6px 18px rgba(37, 99, 235, .4)
+    }
+
+    .ptList {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      margin-top: 30px
+    }
+
+    .ptItem {
+      display: flex;
+      gap: 22px;
+      align-items: flex-start;
+      background: var(--card);
+      border-radius: 22px;
+      box-shadow: var(--sh);
+      padding: 22px 28px
+    }
+
+    .ptItem .ic {
+      flex: none;
+      width: 60px;
+      height: 60px;
+      border-radius: 18px;
+      background: linear-gradient(135deg, var(--blue), var(--navy-3));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 32px
+    }
+
+    .ptItem .tx {
+      font-size: var(--fs-body);
+      line-height: 1.4;
+      font-weight: 500;
+      align-self: center
+    }
+
+    .ptItem .tx b {
+      color: var(--blue-d)
+    }
+
+    .ptItem.warn .ic {
+      background: linear-gradient(135deg, var(--amber), #FBBF24)
+    }
+
+    .pipe {
+      display: flex;
+      align-items: stretch;
+      margin-top: 70px
+    }
+
+    .pipe .pnode {
+      flex: 1;
+      background: var(--card);
+      border-radius: 28px;
+      box-shadow: var(--sh);
+      padding: 40px 24px;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 16px
+    }
+
+    .pipe .pnode .ico {
+      width: 120px;
+      height: 120px;
+      border-radius: 32px;
+      background: linear-gradient(135deg, #EAF2FF, #D7E6FF);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 64px
+    }
+
+    .pipe .pnode .nm {
+      font-size: 40px;
+      font-weight: 900;
+      color: var(--blue-d)
+    }
+
+    .pipe .pnode .ds {
+      font-size: 27px;
+      color: var(--mut);
+      line-height: 1.45
+    }
+
+    .pipe .parr {
+      flex: none;
+      display: flex;
+      align-items: center;
+      font-size: 56px;
+      color: var(--blue);
+      font-weight: 900;
+      padding: 0 10px
+    }
+
+    .flowHead {
+      display: flex;
+      align-items: center;
+      gap: 26px
+    }
+
+    .flowHead h2 {
+      font-size: 58px;
+      font-weight: 900;
+      color: var(--blue-d)
+    }
+
+    .flowPager {
+      display: flex;
+      gap: 10px;
+      margin-left: auto
+    }
+
+    .flowPager span {
+      font-size: 25px;
+      font-weight: 700;
+      padding: 8px 22px;
+      border-radius: 999px;
+      background: #E2ECFA;
+      color: #41546F;
+      cursor: pointer
+    }
+
+    .flowPager span.on {
+      background: var(--blue);
+      color: #fff
+    }
+
+    .flowBox {
+      position: relative;
+      margin-top: 16px;
+      height: 648px;
+      background: var(--card);
+      border-radius: 26px;
+      box-shadow: var(--sh);
+      overflow: hidden
+    }
+
+    .flowBox svg {
+      width: 100%;
+      height: 100%;
+      display: block
+    }
+
+    .flowBtns {
+      position: absolute;
+      bottom: 14px;
+      left: 20px;
+      display: flex;
+      gap: 10px;
+      z-index: 5;
+      align-items: center
+    }
+
+    .flowBtns button {
+      padding: 10px 24px;
+      border: none;
+      border-radius: 14px;
+      background: var(--blue);
+      color: #fff;
+      font-size: 25px;
+      font-weight: 700;
+      cursor: pointer;
+      font-family: inherit;
+      box-shadow: 0 8px 20px rgba(37, 99, 235, .35)
+    }
+
+    .flowBtns button.ghost {
+      background: #E2ECFA;
+      color: var(--blue-d);
+      box-shadow: none
+    }
+
+    .flowBtns button:hover {
+      filter: brightness(1.08)
+    }
+
+    .flowBtns .hint {
+      font-size: 23px;
+      color: var(--mut);
+      margin-left: 8px
+    }
+
+    .flowBtns .hint b {
+      color: var(--blue)
+    }
+
+    .fnode {
+      cursor: pointer
+    }
+
+    .fnode .shape {
+      fill: #fff;
+      stroke: #2563EB;
+      stroke-width: 3;
+      transition: fill .2s
+    }
+
+    .fnode.dec .shape {
+      fill: #EAF2FF
+    }
+
+    .fnode.acc .shape {
+      fill: #FFF4E0;
+      stroke: #F59E0B
+    }
+
+    .fnode.term .shape {
+      fill: #EDF3FB;
+      stroke: #8FAAD1
+    }
+
+    .fnode text {
+      font-family: 'Noto Sans TC', 'Microsoft JhengHei', sans-serif;
+      fill: #0D2B5C;
+      pointer-events: none
+    }
+
+    .fnode .subt {
+      fill: #5A6B84
+    }
+
+    .fnode:hover .shape {
+      fill: #DCE9FF
+    }
+
+    .fnode.lit .shape {
+      fill: #2563EB;
+      stroke: #0D2B5C;
+      animation: fPulse 1.1s ease infinite
+    }
+
+    .fnode.lit text {
+      fill: #fff
+    }
+
+    .fnode.lit .subt {
+      fill: #CFE0FF
+    }
+
+    @keyframes fPulse {
+
+      0%,
+      100% {
+        filter: drop-shadow(0 0 0 rgba(37, 99, 235, .9))
+      }
+
+      50% {
+        filter: drop-shadow(0 0 18px rgba(37, 99, 235, .8))
+      }
+    }
+
+    .fedge {
+      stroke: #7C93B5;
+      stroke-width: 3.5;
+      fill: none
+    }
+
+    .elabel {
+      font-size: 26px;
+      font-weight: 900;
+      font-family: 'Noto Sans TC', 'Microsoft JhengHei', sans-serif
+    }
+
+    .laneHd {
+      fill: #0D2B5C
+    }
+
+    .laneHdT {
+      fill: #fff;
+      font-size: 32px;
+      font-weight: 900;
+      font-family: 'Noto Sans TC', 'Microsoft JhengHei', sans-serif
+    }
+
+    .laneCol {
+      fill: #F5F9FF
+    }
+
+    .laneCol.alt {
+      fill: #EDF3FC
+    }
+
+    /* ── draw.io 照搬樣式 ── */
+    .dioLane {
+      fill: #FFFFFF;
+      stroke: #B9C4D6;
+      stroke-width: 1.5
+    }
+
+    .dioHd {
+      fill: #FFFFFF;
+      stroke: #B9C4D6;
+      stroke-width: 1.5
+    }
+
+    .dioHdT {
+      fill: #1F2933;
+      font-size: 30px;
+      font-weight: 900;
+      font-family: 'Noto Sans TC', 'Microsoft JhengHei', sans-serif
+    }
+
+    .dio text {
+      fill: #1F2933;
+      font-family: 'Noto Sans TC', 'Microsoft JhengHei', sans-serif;
+      pointer-events: none
+    }
+
+    .dio .subt {
+      fill: #5A6B84
+    }
+
+    .dio.blue .shape {
+      fill: #A9D8FA;
+      stroke: none
+    }
+
+    .dio.dec .shape {
+      fill: #D4E1F5;
+      stroke: #5B7DA8;
+      stroke-width: 2
+    }
+
+    .dio.red .shape {
+      fill: #F8CECC;
+      stroke: #B85450;
+      stroke-width: 2.5
+    }
+
+    .dio.white .shape {
+      fill: #FFFFFF;
+      stroke: #4A5568;
+      stroke-width: 2
+    }
+
+    .dio.gray .shape {
+      fill: #F1F3F6;
+      stroke: #8A94A6;
+      stroke-width: 2;
+      stroke-dasharray: 8 6
+    }
+
+    .dedge {
+      stroke: #111111;
+      stroke-width: 3;
+      fill: none
+    }
+
+    .dedge.dash {
+      stroke-dasharray: 9 7
+    }
+
+    .dlabelBg {
+      fill: #F7F2E3;
+      stroke: none
+    }
+
+    .dlabel {
+      font-weight: 900;
+      font-family: 'Noto Sans TC', 'Microsoft JhengHei', sans-serif
+    }
+
+    .dio.conn .shape {
+      fill: #FFE9A8;
+      stroke: #B58A2A;
+      stroke-width: 2.5
+    }
+
+    .flowFull {
+      position: relative;
+      margin-top: 12px;
+      height: 700px
+    }
+
+    .flowFull svg {
+      width: 100%;
+      height: 100%;
+      display: block
+    }
+
+    .painGrid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 30px;
+      margin-top: 30px
+    }
+
+    .painCard {
+      background: var(--card);
+      border-radius: 26px;
+      box-shadow: var(--sh);
+      padding: 30px 38px;
+      position: relative;
+      overflow: hidden
+    }
+
+    .painCard::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 0;
+      right: 0;
+      height: 10px;
+      background: linear-gradient(90deg, var(--amber), #FBBF24)
+    }
+
+    .painCard.blue::before {
+      background: linear-gradient(90deg, var(--blue), var(--sky))
+    }
+
+    .painCard h3 {
+      font-size: 38px;
+      font-weight: 900;
+      color: var(--blue-d);
+      display: flex;
+      gap: 16px;
+      align-items: center;
+      margin-bottom: 18px
+    }
+
+    .painCard h3 .pnum {
+      flex: none;
+      width: 62px;
+      height: 62px;
+      border-radius: 18px;
+      background: linear-gradient(135deg, var(--amber), #FBBF24);
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 32px;
+      font-weight: 900
+    }
+
+    .painCard.blue h3 .pnum {
+      background: linear-gradient(135deg, var(--blue), var(--navy-3))
+    }
+
+    .painCard li {
+      list-style: none;
+      font-size: 32px;
+      line-height: 1.42;
+      margin: 14px 0;
+      padding-left: 34px;
+      position: relative;
+      font-weight: 500
+    }
+
+    .painCard li::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 15px;
+      width: 16px;
+      height: 16px;
+      border-radius: 5px;
+      background: var(--amber)
+    }
+
+    .painCard.blue li::before {
+      background: var(--blue)
+    }
+
+    .painCard li b {
+      color: var(--blue-d)
+    }
+
+    .painCard.blue li b {
+      color: var(--blue)
+    }
+
+    .painTarget {
+      display: inline-flex;
+      align-items: center;
+      border-radius: 10px;
+      background: #EAF2FF;
+      color: var(--blue);
+      padding: 6px 16px;
+      font-size: 24px;
+      font-weight: 900;
+      margin-bottom: 14px
+    }
+
+    .summaryGrid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 30px;
+      margin-top: 28px
+    }
+
+    .summaryCard {
+      background: var(--card);
+      border-radius: 26px;
+      box-shadow: var(--sh);
+      padding: 28px 36px;
+      border-top: 10px solid var(--blue)
+    }
+
+    .summaryCard.cash {
+      border-top-color: var(--amber)
+    }
+
+    .summaryCard h3 {
+      font-size: 34px;
+      font-weight: 900;
+      color: var(--blue-d);
+      line-height: 1.3;
+      margin-bottom: 16px
+    }
+
+    .summaryCard li {
+      list-style: none;
+      font-size: 29px;
+      line-height: 1.4;
+      margin: 12px 0;
+      padding-left: 30px;
+      position: relative;
+      font-weight: 500
+    }
+
+    .summaryCard li::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 13px;
+      width: 14px;
+      height: 14px;
+      border-radius: 4px;
+      background: var(--blue)
+    }
+
+    .summaryCard.cash li::before {
+      background: var(--amber)
+    }
+
+    .vchain {
+      display: flex;
+      flex-direction: column;
+      gap: 12px
+    }
+
+    .vchain .vc {
+      background: #F5F8FE;
+      border-radius: 16px;
+      padding: 16px 24px;
+      font-size: 31px;
+      font-weight: 700;
+      color: var(--blue-d);
+      line-height: 1.35
+    }
+
+    .vchain .vc b {
+      color: var(--blue)
+    }
+
+    .vchain .vc.gold {
+      background: #FFF7E8
+    }
+
+    .vchain .vc.gold b {
+      color: #B45309
+    }
+
+    .vchain .va {
+      text-align: center;
+      font-size: 30px;
+      color: var(--blue);
+      font-weight: 900;
+      line-height: .7
+    }
+
+    .painCard.warnv .vc {
+      background: #FDF0EE;
+      color: #9F1D15
+    }
+
+    .painCard.warnv .vc b {
+      color: #B4231A
+    }
+
+    .painCard.warnv .va {
+      color: var(--red)
+    }
+
+    .benGrid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 24px;
+      margin-top: 14px
+    }
+
+    .benGrid.three {
+      grid-template-columns: repeat(3, 1fr)
+    }
+
+    .ben {
+      background: var(--card);
+      border-radius: 24px;
+      box-shadow: var(--sh);
+      padding: 24px 22px;
+      text-align: center
+    }
+
+    .ben .bi {
+      width: 86px;
+      height: 86px;
+      margin: 0 auto;
+      border-radius: 24px;
+      background: linear-gradient(135deg, #EAF2FF, #D7E6FF);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 48px
+    }
+
+    .ben .bt {
+      font-size: 30px;
+      font-weight: 900;
+      color: var(--blue-d);
+      margin-top: 14px;
+      line-height: 1.3
+    }
+
+    .ben .bd {
+      font-size: 23px;
+      color: var(--mut);
+      margin-top: 8px;
+      line-height: 1.4
+    }
+
+    .benTag {
+      font-size: 33px;
+      font-weight: 900;
+      color: var(--blue);
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-top: 24px
+    }
+
+    .benTag::before {
+      content: "";
+      width: 40px;
+      height: 6px;
+      border-radius: 3px;
+      background: var(--blue)
+    }
+
+    .teamGrid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 26px;
+      margin-top: 46px
+    }
+
+    .member {
+      text-align: center;
+      transition: .2s
+    }
+
+    .member:hover {
+      transform: translateY(-10px)
+    }
+
+    .member img {
+      width: 100%;
+      aspect-ratio: 3/4;
+      object-fit: cover;
+      border-radius: 24px;
+      box-shadow: var(--sh-lg);
+      display: block
+    }
+
+    .member .nm {
+      font-size: 38px;
+      font-weight: 900;
+      color: var(--blue-d);
+      margin-top: 18px
+    }
+
+    .member .rl {
+      display: inline-block;
+      margin-top: 8px;
+      font-size: 25px;
+      font-weight: 700;
+      color: #fff;
+      background: linear-gradient(135deg, var(--blue), var(--navy-3));
+      border-radius: 999px;
+      padding: 6px 24px
+    }
+
+    #coverCanvas {
+      position: absolute;
+      inset: 0;
+      z-index: 1
+    }
+
+    .coverInner {
+      position: relative;
+      z-index: 3;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center
+    }
+
+    .cover-title {
+      font-size: 104px;
+      font-weight: 900;
+      line-height: 1.14;
+      color: #fff
+    }
+
+    .cover-title .g {
+      background: linear-gradient(90deg, var(--sky), #9BD1FF);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent
+    }
+
+    .cover-sub {
+      font-size: 38px;
+      color: var(--sky-2);
+      margin-top: 30px;
+      font-weight: 500;
+      letter-spacing: .06em
+    }
+
+    .coverBar {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      height: 12px;
+      background: linear-gradient(90deg, var(--blue), var(--sky), var(--blue));
+      z-index: 3
+    }
+
+    #progress {
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 7px;
+      background: linear-gradient(90deg, var(--blue), var(--sky));
+      width: 0%;
+      transition: width .3s;
+      z-index: 60
+    }
+
+    #navBtns {
+      position: fixed;
+      inset: 0;
+      z-index: 70;
+      pointer-events: none
+    }
+
+    #navBtns button {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      pointer-events: auto;
+      width: 56px;
+      height: 56px;
+      border-radius: 16px;
+      border: none;
+      background: rgba(86, 138, 222, 0.13);
+      color: #fff;
+      font-size: 26px;
+      font-weight: 900;
+      cursor: pointer;
+      box-shadow: 0 10px 24px rgba(8, 26, 56, .4)
+    }
+
+    #btnPrev {
+      left: 0px
+    }
+
+    #btnNext {
+      right: 0px
+    }
+
+    #navBtns button:hover {
+      background: var(--blue)
+    }
+
+    @media (max-width:700px) {
+      #navBtns button {
+        width: 24px;
+        height: 44px;
+        border-radius: 8px;
+        font-size: 18px;
+        box-shadow: none
+      }
+
+      #btnPrev {
+        left: 0
+      }
+
+      #btnNext {
+        right: 0
+      }
+    }
+
+    @media (max-width:420px) {
+      #navBtns button {
+        width: 18px;
+        height: 40px;
+        border-radius: 6px;
+        font-size: 14px
+      }
+
+      #btnPrev {
+        left: 0
+      }
+
+      #btnNext {
+        right: 0
+      }
+    }
+
+    .foot {
+      position: absolute;
+      left: 90px;
+      bottom: 26px;
+      font-size: 22px;
+      color: var(--mut);
+      letter-spacing: .06em
+    }
+
+    .foot b {
+      color: var(--blue)
+    }
+
+    .dark .foot {
+      color: rgba(255, 255, 255, .55)
+    }
+
+    .dark .foot b {
+      color: var(--sky)
+    }
+
+    .pgno {
+      position: absolute;
+      right: 90px;
+      bottom: 26px;
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--mut)
+    }
+
+    .dark .pgno {
+      color: rgba(255, 255, 255, .55)
+    }
+
+    .hasPhoto .pgno {
+      display: block;
+      z-index: 10;
+      color: #fff;
+      background: rgba(8, 26, 56, .82);
+      padding: 5px 14px;
+      border-radius: 10px
+    }
+
+    /* 高度微調 */
+    #s4 .stat {
+      padding: 18px 28px
+    }
+
+    #s4 .stat .bn {
+      font-size: 52px
+    }
+
+    #s4 .stat .bs {
+      font-size: 24px
+    }
+
+    #s12 .ptList {
+      gap: 14px
+    }
+
+    #s12 .ptItem {
+      padding: 16px 26px
+    }
+
+    #s22 .painGrid {
+      margin-top: 18px
+    }
+
+    #s22 .painCard {
+      padding: 18px 28px 22px
+    }
+
+    #s22 .painCard h3 {
+      font-size: 34px;
+      margin-bottom: 12px
+    }
+
+    #s22 .painTarget {
+      font-size: 22px;
+      margin-bottom: 10px
+    }
+
+    #s22 .vchain {
+      gap: 8px
+    }
+
+    #s22 .vchain .vc {
+      padding: 12px 20px;
+      font-size: 28px
+    }
+
+    #s22 .vchain .va {
+      font-size: 26px
+    }
+
+    #s18 .painGrid {
+      margin-top: 22px
+    }
+
+    #s18 .painCard li {
+      font-size: 30px;
+      margin: 10px 0
+    }
+
+    #s20 .keybar {
+      font-size: 28px;
+      padding: 18px 30px
+    }
+  </style>
+</head>
+
+<body>
+  <div id="stageWrap">
+    <div id="stage">
+      <div id="progress"></div>
+
+      <!-- ═════ 1 封面 ═════ -->
+      <section class="slide dark" id="s1">
+        <canvas id="coverCanvas"></canvas>
+        <div class="coverInner">
+          <div style="display:flex;gap:16px;margin-bottom:34px">
+            <span class="chip solid">SAP 導入評估</span><span class="chip line">第一次報告</span><span
+              class="chip line">大圖輸出產業</span>
+          </div>
+          <div class="cover-title">風琦有限公司<br><span class="g">從 Excel 到 SAP</span><br>數位轉型起點</div>
+          <div class="cover-sub">現況盤點 ✕ 流程分析 ✕ 痛點診斷 ✕ 改善藍圖</div>
+          <div style="margin-top:40px;display:flex;align-items:center;gap:18px;flex-wrap:wrap">
+            <span class="chip solid">顧問團隊 ALIVE</span>
+            <span
+              style="color:var(--sky-2);font-size:32px;font-weight:600;letter-spacing:.05em">Bella・Yao・Lisa・Victor・Betty</span>
+          </div>
+        </div>
+        <div class="coverBar"></div>
+      </section>
+
+      <!-- ═════ 2 目錄 ═════ -->
+      <section class="slide" id="s2">
+        <div class="kicker">CONTENTS</div>
+        <h2 class="stitle">目錄</h2>
+        <div class="tocGrid">
+          <div class="tocItem" data-go="3">
+            <div class="no">01</div>
+            <div>
+              <div class="t">公司簡介</div>
+            </div>
+          </div>
+          <div class="tocItem" data-go="5">
+            <div class="no">02</div>
+            <div>
+              <div class="t">訂單完整過程</div>
+            </div>
+          </div>
+          <div class="tocItem" data-go="12">
+            <div class="no">03</div>
+            <div>
+              <div class="t">流程圖</div>
+            </div>
+          </div>
+          <div class="tocItem" data-go="16">
+            <div class="no">04</div>
+            <div>
+              <div class="t">痛點</div>
+            </div>
+          </div>
+          <div class="tocItem" data-go="20">
+            <div class="no">05</div>
+            <div>
+              <div class="t">解決方法</div>
+            </div>
+          </div>
+          <div class="tocItem" data-go="22">
+            <div class="no">06</div>
+            <div>
+              <div class="t">預期效益</div>
+            </div>
+          </div>
+          <div class="tocItem" data-go="23">
+            <div class="no">07</div>
+            <div>
+              <div class="t">Our Team</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ═════ 3 章節 01 ═════ -->
+      <section class="slide dark" id="s3">
+        <div class="divInner">
+          <div class="divTag">CHAPTER 01</div>
+          <div class="divTitle">公司簡介</div>
+          <div class="divSub">深耕大圖輸出近 30 年的士林在地企業</div>
+          <div class="dots"><span class="on"></span><span></span><span></span><span></span><span></span><span></span>
+          </div>
+        </div>
+        <div class="divNum">01</div>
+      </section>
+
+      <!-- ═════ 4 公司簡介 ═════ -->
+      <section class="slide" id="s4">
+        <div class="kicker">COMPANY PROFILE</div>
+        <h2 class="stitle">風琦有限公司</h2>
+        <div style="display:grid;grid-template-columns:640px 1fr;gap:44px;margin-top:22px;align-items:start">
+          <div>
+            <img class="pimg" src="img/cover.jpg" style="width:100%;height:440px">
+            <div style="text-align:center;font-size:28px;font-weight:700;color:var(--blue-d);margin-top:16px">
+              臺北市士林區忠誠路二段 50 巷 16 號</div>
+          </div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:22px">
+            <div class="stat">
+              <div class="bn">1996</div>
+              <div class="bl">創辦年份</div>
+              <div class="bs">創辦人：莊國書</div>
+            </div>
+            <div class="stat">
+              <div class="bn">500 萬</div>
+              <div class="bl">資本額</div>
+              <div class="bs">中小企業</div>
+            </div>
+            <div class="stat">
+              <div class="bn">14 人</div>
+              <div class="bl">員工人數</div>
+              <div class="bs">設計＋生產＋工班</div>
+            </div>
+            <div class="stat">
+              <div class="bn">B2B</div>
+              <div class="bl">主要客源</div>
+              <div class="bs">辦活動、展覽館、少數散客</div>
+            </div>
+            <div class="stat warn" style="grid-column:1/-1">
+              <div class="bn">無 ERP・僅 Excel</div>
+              <div class="bs" style="font-size:28px">報價、發包、請款全靠人工整理與經驗</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ═════ 10 章節 03 ═════ -->
+      <section class="slide dark" id="s10">
+        <div class="divInner">
+          <div class="divTag">CHAPTER 02</div>
+          <div class="divTitle">訂單完整過程</div>
+          <div class="divSub">從印刷開始到完成品，六站現場實錄</div>
+          <div style="display:flex;gap:14px;margin-top:46px;flex-wrap:wrap">
+            <span class="chip sky">① 設計整檔</span><span class="chip sky">② 接單發包</span><span class="chip sky">③
+              噴墨列印</span><span class="chip sky">④ 冷裱貼合</span><span class="chip sky">⑤ 裁切雷切</span><span
+              class="chip sky">⑥ 清點出貨</span>
+          </div>
+          <div class="dots"><span></span><span class="on"></span><span></span><span></span><span></span><span></span>
+          </div>
+        </div>
+        <div class="divNum">02</div>
+      </section>
+
+      <!-- ═════ 11 設計整檔（STEP1） ═════ -->
+      <section class="slide hasPhoto" id="s11">
+        <div class="kicker">STEP 1／6</div>
+        <h2 class="stitle" style="font-size:64px">設計與整檔</h2>
+        <div class="stepTrail"><span
+            class="on">①設計整檔</span><span>②接單發包</span><span>③噴墨列印</span><span>④冷裱貼合</span><span>⑤裁切雷切</span><span>⑥清點出貨</span>
+        </div>
+        <div class="ptList">
+          <div class="ptItem">
+            <div class="ic">💬</div>
+            <div class="tx">與客戶<b>溝通並整理檔案</b></div>
+          </div>
+          <div class="ptItem">
+            <div class="ic">🎯</div>
+            <div class="tx">確認色彩、尺寸後<b>開立發包單</b></div>
+          </div>
+        </div>
+        <div class="photoSide">
+          <div class="phFill"><img src="img/design-dept.jpg" style="object-position:left center">
+            <div class="pcap">設計部｜輸出前整檔</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ═════ 12 接單發包（STEP2） ═════ -->
+      <section class="slide hasPhoto" id="s12">
+        <div class="kicker">STEP 2／6</div>
+        <h2 class="stitle" style="font-size:64px">接單與發包單</h2>
+        <div class="stepTrail"><span>①設計整檔</span><span
+            class="on">②接單發包</span><span>③噴墨列印</span><span>④冷裱貼合</span><span>⑤裁切雷切</span><span>⑥清點出貨</span></div>
+        <div class="ptList">
+          <div class="ptItem warn">
+            <div class="ic">🧠</div>
+            <div class="tx">排程靠<b>老闆經驗</b>判斷</div>
+          </div>
+          <div class="ptItem">
+            <div class="ic">⌨️</div>
+            <div class="tx">需求轉成一張張<b>內部發包單</b></div>
+          </div>
+          <div class="ptItem">
+            <div class="ic">🧱</div>
+            <div class="tx">貼上牆＝現場生產<b>唯一依據</b></div>
+          </div>
+          <div class="ptItem warn">
+            <div class="ic">⚠️</div>
+            <div class="tx">大案子<b>上百張</b>、單上<b>沒有金額</b></div>
+          </div>
+        </div>
+        <div class="photoSide">
+          <div class="ph"><img src="img/order-wall.jpg">
+            <div class="pcap">發包單牆｜依案件張貼追蹤</div>
+          </div>
+          <div class="ph"><img src="img/order-form.png" style="object-fit:contain;background:#fff">
+            <div class="pcap">發包單｜規格與數量</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ═════ 13 噴墨列印（STEP3） ═════ -->
+      <section class="slide hasPhoto" id="s13">
+        <div class="kicker">STEP 3／6</div>
+        <h2 class="stitle" style="font-size:64px">噴墨列印</h2>
+        <div class="stepTrail"><span>①設計整檔</span><span>②接單發包</span><span
+            class="on">③噴墨列印</span><span>④冷裱貼合</span><span>⑤裁切雷切</span><span>⑥清點出貨</span></div>
+        <div class="ptList">
+          <div class="ptItem">
+            <div class="ic">🖨️</div>
+            <div class="tx"><b>捲料列印 ×3</b>：海報、布旗軟材</div>
+          </div>
+          <div class="ptItem">
+            <div class="ic">💠</div>
+            <div class="tx"><b>UV 平板直噴</b>：板材、壓克力硬材</div>
+          </div>
+        </div>
+        <div class="photoSide">
+          <div class="ph"><img src="img/roll-printers-3.jpg">
+            <div class="pcap">三台捲料列印機</div>
+          </div>
+          <div class="ph"><img src="img/uv-printer.jpg">
+            <div class="pcap">UV 墨水印刷機</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ═════ 14 冷裱貼合／後加工（STEP4，三張照片） ═════ -->
+      <section class="slide hasPhoto" id="s14">
+        <div class="kicker">STEP 4／6</div>
+        <h2 class="stitle" style="font-size:64px">後加工｜冷裱・貼合・裁切</h2>
+        <div class="stepTrail"><span>①設計整檔</span><span>②接單發包</span><span>③噴墨列印</span><span
+            class="on">④冷裱貼合</span><span>⑤裁切雷切</span><span>⑥清點出貨</span></div>
+        <div class="ptList">
+          <div class="ptItem">
+            <div class="ic">🛡️</div>
+            <div class="tx"><b>冷裱上膜</b>：防刮、防潑水、耐候</div>
+          </div>
+          <div class="ptItem">
+            <div class="ic">📐</div>
+            <div class="tx"><b>貼合板材</b>：珍珠板、PP 板</div>
+          </div>
+          <div class="ptItem">
+            <div class="ic">✂️</div>
+            <div class="tx"><b>裁切修整</b>：修邊、裁成品尺寸</div>
+          </div>
+        </div>
+        <div class="photoSide">
+          <div class="ph"><img src="img/cold-laminate.jpg">
+            <div class="pcap">冷裱｜表面上膜保護</div>
+          </div>
+          <div class="ph"><img src="img/laminator.jpg">
+            <div class="pcap">貼合機</div>
+          </div>
+          <div class="ph"><img src="img/cutting.jpg">
+            <div class="pcap">裁切修整</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ═════ 15 裁切雷切（STEP5） ═════ -->
+      <section class="slide hasPhoto" id="s15">
+        <div class="kicker">STEP 5／6</div>
+        <h2 class="stitle" style="font-size:64px">雷射切割與特殊加工</h2>
+        <div class="stepTrail"><span>①設計整檔</span><span>②接單發包</span><span>③噴墨列印</span><span>④冷裱貼合</span><span
+            class="on">⑤裁切雷切</span><span>⑥清點出貨</span></div>
+        <div class="ptList">
+          <div class="ptItem">
+            <div class="ic">⚡</div>
+            <div class="tx"><b>雷射切割</b>：壓克力、立體字異形</div>
+          </div>
+          <div class="ptItem">
+            <div class="ic">🧩</div>
+            <div class="tx"><b>特殊加工</b>：立體字、造型道具</div>
+          </div>
+          <div class="ptItem">
+            <div class="ic">🔍</div>
+            <div class="tx"><b>品檢</b>：不合格報廢重作</div>
+          </div>
+        </div>
+        <div class="photoSide">
+          <div class="ph"><img src="img/laser-cutter.jpg">
+            <div class="pcap">雷射切割機</div>
+          </div>
+          <div class="ph"><img src="img/special-material.jpg">
+            <div class="pcap">特殊加工物料｜立體字</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ═════ 16 清點出貨（STEP6） ═════ -->
+      <section class="slide hasPhoto" id="s16">
+        <div class="kicker">STEP 6／6</div>
+        <h2 class="stitle" style="font-size:64px">清點・出貨・施工驗收</h2>
+        <div class="stepTrail">
+          <span>①設計整檔</span><span>②接單發包</span><span>③噴墨列印</span><span>④冷裱貼合</span><span>⑤裁切雷切</span><span
+            class="on">⑥清點出貨</span>
+        </div>
+        <div class="ptList">
+          <div class="ptItem">
+            <div class="ic">📦</div>
+            <div class="tx"><b>清點</b>品項、數量、施工工具</div>
+          </div>
+          <div class="ptItem">
+            <div class="ic">🚚</div>
+            <div class="tx"><b>配送＋現場安裝</b>，客戶驗收</div>
+          </div>
+          <div class="ptItem warn">
+            <div class="ic">💸</div>
+            <div class="tx"><b>完成品經人工彙整後請款</b></div>
+          </div>
+        </div>
+        <div class="photoSide">
+          <div class="ph"><img src="img/finished-goods.jpg">
+            <div class="pcap">成品清點區</div>
+          </div>
+          <div class="ph"><img src="img/site-installation.jpg" style="object-position:center center">
+            <div class="pcap">現場施工｜展覽館攤位安裝</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ═════ 6 章節 02 ═════ -->
+      <section class="slide dark" id="s6">
+        <div class="divInner">
+          <div class="divTag">CHAPTER 03</div>
+          <div class="divTitle">流程圖<span style="font-size:56px;color:var(--sky)">（As-Is）</span></div>
+
+          <div style="display:flex;gap:18px;margin-top:46px">
+            <span class="chip sky">① 接單與報價</span><span class="chip sky">② 生產製造</span><span class="chip sky">③
+              交付與請款</span>
+          </div>
+          <div class="dots"><span></span><span></span><span class="on"></span><span></span><span></span><span></span>
+          </div>
+        </div>
+        <div class="divNum">03</div>
+      </section>
+
+      <!-- ═════ 7-9 流程圖 ═════ -->
+      <section class="slide" id="s7" style="padding:36px 40px 40px">
+        <div class="flowHead">
+          <h2 style="white-space:nowrap">流程圖 ①｜接單與報價</h2>
+          <div class="flowPager"><span class="on">① 接單報價</span><span data-go="14">② 生產製造</span><span data-go="15">③
+              交付請款</span></div>
+        </div>
+        <div class="flowFull" id="fbox1"></div>
+      </section>
+      <section class="slide" id="s8" style="padding:36px 40px 40px">
+        <div class="flowHead">
+          <h2 style="white-space:nowrap">流程圖 ②｜生產製造</h2>
+          <div class="flowPager"><span data-go="13">① 接單報價</span><span class="on">② 生產製造</span><span data-go="15">③
+              交付請款</span></div>
+        </div>
+        <div class="flowFull" id="fbox2"></div>
+      </section>
+      <section class="slide" id="s9" style="padding:36px 40px 40px">
+        <div class="flowHead">
+          <h2 style="white-space:nowrap">流程圖 ③｜交付與請款</h2>
+          <div class="flowPager"><span data-go="13">① 接單報價</span><span data-go="14">② 生產製造</span><span class="on">③
+              交付請款</span></div>
+        </div>
+        <div class="flowFull" id="fbox3"></div>
+      </section>
+
+      <!-- ═════ 17 章節 04 痛點 ═════ -->
+      <section class="slide dark" id="s17">
+        <div class="divInner">
+          <div class="divTag">CHAPTER 04</div>
+          <div class="divTitle">痛點</div>
+          <div class="divSub">兩個問題，同時卡住現金流與營運判斷</div>
+          <div style="display:flex;gap:18px;margin-top:46px">
+            <span class="chip sky">🧠 排程全靠老闆經驗</span><span class="chip sky">💰 發包單沒有金額</span>
+          </div>
+          <div class="dots"><span></span><span></span><span></span><span class="on"></span><span></span><span></span>
+          </div>
+        </div>
+        <div class="divNum">04</div>
+      </section>
+
+      <!-- ═════ 18 痛點一 現況→後果 ═════ -->
+      <section class="slide" id="s18">
+        <div class="kicker" style="color:#B45309">PAIN 1｜現況 → 後果</div>
+        <h2 class="stitle" style="font-size:60px">痛點一：發包單無法即時追蹤訂單＆金額</h2>
+        <div class="painGrid">
+          <div class="painCard blue">
+            <h3><span class="pnum">現</span>現況</h3>
+            <li>老客戶<b>月結</b>、做完才請款，<b>沒有正式報價</b></li>
+            <li>沿用歷史價格，大案<b>上百張發包單</b></li>
+            <li>發包單是生產依據，<b>單上沒有價格</b></li>
+            <li><b>發包單＝報價單＝生產單＝訂單＝請款依據</b></li>
+          </div>
+          <div class="painCard">
+            <h3><span class="pnum">果</span>後果</h3>
+            <li>月底一張張人工核對，容易<b>漏請、少請</b></li>
+            <li>完工無法即時形成<b>應收帳款</b></li>
+            <li>常<b>延後 3–5 個月請款</b>，成本先付、現金流吃緊</li>
+          </div>
+        </div>
+        <div class="keybar warn raised"><span class="tag">核心訊息</span>發包單不能即時帶出金額，完工就不會自動變成請款資料，收款一延就是 3–5 個月。</div>
+      </section>
+
+      <!-- ═════ 19 痛點二 現況→後果 ═════ -->
+      <section class="slide" id="s19">
+        <div class="kicker" style="color:#B45309">PAIN 2｜現況 → 後果</div>
+        <h2 class="stitle" style="font-size:60px">痛點二：生產排程靠老闆經驗</h2>
+        <div class="painGrid">
+          <div class="painCard blue">
+            <h3><span class="pnum">現</span>現況</h3>
+            <li>能否接單，全靠<b>老闆經驗</b>判斷</li>
+            <li>看不到<b>設備、人力</b>的即時負荷</li>
+            <li>產能<b>沒有被系統化</b>記錄與計算</li>
+          </div>
+          <div class="painCard">
+            <h3><span class="pnum">果</span>後果</h3>
+            <li><b>高估產能</b> → 接了做不完：延誤、加班、品質風險</li>
+            <li><b>低估產能</b> → 不敢接：營收機會流失</li>
+            <li>判斷集中在老闆，<b>無法交接與驗證</b></li>
+          </div>
+        </div>
+        <div class="keybar warn raised"><span class="tag">核心訊息</span>產能不是沒有，而是沒有被看見、計算與管理，接單決策壓在老闆一個人身上。</div>
+      </section>
+
+      <!-- ═════ 20 問題總結 ═════ -->
+      <section class="slide" id="s20">
+        <div class="kicker" style="color:#B45309">PROBLEM SUMMARY</div>
+        <h2 class="stitle" style="font-size:56px">問題總結：同一張發包單卡住兩條生命線</h2>
+        <div class="summaryGrid">
+          <div class="summaryCard">
+            <h3>前端問題：訂單無法轉化為產能</h3>
+            <li>發包單沒有被拆解為工序、設備時間與人力需求。</li>
+            <li>老闆只能依靠經驗判斷是否接單。</li>
+            <li>產能空檔被隱藏在排程裡，無法被有效使用。</li>
+          </div>
+          <div class="summaryCard cash">
+            <h3>後端問題：完工無法轉化為現金</h3>
+            <li>完工資料沒有即時確認與彙整。</li>
+            <li>請款仍依賴人工翻找紙本與 Excel 整理。</li>
+            <li>應收帳款建立延遲，現金回收速度變慢。</li>
+          </div>
+        </div>
+        <div class="keybar raised"><span class="tag">核心訊息</span>企業需要的不是更多紙本或更多 Excel，而是一套串起訂單、產能、完工與請款的 ERP 流程。</div>
+      </section>
+
+      <!-- ═════ 21 章節 05 ═════ -->
+      <section class="slide dark" id="s21">
+        <div class="divInner">
+          <div class="divTag">CHAPTER 05</div>
+          <div class="divTitle">解決方法與效益</div>
+          <div class="divSub">把老闆經驗，變成可查詢、可彙整、可交接的營運資料</div>
+          <div class="dots"><span></span><span></span><span></span><span></span><span class="on"></span><span></span>
+          </div>
+        </div>
+        <div class="divNum">05</div>
+      </section>
+
+      <!-- ═════ 22 解決方法（對應 SAP 模組） ═════ -->
+      <section class="slide" id="s22">
+        <div class="kicker">SOLUTIONS</div>
+        <h2 class="stitle" style="font-size:60px">兩大解法，明確對應 SAP 模組</h2>
+        <div class="painGrid">
+          <div class="painCard blue">
+            <div class="painTarget">針對痛點一｜訂單與金額</div>
+            <h3><span class="pnum">1</span>客戶訂單與請款系統化 → SD ＋ FI</h3>
+            <div class="vchain">
+              <div class="vc">追蹤訂單：接 <b>SD 銷售配銷</b>（報價／定價）</div>
+              <div class="va">↓</div>
+              <div class="vc">同客戶當月多案，系統<b>自動彙整月結</b>（SD）</div>
+              <div class="va">↓</div>
+              <div class="vc gold">完工轉請款 → <b>FI 財務會計</b>：應收帳款</div>
+            </div>
+          </div>
+          <div class="painCard blue">
+            <div class="painTarget">針對痛點二｜產能與排程</div>
+            <h3><span class="pnum">2</span>產能排程可視化 → PP ＋ MM</h3>
+            <div class="vchain">
+              <div class="vc">訂單拆解工序，接 <b>PP 生產規劃</b>（設備／人力／工時）</div>
+              <div class="va">↓</div>
+              <div class="vc">產能負荷可視化（PP）＋ 物料接 <b>MM 物料管理</b></div>
+              <div class="va">↓</div>
+              <div class="vc gold">接單改「<b>經驗 ＋ 系統資料</b>」共同判斷</div>
+            </div>
+          </div>
+        </div>
+        <div class="keybar raised"><span class="tag">核心訊息</span>發包單接進 SD／FI／PP／MM，讓老闆經驗變成可查詢、可交接的營運資料。</div>
+      </section>
+
+      <!-- ═════ 23 預期效益 ═════ -->
+      <section class="slide" id="s23">
+        <div class="kicker">EXPECTED BENEFITS</div>
+        <h2 class="stitle" style="font-size:60px">預期效益</h2>
+        <div class="benTag">💰 現金流效益</div>
+        <div class="benGrid three">
+          <div class="ben">
+            <div class="bi">⚡</div>
+            <div class="bt">請款更快</div>
+            <div class="bd">完工即形成請款資料</div>
+          </div>
+          <div class="ben">
+            <div class="bi">✅</div>
+            <div class="bt">減少漏請款項</div>
+            <div class="bd">降低手動輸入錯誤</div>
+          </div>
+          <div class="ben">
+            <div class="bi">📈</div>
+            <div class="bt">金額即時掌握</div>
+            <div class="bd">當月累積可請款一目了然</div>
+          </div>
+        </div>
+        <div class="benTag">🏭 營運效益</div>
+        <div class="benGrid">
+          <div class="ben">
+            <div class="bi">🎯</div>
+            <div class="bt">接單有依據</div>
+            <div class="bd">降低做不完／不敢接</div>
+          </div>
+          <div class="ben">
+            <div class="bi">🔎</div>
+            <div class="bt">產能看得見</div>
+            <div class="bd">設備、人力負荷透明</div>
+          </div>
+          <div class="ben">
+            <div class="bi">🔄</div>
+            <div class="bt">可追蹤訂單</div>
+            <div class="bd">不再依賴個人記憶經驗</div>
+          </div>
+          <div class="ben">
+            <div class="bi">🛡️</div>
+            <div class="bt">降低經營風險</div>
+            <div class="bd">避免現金流失控危機</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ═════ 24 Our Team ═════ -->
+      <section class="slide" id="s24">
+        <div class="kicker">OUR TEAM</div>
+        <h2 class="stitle" style="font-size:60px">顧問團隊 ALIVE｜SAP 模組分工</h2>
+        <div class="teamGrid">
+          <div class="member"><img src="img/team-betty.jpg" alt="Betty">
+            <div class="nm">Betty</div><span class="rl">SD 銷售配銷</span>
+          </div>
+          <div class="member"><img src="img/team-lisa.jpg" alt="Lisa">
+            <div class="nm">Lisa</div><span class="rl">MM 物料管理</span>
+          </div>
+          <div class="member"><img src="img/team-victor.jpg" alt="Victor">
+            <div class="nm">Victor</div><span class="rl">PP 生產規劃</span>
+          </div>
+          <div class="member"><img src="img/team-yao.jpg" alt="Yao">
+            <div class="nm">Yao</div><span class="rl">FI 財務會計</span>
+          </div>
+          <div class="member"><img src="img/team-bella.jpg" alt="Bella">
+            <div class="nm">Bella</div><span class="rl">CO 成本控制</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- ═════ 25 謝謝 ═════ -->
+      <section class="slide dark" id="s25">
+        <div
+          style="position:relative;z-index:2;height:100%;display:grid;grid-template-columns:1fr 700px;gap:70px;align-items:center">
+          <div>
+            <div class="divTag">THANK YOU</div>
+            <div class="divTitle" style="font-size:104px">謝謝聆聽</div>
+            <div class="divSub">顧問團隊 ALIVE × 風琦有限公司</div>
+            <div class="dots"><span></span><span></span><span></span><span></span><span></span><span class="on"></span>
+            </div>
+          </div>
+          <div><img class="pimg" src="img/group-photo.jpg" style="width:100%;height:640px"></div>
+        </div>
+      </section>
+
+    </div>
+  </div>
+
+  <div id="navBtns"><button id="btnPrev">‹</button><button id="btnNext">›</button></div>
+
+  <script>
+    const slides = [...document.querySelectorAll('.slide')];
+    let cur = 0;
+    slides.forEach((s, i) => {
+      if (i > 0) {
+        const f = document.createElement('div'); f.className = 'foot';
+        f.innerHTML = '<b>風琦有限公司</b> × SAP 導入評估｜第一次報告';
+        s.appendChild(f);
+      }
+      const p = document.createElement('div'); p.className = 'pgno'; p.textContent = (i + 1) + ' / ' + slides.length;
+      s.appendChild(p);
+    });
+    function go(i) {
+      cur = Math.max(0, Math.min(slides.length - 1, i));
+      slides.forEach((s, k) => s.classList.toggle('active', k === cur));
+      document.getElementById('progress').style.width = ((cur + 1) / slides.length * 100) + '%';
+    }
+    document.getElementById('btnNext').onclick = () => go(cur + 1);
+    document.getElementById('btnPrev').onclick = () => go(cur - 1);
+    addEventListener('keydown', e => {
+      if (['ArrowRight', 'PageDown', ' '].includes(e.key)) { e.preventDefault(); go(cur + 1) }
+      if (['ArrowLeft', 'PageUp'].includes(e.key)) { e.preventDefault(); go(cur - 1) }
+      if (e.key === 'Home') go(0); if (e.key === 'End') go(slides.length - 1);
+    });
+    document.querySelectorAll('[data-go]').forEach(t => t.addEventListener('click', () => go(+t.dataset.go - 1)));
+    function fitStage() {
+      if (innerWidth < 50 || innerHeight < 50) { setTimeout(fitStage, 200); return }
+      document.getElementById('stage').style.transform = `scale(${Math.min(innerWidth / 1600, innerHeight / 900)})`;
+    }
+    addEventListener('resize', fitStage); addEventListener('load', fitStage);
+    fitStage();
+    const hp = parseInt(location.hash.slice(1));
+    go(hp >= 1 && hp <= slides.length ? hp - 1 : 0);
+    addEventListener('hashchange', () => { const p = parseInt(location.hash.slice(1)); if (p >= 1 && p <= slides.length) go(p - 1) });
+
+    /* 封面 three.js 粒子網絡 */
+    (function () {
+      if (typeof THREE === 'undefined') return;
+      const cv = document.getElementById('coverCanvas');
+      const renderer = new THREE.WebGLRenderer({ canvas: cv, alpha: true, antialias: true });
+      renderer.setSize(1600, 900, false);
+      const scene = new THREE.Scene();
+      const cam = new THREE.PerspectiveCamera(55, 1600 / 900, .1, 100); cam.position.z = 17;
+      const N = 110, R = 22;
+      const pos = new Float32Array(N * 3), vel = [];
+      for (let i = 0; i < N; i++) { pos[i * 3] = (Math.random() - .4) * R * 2; pos[i * 3 + 1] = (Math.random() - .5) * R; pos[i * 3 + 2] = (Math.random() - .5) * 10 - 2; vel.push([(Math.random() - .5) * .015, (Math.random() - .5) * .012, 0]); }
+      const pGeo = new THREE.BufferGeometry(); pGeo.setAttribute('position', new THREE.BufferAttribute(pos, 3));
+      const pts = new THREE.Points(pGeo, new THREE.PointsMaterial({ color: 0x6DB6FF, size: .22, transparent: true, opacity: .95 })); scene.add(pts);
+      const lGeo = new THREE.BufferGeometry(); const maxL = N * 6; const lPos = new Float32Array(maxL * 6);
+      lGeo.setAttribute('position', new THREE.BufferAttribute(lPos, 3));
+      const lines = new THREE.LineSegments(lGeo, new THREE.LineBasicMaterial({ color: 0x3B82F6, transparent: true, opacity: .32 })); scene.add(lines);
+      const LIM = 4.2;
+      (function anim() {
+        requestAnimationFrame(anim);
+        for (let i = 0; i < N; i++) { pos[i * 3] += vel[i][0]; pos[i * 3 + 1] += vel[i][1]; if (Math.abs(pos[i * 3]) > R * 1.1) vel[i][0] *= -1; if (Math.abs(pos[i * 3 + 1]) > R * .6) vel[i][1] *= -1; }
+        let c = 0;
+        for (let i = 0; i < N && c < maxL; i++)for (let j = i + 1; j < N && c < maxL; j++) {
+          const dx = pos[i * 3] - pos[j * 3], dy = pos[i * 3 + 1] - pos[j * 3 + 1], dz = pos[i * 3 + 2] - pos[j * 3 + 2];
+          if (dx * dx + dy * dy + dz * dz < LIM * LIM) { lPos.set([pos[i * 3], pos[i * 3 + 1], pos[i * 3 + 2], pos[j * 3], pos[j * 3 + 1], pos[j * 3 + 2]], c * 6); c++; }
+        }
+        lGeo.setDrawRange(0, c * 2); lGeo.attributes.position.needsUpdate = true; pGeo.attributes.position.needsUpdate = true;
+        renderer.render(scene, cam);
+      })();
+    })();
+
+    /* 直向泳道流程圖（依 draw.io，保留 Y/N） */
+    const NS = 'http://www.w3.org/2000/svg';
+    const FLOWS = {
+      1: {
+        lanes: ['業務', '客戶', '設計', '會計'], laneW: 440,
+        nodes: [
+          { id: 'a1', l: 0, r: 0, sh: 'r', t: '查看生產排程', acc: 1 },
+          { id: 'a2', l: 0, r: 1, sh: 'd', t: '是否接單？' },
+          { id: 'a2n', l: 0, r: 1, dx: 330, sh: 's', t: '結束', w: 170, term: 1 },
+          { id: 'a3', l: 0, r: 2, sh: 'd', t: '客戶區分' },
+          { id: 'a4a', l: 1, r: 3, sh: 'p', t: '提供檔案', st: '新客戶提供' },
+          { id: 'a4b', l: 2, r: 3, sh: 'p', t: '提供檔案', st: '舊客戶・設計留檔' },
+          { id: 'a5', l: 0, r: 4, sh: 'r', t: '接洽報價' },
+          { id: 'a6', l: 3, r: 5, sh: 'r', t: '正式報價' },
+          { id: 'a7', l: 1, r: 6, sh: 'd', t: '客戶確認' },
+          { id: 'a7n', l: 0, r: 6, sh: 'r', t: '對報價不滿', w: 280 },
+          { id: 'a8', l: 2, r: 7, sh: 'r', t: '溝通與整理檔案' },
+          { id: 'a9', l: 2, r: 8, sh: 'r', t: '建立發包單', st: '客戶訂單／作業依據', acc: 1 },
+          { id: 'a10', l: 3, r: 8, sh: 's', t: '接流程 ②', term: 1, w: 240 }
+        ],
+        edges: [
+          { f: 'a1', t: 'a2' }, { f: 'a2', t: 'a2n', side: 1, lb: 'N', lc: '#E4574D' }, { f: 'a2', t: 'a3', lb: 'Y', lc: '#1FA265' },
+          { f: 'a3', t: 'a4a', lb: '新客戶' }, { f: 'a3', t: 'a4b', lb: '舊客戶' }, { f: 'a4a', t: 'a5' }, { f: 'a4b', t: 'a8' },
+          { f: 'a5', t: 'a6' }, { f: 'a6', t: 'a7' }, { f: 'a7', t: 'a7n', side: 1, lb: 'N', lc: '#E4574D' }, { f: 'a7n', t: 'a5', up: 1, lb: '重新議價' },
+          { f: 'a7', t: 'a8', lb: 'Y', lc: '#1FA265' }, { f: 'a8', t: 'a9' }, { f: 'a9', t: 'a10', side: 1 }
+        ],
+        play: ['a1', 'a2', 'a3', 'a4a', 'a4b', 'a5', 'a6', 'a7', 'a8', 'a9', 'a10']
+      },
+      2: {
+        lanes: ['生產', '採購'], laneW: 560,
+        nodes: [
+          { id: 'b0', l: 0, r: 0, sh: 's', t: '承流程 ①：建立發包單', term: 1, w: 430 },
+          { id: 'b1', l: 0, r: 1, sh: 'r', t: '通知生產' },
+          { id: 'b2', l: 0, r: 2, sh: 'd', t: '材料足夠？' },
+          { id: 'b2n', l: 1, r: 2, sh: 'r', t: '叫料／採購' },
+          { id: 'b3', l: 0, r: 3, sh: 'r', t: '材料／設備／排程確認', w: 430 },
+          { id: 'b4', l: 0, r: 4, sh: 'r', t: '印製輸出', st: '海報・直噴・雷切' },
+          { id: 'b5', l: 0, r: 5, sh: 'r', t: '後加工', st: '裱板・裁切・立體字' },
+          { id: 'b6', l: 0, r: 6, sh: 'd', t: '品檢' },
+          { id: 'b6n', l: 1, r: 6, sh: 'r', t: '報廢' }
+        ],
+        edges: [
+          { f: 'b0', t: 'b1' }, { f: 'b1', t: 'b2' }, { f: 'b2', t: 'b2n', side: 1, lb: 'N', lc: '#E4574D' }, { f: 'b2n', t: 'b3', lb: '補料完成' },
+          { f: 'b2', t: 'b3', lb: 'Y', lc: '#1FA265' }, { f: 'b3', t: 'b4' }, { f: 'b4', t: 'b5' }, { f: 'b5', t: 'b6' },
+          { f: 'b6', t: 'b6n', side: 1, lb: 'N', lc: '#E4574D' }, { f: 'b6n', t: 'b4', up: 1, lb: '重作後回檢' }
+        ],
+        play: ['b0', 'b1', 'b2', 'b2n', 'b3', 'b4', 'b5', 'b6'],
+        exit: { from: 'b6', label: 'Y 通過 → 接流程 ③', lc: '#1FA265' }
+      },
+      3: {
+        lanes: ['工班', '會計', '客戶'], laneW: 470,
+        nodes: [
+          { id: 'c0', l: 0, r: 0, sh: 's', t: '承流程 ②：品檢通過', term: 1, w: 400 },
+          { id: 'c1', l: 0, r: 1, sh: 'r', t: '出貨前清點', st: '品項・數量・工具' },
+          { id: 'c2', l: 0, r: 2, sh: 'r', t: '配送至指定地點', w: 340 },
+          { id: 'c3', l: 0, r: 3, sh: 'r', t: '現場定位與安裝', w: 340 },
+          { id: 'c4', l: 0, r: 4, sh: 'd', t: '客戶驗收' },
+          { id: 'c4n', l: 2, r: 4, sh: 'r', t: '重新修正', st: '回流程①提供檔案' },
+          { id: 'c5', l: 1, r: 5, sh: 'r', t: '通知請款', st: '舊客戶沿用歷史價格' },
+          { id: 'c6', l: 1, r: 6, sh: 'r', t: '產生請款單', acc: 1 },
+          { id: 'c7', l: 1, r: 7, sh: 'r', t: '開立發票', st: '記錄發票／請款狀態' },
+          { id: 'c8', l: 2, r: 7, sh: 'r', t: '付款', st: '月結・匯款・支票' },
+          { id: 'c9', l: 1, r: 8, sh: 's', t: '收款・結案', term: 1 }
+        ],
+        edges: [
+          { f: 'c0', t: 'c1' }, { f: 'c1', t: 'c2' }, { f: 'c2', t: 'c3' }, { f: 'c3', t: 'c4' },
+          { f: 'c4', t: 'c4n', side: 1, lb: 'N', lc: '#E4574D' }, { f: 'c4', t: 'c5', lb: 'Y', lc: '#1FA265' },
+          { f: 'c5', t: 'c6' }, { f: 'c6', t: 'c7' }, { f: 'c7', t: 'c8', side: 1, lb: '請款' }, { f: 'c8', t: 'c9', lb: '付款' }
+        ],
+        play: ['c0', 'c1', 'c2', 'c3', 'c4', 'c5', 'c6', 'c7', 'c8', 'c9']
+      }
+    };
+    const HEAD = 64, ROW = 92, PADX = 24, PADY = 14;
+    function buildFlow(no) {
+      const F = FLOWS[no];
+      const W = F.lanes.length * F.laneW + PADX * 2;
+      const rows = Math.max(...F.nodes.filter(n => !n.hide).map(n => n.r)) + 1;
+      const H = HEAD + rows * ROW + PADY * 2 + 10 + (F.exit ? 96 : 0);
+      const svg = document.createElementNS(NS, 'svg');
+      svg.setAttribute('viewBox', `0 0 ${W} ${H}`); svg.setAttribute('preserveAspectRatio', 'xMidYMid meet');
+      const el = (n, a, p) => { const e = document.createElementNS(NS, n); for (const k in a) e.setAttribute(k, a[k]); (p || svg).appendChild(e); return e };
+      const defs = el('defs', {});
+      const mk = el('marker', { id: 'ar' + no, viewBox: '0 0 10 10', refX: '9', refY: '5', markerWidth: '6.5', markerHeight: '6.5', orient: 'auto-start-reverse' }, defs);
+      el('path', { d: 'M0,0 L10,5 L0,10 z', fill: '#7C93B5' }, mk);
+      F.lanes.forEach((nm, i) => {
+        const x = PADX + i * F.laneW;
+        el('rect', { x, y: PADY, width: F.laneW - 8, height: H - PADY * 2, rx: 18, class: 'laneCol' + (i % 2 ? ' alt' : '') });
+        el('rect', { x, y: PADY, width: F.laneW - 8, height: HEAD - 10, rx: 18, class: 'laneHd' });
+        const t = el('text', { x: x + (F.laneW - 8) / 2, y: PADY + (HEAD - 10) / 2 + 12, 'text-anchor': 'middle', class: 'laneHdT' }); t.textContent = nm;
+      });
+      const cx = n => PADX + n.l * F.laneW + (F.laneW - 8) / 2 + (n.dx || 0);
+      const cy = n => HEAD + PADY + n.r * ROW + ROW / 2;
+      const dims = n => ({ w: n.w || (n.sh === 'd' ? 300 : 320), h: n.sh === 'd' ? 96 : (n.st ? 78 : 64) });
+      const byId = {}; F.nodes.forEach(n => byId[n.id] = n);
+      F.edges.forEach(e => {
+        const A = byId[e.f], B = byId[e.t]; if (A.hide || B.hide) return;
+        const a = { x: cx(A), y: cy(A) }, b = { x: cx(B), y: cy(B) }; const dA = dims(A), dB = dims(B);
+        let d, lx, ly;
+        if (e.side) { const s = b.x > a.x ? 1 : -1; d = `M${a.x + s * dA.w / 2},${a.y} L${b.x - s * dB.w / 2},${b.y}`; lx = (a.x + s * dA.w / 2 + b.x - s * dB.w / 2) / 2; ly = a.y - 14; }
+        else if (e.up) { const s = a.x < b.x ? -1 : 1; const midx = a.x + s * (dA.w / 2 + 50); d = `M${a.x + s * dA.w / 2},${a.y} L${midx},${a.y} L${midx},${b.y} L${b.x + (midx > b.x ? dB.w / 2 : -dB.w / 2)},${b.y}`; lx = midx + s * 10; ly = (a.y + b.y) / 2; }
+        else if (A.l === B.l) { d = `M${a.x},${a.y + dA.h / 2} L${b.x},${b.y - dB.h / 2}`; lx = a.x + 18; ly = (a.y + dA.h / 2 + b.y - dB.h / 2) / 2 + 8; }
+        else { const my = a.y + dA.h / 2 + (b.y - dB.h / 2 - a.y - dA.h / 2) / 2; d = `M${a.x},${a.y + dA.h / 2} L${a.x},${my} L${b.x},${my} L${b.x},${b.y - dB.h / 2}`; lx = (a.x + b.x) / 2; ly = my - 12; }
+        el('path', { d, class: 'fedge', 'marker-end': `url(#ar${no})` });
+        if (e.lb) { const t = el('text', { x: lx, y: ly, class: 'elabel', fill: e.lc || '#5A6B84', 'text-anchor': 'middle' }); t.textContent = e.lb; }
+      });
+      if (F.exit) { const A = byId[F.exit.from]; const x = cx(A), y = cy(A) + dims(A).h / 2; el('path', { d: `M${x},${y} L${x},${y + 46}`, class: 'fedge', 'marker-end': `url(#ar${no})` }); const t = el('text', { x: x + 16, y: y + 40, class: 'elabel', fill: F.exit.lc }); t.textContent = F.exit.label; }
+      F.nodes.forEach(n => {
+        if (n.hide) return;
+        const g = el('g', { class: 'fnode' + (n.sh === 'd' ? ' dec' : '') + (n.acc ? ' acc' : '') + (n.term ? ' term' : ''), id: `g${no}_${n.id}` });
+        const x = cx(n), y = cy(n), { w, h } = dims(n);
+        if (n.sh === 'r') el('rect', { x: x - w / 2, y: y - h / 2, width: w, height: h, rx: 14, class: 'shape' }, g);
+        else if (n.sh === 's') el('rect', { x: x - w / 2, y: y - h / 2, width: w, height: h, rx: h / 2, class: 'shape' }, g);
+        else if (n.sh === 'd') el('polygon', { points: `${x},${y - h / 2} ${x + w / 2},${y} ${x},${y + h / 2} ${x - w / 2},${y}`, class: 'shape' }, g);
+        else if (n.sh === 'p') { const k = 18; el('polygon', { points: `${x - w / 2 + k},${y - h / 2} ${x + w / 2},${y - h / 2} ${x + w / 2 - k},${y + h / 2} ${x - w / 2},${y + h / 2}`, class: 'shape' }, g); }
+        const t = el('text', { x, y: n.st ? y - 2 : y + 12, 'text-anchor': 'middle', 'font-size': 34, 'font-weight': 900 }, g); t.textContent = n.t;
+        if (n.st) { const s = el('text', { x, y: y + 30, 'text-anchor': 'middle', 'font-size': 22, class: 'subt' }, g); s.textContent = n.st; }
+        g.addEventListener('click', ev => { ev.stopPropagation(); g.classList.toggle('lit') });
+      });
+      document.getElementById('fbox' + no).appendChild(svg);
+    }
+    /* ═══ 流程圖①：draw.io 照搬版（七泳道、無動畫） ═══ */
+    function buildDrawio1() {
+      const lanes = [{ nm: '客戶', w: 330 }, { nm: '業務', w: 430 }, { nm: '設計', w: 330 }, { nm: '採購', w: 240 }, { nm: '生產', w: 300 }, { nm: '工班', w: 240 }, { nm: '會計', w: 300 }];
+      const PADX = 24, PADY = 14, HEAD = 64, ROW = 80, rows = 12;
+      const laneX = []; let acc = PADX; lanes.forEach(l => { laneX.push(acc); acc += l.w });
+      const W = acc + PADX, H = HEAD + rows * ROW + PADY * 2 + 10;
+      const LC = i => laneX[i] + lanes[i].w / 2;
+      const svg = document.createElementNS(NS, 'svg');
+      svg.setAttribute('viewBox', `0 0 ${W} ${H}`); svg.setAttribute('preserveAspectRatio', 'xMidYMid meet');
+      const el = (n, a, p) => { const e = document.createElementNS(NS, n); for (const k in a) e.setAttribute(k, a[k]); (p || svg).appendChild(e); return e };
+      const defs = el('defs', {});
+      const mk = el('marker', { id: 'arD', viewBox: '0 0 10 10', refX: '9', refY: '5', markerWidth: '6.5', markerHeight: '6.5', orient: 'auto-start-reverse' }, defs);
+      el('path', { d: 'M0,0 L10,5 L0,10 z', fill: '#333333' }, mk);
+      /* 泳道（全部七條） */
+      lanes.forEach((l, i) => {
+        el('rect', { x: laneX[i], y: PADY, width: l.w, height: H - PADY * 2, class: 'dioLane' });
+        el('rect', { x: laneX[i], y: PADY, width: l.w, height: HEAD - 10, class: 'dioHd' });
+        const t = el('text', { x: laneX[i] + l.w / 2, y: PADY + (HEAD - 10) / 2 + 11, 'text-anchor': 'middle', class: 'dioHdT' }); t.textContent = l.nm;
+      });
+      const nodes = [
+        { id: 'st', l: 0, r: 0, sh: 'hex', t: '開始', w: 180, h: 56, css: 'blue' },
+        { id: 'n1', l: 1, r: 0, sh: 'r', t: '查看生產排程', w: 250, h: 58, css: 'red' },
+        { id: 'n2', l: 1, r: 1, sh: 'd', t: '是否接單？', w: 230, h: 78, css: 'dec' },
+        { id: 'yes', l: 1, r: 2, dx: -95, sh: 'r', t: '是', w: 90, h: 50, css: 'white' },
+        { id: 'no', l: 1, r: 2, dx: 95, sh: 'r', t: '否', w: 90, h: 50, css: 'white' },
+        { id: 'end1', l: 1, r: 3, dx: 95, sh: 's', t: '結束', w: 120, h: 48, css: 'blue' },
+        { id: 'n3', l: 1, r: 4, dx: -60, sh: 'd', t: '客戶區分', w: 210, h: 76, css: 'dec' },
+        { id: 'nc', l: 1, r: 5, dx: -100, sh: 'r', t: '新客戶', w: 150, h: 52, css: 'white' },
+        { id: 'oc', l: 1, r: 5, dx: 90, sh: 'r', t: '舊客戶', w: 150, h: 52, css: 'white' },
+        { id: 'f1', l: 0, r: 6, sh: 'p', t: '提供檔案', w: 220, h: 56, css: 'blue' },
+        { id: 'f2', l: 2, r: 6, sh: 'p', t: '提供檔案', w: 220, h: 56, css: 'blue' },
+        { id: 'n5', l: 1, r: 7, sh: 'r', t: '接洽報價', w: 210, h: 58, css: 'blue' },
+        { id: 'n6', l: 6, r: 8, sh: 'r', t: '正式報價', w: 210, h: 58, css: 'blue' },
+        { id: 'n7', l: 0, r: 9, sh: 'd', t: '客戶確認', w: 220, h: 80, css: 'dec' },
+        { id: 'n7n', l: 0, r: 10, sh: 'r', t: '對報價不滿', w: 210, h: 54, css: 'blue' },
+        { id: 'n8', l: 2, r: 10, sh: 'r', t: '溝通與整理檔案', w: 270, h: 58, css: 'blue' },
+        { id: 'end2', l: 0, r: 11, sh: 's', t: '結束', w: 130, h: 50, css: 'blue' },
+        { id: 'n9', l: 2, r: 11, sh: 'r', t: '建立發包單', st: '客戶訂單／作業依據', w: 250, h: 72, css: 'red' },
+        { id: 'nx', l: 4, r: 11, sh: 's', t: '接第②頁：通知生產', w: 280, h: 54, css: 'gray' }
+      ];
+      const byId = {}; nodes.forEach(n => byId[n.id] = n);
+      const cx = n => LC(n.l) + (n.dx || 0), cy = n => HEAD + PADY + n.r * ROW + ROW / 2;
+      const top = n => cy(n) - n.h / 2, bot = n => cy(n) + n.h / 2, lft = n => cx(n) - n.w / 2, rgt = n => cx(n) + n.w / 2;
+      const edges = [
+        { f: 'st', t: 'n1', side: 1 },
+        { f: 'n1', t: 'n2' },
+        { f: 'n2', t: 'yes' }, { f: 'n2', t: 'no' },
+        { f: 'yes', t: 'n3' }, { f: 'no', t: 'end1' },
+        { f: 'n3', t: 'nc' }, { f: 'n3', t: 'oc', br: 'R' },
+        { f: 'nc', t: 'f1' }, { f: 'oc', t: 'f2' },
+        { f: 'f1', t: 'n5' },
+        { f: 'n5', t: 'n6' },
+        { f: 'n6', t: 'n7' },
+        { f: 'n7', t: 'n7n', lb: 'N', lc: '#E4392E' },
+        { f: 'n7n', t: 'end2' },
+        { f: 'n7n', t: 'n5', custom: 'loop' },
+        { f: 'n7', t: 'n8', lb: 'Y', lc: '#18A66A', custom: 'yside' },
+        { f: 'f2', t: 'n8' },
+        { f: 'n8', t: 'n9' },
+        { f: 'n9', t: 'nx', side: 1, dash: 1 }
+      ];
+      edges.forEach(e => {
+        const A = byId[e.f], B = byId[e.t];
+        const ax = cx(A), bx = cx(B);
+        let d, lx, ly;
+        if (e.custom === 'loop') { /* 對報價不滿 → 接洽報價（右側繞上） */
+          const gx = laneX[1] - 8;
+          d = `M${rgt(A)},${cy(A)} L${gx},${cy(A)} L${gx},${cy(B)} L${lft(B)},${cy(B)}`;
+        } else if (e.custom === 'yside') { /* 客戶確認 Y → 溝通與整理檔案（左側進入） */
+          const xm = lft(B) - 45;
+          d = `M${rgt(A)},${cy(A)} L${xm},${cy(A)} L${xm},${cy(B)} L${lft(B)},${cy(B)}`;
+          lx = rgt(A) + 70; ly = cy(A) - 16;
+        } else if (e.side) {
+          const s = bx > ax ? 1 : -1;
+          d = `M${s > 0 ? rgt(A) : lft(A)},${cy(A)} L${s > 0 ? lft(B) : rgt(B)},${cy(B)}`;
+          lx = (ax + bx) / 2; ly = cy(A) - 16;
+        } else if (e.br === 'R') { /* 菱形右頂點出 */
+          d = `M${rgt(A)},${cy(A)} L${bx},${cy(A)} L${bx},${top(B)}`;
+          lx = bx + 20; ly = (cy(A) + top(B)) / 2;
+        } else if (ax === bx) {
+          d = `M${ax},${bot(A)} L${bx},${top(B)}`;
+          lx = ax + 22; ly = (bot(A) + top(B)) / 2 + 9;
+        } else { /* 正交轉折 */
+          const my = (bot(A) + top(B)) / 2;
+          d = `M${ax},${bot(A)} L${ax},${my} L${bx},${my} L${bx},${top(B)}`;
+          lx = ax + 22; ly = (bot(A) + my) / 2 + 9;
+        }
+        el('path', { d, class: 'dedge' + (e.dash ? ' dash' : ''), 'marker-end': 'url(#arD)' });
+        if (e.lb) { /* 米色底 Y/N 標籤 */
+          el('rect', { x: lx - 22, y: ly - 24, width: 44, height: 36, rx: 6, class: 'dlabelBg' });
+          const t = el('text', { x: lx, y: ly + 3, class: 'dlabel', fill: e.lc, 'text-anchor': 'middle' }); t.textContent = e.lb;
+        }
+      });
+      nodes.forEach(n => {
+        const g = el('g', { class: 'dio ' + n.css });
+        const x = cx(n), y = cy(n), w = n.w, h = n.h;
+        if (n.sh === 'r') el('rect', { x: x - w / 2, y: y - h / 2, width: w, height: h, rx: 8, class: 'shape' }, g);
+        else if (n.sh === 's') el('rect', { x: x - w / 2, y: y - h / 2, width: w, height: h, rx: h / 2, class: 'shape' }, g);
+        else if (n.sh === 'd') el('polygon', { points: `${x},${y - h / 2} ${x + w / 2},${y} ${x},${y + h / 2} ${x - w / 2},${y}`, class: 'shape' }, g);
+        else if (n.sh === 'p') { const k = 18; el('polygon', { points: `${x - w / 2 + k},${y - h / 2} ${x + w / 2},${y - h / 2} ${x + w / 2 - k},${y + h / 2} ${x - w / 2},${y + h / 2}`, class: 'shape' }, g); }
+        else if (n.sh === 'hex') { const k = 26; el('polygon', { points: `${x - w / 2},${y} ${x - w / 2 + k},${y - h / 2} ${x + w / 2 - k},${y - h / 2} ${x + w / 2},${y} ${x + w / 2 - k},${y + h / 2} ${x - w / 2 + k},${y + h / 2}`, class: 'shape' }, g); }
+        const fs = n.t.length >= 8 ? 27 : 30;
+        const t = el('text', { x, y: n.st ? y - 3 : y + 11, 'text-anchor': 'middle', 'font-size': fs, 'font-weight': 700 }, g); t.textContent = n.t;
+        if (n.st) { const s = el('text', { x, y: y + 27, 'text-anchor': 'middle', 'font-size': 19, class: 'subt' }, g); s.textContent = n.st; }
+      });
+      document.getElementById('fbox1').appendChild(svg);
+    }
+    /* ═══ draw.io 照搬版通用繪製器：七泳道、直向、無動畫 ═══ */
+    function buildDio(boxId, mkId, laneWs, rows, ROW, nodes, edges) {
+      const laneNames = ['客戶', '業務', '設計', '採購', '生產', '工班', '會計'];
+      const lanes = laneNames.map((nm, i) => ({ nm, w: laneWs[i] }));
+      const PADX = 20, PADY = 12, HEAD = 58;
+      const laneX = []; let acc = PADX; lanes.forEach(l => { laneX.push(acc); acc += l.w });
+      const W = acc + PADX, H = HEAD + rows * ROW + PADY * 2 + 8;
+      const LC = i => laneX[i] + lanes[i].w / 2;
+      const svg = document.createElementNS(NS, 'svg');
+      svg.setAttribute('viewBox', `0 0 ${W} ${H}`); svg.setAttribute('preserveAspectRatio', 'xMidYMid meet');
+      const el = (n, a, p) => { const e = document.createElementNS(NS, n); for (const k in a) e.setAttribute(k, a[k]); (p || svg).appendChild(e); return e };
+      const defs = el('defs', {});
+      const mk = el('marker', { id: mkId, viewBox: '0 0 10 10', refX: '8.5', refY: '5', markerWidth: '17', markerHeight: '17', markerUnits: 'userSpaceOnUse', orient: 'auto-start-reverse' }, defs);
+      el('path', { d: 'M0,0 L10,5 L0,10 z', fill: '#111111' }, mk);
+      lanes.forEach((l, i) => {
+        el('rect', { x: laneX[i], y: PADY, width: l.w, height: H - PADY * 2, class: 'dioLane' });
+        el('rect', { x: laneX[i], y: PADY, width: l.w, height: HEAD - 10, class: 'dioHd' });
+        const t = el('text', { x: laneX[i] + l.w / 2, y: PADY + (HEAD - 10) / 2 + 11, 'text-anchor': 'middle', class: 'dioHdT' }); t.textContent = l.nm;
+      });
+      const byId = {}; nodes.forEach(n => byId[n.id] = n);
+      const cx = n => LC(n.l) + (n.dx || 0), cy = n => HEAD + PADY + n.r * ROW + ROW / 2;
+      const top = n => cy(n) - n.h / 2, bot = n => cy(n) + n.h / 2, lft = n => cx(n) - n.w / 2, rgt = n => cx(n) + n.w / 2;
+      edges.forEach(e => {
+        const A = byId[e.f], B = byId[e.t];
+        const ax = cx(A), bx = cx(B);
+        let d, lx, ly;
+        if (e.route === 'leftIn') { /* 出側邊 → 由目標側邊進入（避免與直線搶同一入口） */
+          const s = bx > ax ? 1 : -1;
+          const xm = s > 0 ? lft(B) - 45 : rgt(B) + 45;
+          d = `M${s > 0 ? rgt(A) : lft(A)},${cy(A)} L${xm},${cy(A)} L${xm},${cy(B)} L${s > 0 ? lft(B) : rgt(B)},${cy(B)}`;
+          lx = (s > 0 ? rgt(A) : lft(A)) + s * 60; ly = cy(A) - 18;
+        } else if (e.route === 'downIn') { /* 由來源下方出線，再由目標上方進入 */
+          const my = (bot(A) + top(B)) / 2;
+          d = `M${ax},${bot(A)} L${ax},${my} L${bx},${my} L${bx},${top(B)}`;
+          lx = (ax + bx) / 2; ly = my - 14;
+        } else if (e.route === 'loopL') { /* 左側向上回流 */
+          const xm = Math.min(lft(A), lft(B)) - 50;
+          d = `M${lft(A)},${cy(A)} L${xm},${cy(A)} L${xm},${cy(B)} L${lft(B)},${cy(B)}`;
+          lx = xm - 14; ly = (cy(A) + cy(B)) / 2;
+        } else if (e.route === 'brR') { /* 菱形右頂點出 → 下一節點頂端 */
+          d = `M${rgt(A)},${cy(A)} L${bx},${cy(A)} L${bx},${top(B)}`;
+          lx = rgt(A) + 60; ly = cy(A) - 18;
+        } else if (e.side) {
+          const s = bx > ax ? 1 : -1;
+          d = `M${s > 0 ? rgt(A) : lft(A)},${cy(A)} L${s > 0 ? lft(B) : rgt(B)},${cy(B)}`;
+          lx = (ax + bx) / 2; ly = cy(A) - 18;
+        } else if (ax === bx) {
+          d = `M${ax},${bot(A)} L${bx},${top(B)}`;
+          lx = ax + 46; ly = (bot(A) + top(B)) / 2 + 4;
+        } else {
+          const my = (bot(A) + top(B)) / 2;
+          d = `M${ax},${bot(A)} L${ax},${my} L${bx},${my} L${bx},${top(B)}`;
+          lx = (ax + bx) / 2; ly = my - 14;
+        }
+        el('path', { d, class: 'dedge', 'marker-end': `url(#${mkId})` });
+        if (e.lb) {
+          const small = e.small, fs = small ? 21 : 26;
+          const wd = e.lb.length * (small ? 22 : 28) + 14;
+          if (e.la === 'end') { lx -= wd / 2 + 14 }
+          if (e.la === 'center') { lx = ax === bx ? ax : lx }
+          if (e.loff) { lx += e.loff[0]; ly += e.loff[1] }
+          el('rect', { x: lx - wd / 2, y: ly - (small ? 17 : 19), width: wd, height: small ? 28 : 32, rx: 6, class: 'dlabelBg' });
+          const t = el('text', { x: lx, y: ly + (small ? 4 : 5), class: 'dlabel', fill: e.lc || '#374151', 'text-anchor': 'middle', 'font-size': fs });
+          t.textContent = e.lb;
+        }
+      });
+      nodes.forEach(n => {
+        const g = el('g', { class: 'dio ' + n.css });
+        const x = cx(n), y = cy(n), w = n.w, h = n.h;
+        if (n.sh === 'r') el('rect', { x: x - w / 2, y: y - h / 2, width: w, height: h, rx: 8, class: 'shape' }, g);
+        else if (n.sh === 's') el('rect', { x: x - w / 2, y: y - h / 2, width: w, height: h, rx: h / 2, class: 'shape' }, g);
+        else if (n.sh === 'c') el('circle', { cx: x, cy: y, r: w / 2, class: 'shape' }, g);
+        else if (n.sh === 'd') el('polygon', { points: `${x},${y - h / 2} ${x + w / 2},${y} ${x},${y + h / 2} ${x - w / 2},${y}`, class: 'shape' }, g);
+        else if (n.sh === 'p') { const k = 18; el('polygon', { points: `${x - w / 2 + k},${y - h / 2} ${x + w / 2},${y - h / 2} ${x + w / 2 - k},${y + h / 2} ${x - w / 2},${y + h / 2}`, class: 'shape' }, g); }
+        else if (n.sh === 'hex') { const k = 26; el('polygon', { points: `${x - w / 2},${y} ${x - w / 2 + k},${y - h / 2} ${x + w / 2 - k},${y - h / 2} ${x + w / 2},${y} ${x + w / 2 - k},${y + h / 2} ${x - w / 2 + k},${y + h / 2}`, class: 'shape' }, g); }
+        else if (n.sh === 'op') { const k = 30; el('polygon', { points: `${x - w / 2},${y - h / 2} ${x + w / 2},${y - h / 2} ${x + w / 2},${y + h / 2 - k} ${x},${y + h / 2} ${x - w / 2},${y + h / 2 - k}`, class: 'shape' }, g); }
+        const fs = n.sh === 'op' ? 40 : (n.t.length >= 8 ? 26 : 30);
+        const t = el('text', { x, y: n.sh === 'op' ? y + 2 : (n.st ? y - 3 : y + 11), 'text-anchor': 'middle', 'font-size': fs, 'font-weight': 700 }, g); t.textContent = n.t;
+        if (n.st) { const s = el('text', { x, y: y + 27, 'text-anchor': 'middle', 'font-size': 19, class: 'subt' }, g); s.textContent = n.st; }
+      });
+      document.getElementById(boxId).appendChild(svg);
+    }
+
+    /* ── 流程圖①：接單與報價（結尾接 ②） ── */
+    buildDio('fbox1', 'arP1', [320, 500, 320, 230, 300, 240, 290], 12, 80, [
+      { id: 'st', l: 0, r: 0, sh: 'hex', t: '開始', w: 180, h: 54, css: 'blue' },
+      { id: 'n1', l: 1, r: 0, sh: 'r', t: '查看生產排程', w: 250, h: 56, css: 'red' },
+      { id: 'n2', l: 1, r: 1, sh: 'd', t: '是否接單？', w: 230, h: 74, css: 'dec' },
+      { id: 'yes', l: 1, r: 2, dx: -95, sh: 'r', t: '是', w: 90, h: 48, css: 'white' },
+      { id: 'no', l: 1, r: 2, dx: 70, sh: 'r', t: '否', w: 90, h: 48, css: 'white' },
+      { id: 'end1', l: 1, r: 2, dx: 192, sh: 's', t: '結束', w: 110, h: 46, css: 'blue' },
+      { id: 'n3', l: 1, r: 3, dx: -60, sh: 'd', t: '客戶區分', w: 210, h: 72, css: 'dec' },
+      { id: 'nc', l: 1, r: 4, dx: -100, sh: 'r', t: '新客戶', w: 150, h: 50, css: 'white' },
+      { id: 'oc', l: 1, r: 4, dx: 90, sh: 'r', t: '舊客戶', w: 150, h: 50, css: 'white' },
+      { id: 'f1', l: 0, r: 5, sh: 'p', t: '提供檔案', w: 220, h: 54, css: 'blue' },
+      { id: 'f2', l: 2, r: 5, sh: 'p', t: '提供檔案', w: 220, h: 54, css: 'blue' },
+      { id: 'n5', l: 1, r: 6, sh: 'r', t: '接洽報價', w: 210, h: 56, css: 'blue' },
+      { id: 'n6', l: 6, r: 7, sh: 'r', t: '正式報價', w: 210, h: 56, css: 'blue' },
+      { id: 'n7', l: 0, r: 8, sh: 'd', t: '客戶確認', w: 220, h: 76, css: 'dec' },
+      { id: 'n7n', l: 0, r: 10.2, sh: 'r', t: '對報價不滿', w: 210, h: 52, css: 'blue' },
+      { id: 'n8', l: 2, r: 9, sh: 'r', t: '溝通與整理檔案', w: 270, h: 56, css: 'blue' },
+      { id: 'end2', l: 0, r: 11, sh: 's', t: '結束', w: 130, h: 48, css: 'blue' },
+      { id: 'c2', l: 2, r: 10, sh: 'op', t: '1', w: 80, h: 78, css: 'conn' }
+    ], [
+      { f: 'st', t: 'n1', side: 1 },
+      { f: 'n1', t: 'n2' },
+      { f: 'n2', t: 'yes' }, { f: 'n2', t: 'no' },
+      { f: 'no', t: 'end1', side: 1 },
+      { f: 'yes', t: 'n3' },
+      { f: 'n3', t: 'nc' }, { f: 'n3', t: 'oc', route: 'brR' },
+      { f: 'nc', t: 'f1' }, { f: 'oc', t: 'f2' },
+      { f: 'f1', t: 'n5' },
+      { f: 'n5', t: 'n6' },
+      { f: 'n6', t: 'n7' },
+      { f: 'n7', t: 'n7n', lb: 'N', lc: '#E4392E' },
+      { f: 'n7n', t: 'end2' },
+      { f: 'n7n', t: 'n5', route: 'leftIn' },
+      { f: 'n7', t: 'n8', lb: 'Y', lc: '#18A66A', route: 'leftIn' },
+      { f: 'f2', t: 'n8' },
+      { f: 'n8', t: 'c2' }
+    ]);
+
+    /* ── 流程圖②：生產製造（承 ①，結尾接 ③） ── */
+    buildDio('fbox2', 'arP2', [320, 300, 340, 260, 340, 240, 300], 9, 92, [
+      { id: 'c1', l: 2, r: 0, sh: 'op', t: '1', w: 80, h: 78, css: 'conn' },
+      { id: 'n9', l: 2, r: 1, sh: 'r', t: '建立發包單', st: '客戶訂單／作業依據', w: 250, h: 68, css: 'red' },
+      { id: 'b1', l: 4, r: 2, sh: 'r', t: '通知生產', w: 210, h: 56, css: 'blue' },
+      { id: 'b2', l: 4, r: 3, sh: 'd', t: '材料足夠？', w: 230, h: 74, css: 'dec' },
+      { id: 'b2n', l: 3, r: 3, sh: 'r', t: '叫料／採購', w: 200, h: 54, css: 'blue' },
+      { id: 'b3', l: 4, r: 4, sh: 'r', t: '材料／設備／排程確認', w: 310, h: 56, css: 'blue' },
+      { id: 'b4', l: 4, r: 5, sh: 'r', t: '印製輸出', st: '海報・直噴・雷切', w: 230, h: 68, css: 'blue' },
+      { id: 'b5', l: 4, r: 6, sh: 'r', t: '後加工', st: '裱板・裁切・立體字', w: 230, h: 68, css: 'blue' },
+      { id: 'b6', l: 4, r: 7, sh: 'd', t: '品檢', w: 200, h: 74, css: 'dec' },
+      { id: 'b6n', l: 4, r: 8, sh: 'r', t: '報廢', w: 150, h: 52, css: 'blue' },
+      { id: 'c3', l: 5, r: 8, sh: 'op', t: '2', w: 80, h: 78, css: 'conn' }
+    ], [
+      { f: 'c1', t: 'n9' },
+      { f: 'n9', t: 'b1' },
+      { f: 'b1', t: 'b2' },
+      { f: 'b2', t: 'b2n', side: 1, lb: 'N', lc: '#E4392E' },
+      { f: 'b2n', t: 'b3', route: 'downIn' },
+      { f: 'b2', t: 'b3', lb: 'Y', lc: '#18A66A', small: 1, loff: [0, -1] },
+      { f: 'b3', t: 'b4' },
+      { f: 'b4', t: 'b5' },
+      { f: 'b5', t: 'b6' },
+      { f: 'b6', t: 'b6n', lb: 'N', lc: '#E4392E', small: 1, loff: [0, -1] },
+      { f: 'b6n', t: 'b4', route: 'loopL', lb: '重作後回檢', small: 1, la: 'end' },
+      { f: 'b6', t: 'c3', route: 'brR', lb: 'Y', lc: '#18A66A' }
+    ]);
+
+    /* ── 流程圖③：交付與請款（承 ②；驗收未過回 ①） ── */
+    buildDio('fbox3', 'arP3', [320, 300, 320, 240, 320, 300, 340], 10.5, 88, [
+      { id: 'c2b', l: 5, r: 0, sh: 'op', t: '2', w: 80, h: 78, css: 'conn' },
+      { id: 'w1', l: 5, r: 1, sh: 'r', t: '出貨前清點', st: '品項・數量・工具', w: 240, h: 68, css: 'blue' },
+      { id: 'w2', l: 5, r: 2, sh: 'r', t: '配送至指定地點', w: 260, h: 56, css: 'blue' },
+      { id: 'w3', l: 5, r: 3, sh: 'r', t: '現場定位與安裝', w: 260, h: 56, css: 'blue' },
+      { id: 'w4', l: 5, r: 4, sh: 'd', t: '客戶驗收', w: 210, h: 76, css: 'dec' },
+      { id: 'c1b', l: 2, r: 4, sh: 'op', t: '1', w: 80, h: 78, css: 'conn' },
+      { id: 'a1', l: 6, r: 5, sh: 'r', t: '通知請款', w: 210, h: 56, css: 'blue' },
+      { id: 'a2', l: 6, r: 6.5, sh: 'r', t: '產生請款單', w: 230, h: 58, css: 'red' },
+      { id: 'a3', l: 6, r: 7.5, sh: 'r', t: '開立發票', st: '記錄發票／請款狀態', w: 250, h: 68, css: 'blue' },
+      { id: 'pay', l: 0, r: 8.5, sh: 'r', t: '付款', st: '月結・匯款・支票', w: 220, h: 68, css: 'blue' },
+      { id: 'fin', l: 6, r: 9.5, sh: 's', t: '結案', w: 130, h: 50, css: 'blue' }
+    ], [
+      { f: 'c2b', t: 'w1' },
+      { f: 'w1', t: 'w2' },
+      { f: 'w2', t: 'w3' },
+      { f: 'w3', t: 'w4' },
+      { f: 'w4', t: 'c1b', side: 1, lb: 'N', lc: '#E4392E' },
+      { f: 'w4', t: 'a1', route: 'brR', lb: 'Y', lc: '#18A66A' },
+      { f: 'a1', t: 'a2', lb: '舊客戶沿用歷史價格', small: 1, la: 'center' },
+      { f: 'a2', t: 'a3' },
+      { f: 'a3', t: 'pay', lb: '收款', small: 1 },
+      { f: 'pay', t: 'fin' }
+    ]);
+    let playT = null;
+    document.querySelectorAll('[data-play]').forEach(b => b.onclick = () => {
+      const no = b.dataset.play, F = FLOWS[no]; clearTimeout(playT);
+      document.querySelectorAll(`#fbox${no} .fnode.lit`).forEach(g => g.classList.remove('lit'));
+      let i = 0; (function step() { if (i >= F.play.length) return; document.getElementById(`g${no}_${F.play[i]}`).classList.add('lit'); i++; playT = setTimeout(step, 560); })();
+    });
+    document.querySelectorAll('[data-reset]').forEach(b => b.onclick = () => { document.querySelectorAll(`#fbox${b.dataset.reset} .fnode.lit`).forEach(g => g.classList.remove('lit')); });
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,4 @@
+interface:
+  display_name: "風琦流程圖編修"
+  short_description: "精準編修風琦 HTML 泳道流程圖並驗證線條與標籤"
+  default_prompt: "Use $editing-fongchi-flowcharts to make a minimal, verified change to the Page 13-15 flowcharts in webpresent.html."
