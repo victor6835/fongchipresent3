@@ -1221,6 +1221,259 @@
       background: var(--blue)
     }
 
+    .solutionTop {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 28px;
+      margin-bottom: 24px
+    }
+
+    .solutionTop .stitle {
+      max-width: 1040px
+    }
+
+    .solutionBadge {
+      flex: none;
+      min-width: 230px;
+      border-radius: 22px;
+      background: linear-gradient(135deg, var(--blue), var(--navy-3));
+      color: #fff;
+      box-shadow: var(--sh);
+      padding: 18px 26px;
+      text-align: center
+    }
+
+    .solutionBadge .big {
+      font-size: 48px;
+      font-weight: 900;
+      line-height: 1
+    }
+
+    .solutionBadge .small {
+      font-size: 23px;
+      font-weight: 700;
+      color: var(--sky-2);
+      margin-top: 7px
+    }
+
+    .tableGrid {
+      display: grid;
+      margin-top: 30px;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px
+    }
+
+    .tablePanel {
+      background: var(--card);
+      color: var(--txt);
+      border-radius: 22px;
+      box-shadow: var(--sh);
+      overflow: hidden;
+      border: 1px solid #D7E3F4
+    }
+
+    .tablePanel.wide {
+      grid-column: 1 / -1
+    }
+
+    .tablePanel h3 {
+      background: linear-gradient(90deg, #EAF2FF, #F7FAFF);
+      color: var(--blue-d);
+      font-size: 30px;
+      font-weight: 900;
+      line-height: 1.25;
+      padding: 18px 24px;
+      border-bottom: 1px solid #D7E3F4
+    }
+
+    .solutionTable {
+      width: 100%;
+      border-collapse: collapse;
+      table-layout: fixed
+    }
+
+    .solutionTable th,
+    .solutionTable td {
+      border-bottom: 1px solid #E2EAF6;
+      border-right: 1px solid #E2EAF6;
+      padding: 13px 16px;
+      vertical-align: top;
+      font-size: 23px;
+      line-height: 1.33
+    }
+
+    .solutionTable th {
+      background: #F1F6FE;
+      color: var(--blue-d);
+      font-weight: 900;
+      font-size: 24px
+    }
+
+    .solutionTable td:first-child,
+    .solutionTable th:first-child {
+      color: var(--blue-d);
+      font-weight: 900
+    }
+
+    .solutionTable tr:last-child td {
+      border-bottom: none
+    }
+
+    .solutionTable td:last-child,
+    .solutionTable th:last-child {
+      border-right: none
+    }
+
+    .solutionTable b {
+      color: var(--blue)
+    }
+
+    .solutionTable code {
+      color: var(--blue-d);
+      background: #EAF2FF;
+      border-radius: 8px;
+      padding: 1px 8px;
+      font-family: 'Noto Sans TC', 'Microsoft JhengHei', sans-serif;
+      font-weight: 900
+    }
+
+    .dark .solutionTop .stitle {
+      color: #fff
+    }
+
+    .dark .solutionBadge {
+      background: rgba(255, 255, 255, .12);
+      border: 2px solid rgba(109, 182, 255, .42)
+    }
+
+    .dark .tablePanel {
+      position: relative;
+      z-index: 2;
+      background: rgba(255, 255, 255, .94);
+      border-color: rgba(109, 182, 255, .34)
+    }
+
+    .cashGrid {
+      display: grid;
+      grid-template-columns: 1.05fr .95fr;
+      gap: 24px;
+      position: relative;
+      z-index: 2
+    }
+
+    .cashMetricRow {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+      margin-top: 35px
+    }
+
+    .cashMetric {
+      background: var(--card);
+      border-radius: 20px;
+      box-shadow: var(--sh);
+      padding: 20px 22px;
+      border-top: 8px solid var(--blue)
+    }
+
+    .cashMetric.gold {
+      border-top-color: var(--amber)
+    }
+
+    .cashMetric .num {
+      font-size: 44px;
+      line-height: 1;
+      font-weight: 900;
+      color: var(--blue-d)
+    }
+
+    .cashMetric.gold .num {
+      color: #B45309
+    }
+
+    .cashMetric .label {
+      font-size: 22px;
+      color: var(--mut);
+      font-weight: 700;
+      margin-top: 8px;
+      line-height: 1.32
+    }
+
+    .quoteStrip {
+      margin-top: 20px;
+      background: #FFF7E8;
+      border-left: 9px solid var(--amber);
+      border-radius: 18px;
+      padding: 18px 26px;
+      font-size: 28px;
+      line-height: 1.45;
+      font-weight: 800;
+      color: #8A3F05
+    }
+
+    .benefitMatrix {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 22px;
+      margin-top: 24px
+    }
+
+    .benefitCard {
+      background: var(--card);
+      border-radius: 22px;
+      box-shadow: var(--sh);
+      padding: 24px 24px 26px;
+      border-top: 9px solid var(--blue);
+      min-height: 276px
+    }
+
+    .benefitCard.gold {
+      border-top-color: var(--amber)
+    }
+
+    .benefitCard.green {
+      border-top-color: var(--green)
+    }
+
+    .benefitCard .idx {
+      font-size: 22px;
+      font-weight: 900;
+      color: var(--mut);
+      letter-spacing: .08em
+    }
+
+    .benefitCard h3 {
+      font-size: 32px;
+      color: var(--blue-d);
+      line-height: 1.24;
+      margin-top: 8px
+    }
+
+    .benefitCard .compare {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-top: 18px
+    }
+
+    .benefitCard .compare div {
+      background: #F5F8FE;
+      border-radius: 14px;
+      padding: 12px 14px;
+      font-size: 22px;
+      line-height: 1.28;
+      color: var(--mut);
+      font-weight: 700
+    }
+
+    .benefitCard .result {
+      margin-top: 16px;
+      font-size: 28px;
+      font-weight: 900;
+      color: var(--blue)
+    }
+
     .teamGrid {
       display: grid;
       grid-template-columns: repeat(5, 1fr);
@@ -1593,13 +1846,13 @@
               <div class="t">痛點</div>
             </div>
           </div>
-          <div class="tocItem" data-go="20">
+          <div class="tocItem" data-go="18">
             <div class="no">05</div>
             <div>
               <div class="t">解決方法</div>
             </div>
           </div>
-          <div class="tocItem" data-go="22">
+          <div class="tocItem" data-go="21">
             <div class="no">06</div>
             <div>
               <div class="t">預期效益</div>
@@ -1908,10 +2161,7 @@
         <div class="divInner">
           <div class="divTag">CHAPTER 04</div>
           <div class="divTitle">痛點</div>
-          <div class="divSub">兩個問題，同時卡住現金流與營運判斷</div>
-          <div style="display:flex;gap:18px;margin-top:46px">
-            <span class="chip sky">🧠 排程全靠老闆經驗</span><span class="chip sky">💰 發包單沒有金額</span>
-          </div>
+
           <div class="dots"><span></span><span></span><span></span><span class="on"></span><span></span><span></span>
           </div>
         </div>
@@ -1920,8 +2170,8 @@
 
       <!-- ═════ 18 痛點一 現況→後果 ═════ -->
       <section class="slide" id="s18">
-        <div class="kicker" style="color:#B45309">PAIN 1｜現況 → 後果</div>
-        <h2 class="stitle" style="font-size:60px">痛點一：發包單無法即時追蹤訂單＆金額</h2>
+        <div class="kicker" style="color:#B45309">PAIN｜現況 → 後果</div>
+        <h2 class="stitle" style="font-size:60px">痛點：發包單無法即時追蹤訂單＆金額</h2>
         <div class="painGrid">
           <div class="painCard blue">
             <h3><span class="pnum">現</span>現況</h3>
@@ -1940,47 +2190,6 @@
         <div class="keybar warn raised"><span class="tag">核心訊息</span>發包單不能即時帶出金額，完工就不會自動變成請款資料，收款一延就是 3–5 個月。</div>
       </section>
 
-      <!-- ═════ 19 痛點二 現況→後果 ═════ -->
-      <section class="slide" id="s19">
-        <div class="kicker" style="color:#B45309">PAIN 2｜現況 → 後果</div>
-        <h2 class="stitle" style="font-size:60px">痛點二：生產排程靠老闆經驗</h2>
-        <div class="painGrid">
-          <div class="painCard blue">
-            <h3><span class="pnum">現</span>現況</h3>
-            <li>能否接單，全靠<b>老闆經驗</b>判斷</li>
-            <li>看不到<b>設備、人力</b>的即時負荷</li>
-            <li>產能<b>沒有被系統化</b>記錄與計算</li>
-          </div>
-          <div class="painCard">
-            <h3><span class="pnum">果</span>後果</h3>
-            <li><b>高估產能</b> → 接了做不完：延誤、加班、品質風險</li>
-            <li><b>低估產能</b> → 不敢接：營收機會流失</li>
-            <li>判斷集中在老闆，<b>無法交接與驗證</b></li>
-          </div>
-        </div>
-        <div class="keybar warn raised"><span class="tag">核心訊息</span>產能不是沒有，而是沒有被看見、計算與管理，接單決策壓在老闆一個人身上。</div>
-      </section>
-
-      <!-- ═════ 20 問題總結 ═════ -->
-      <section class="slide" id="s20">
-        <div class="kicker" style="color:#B45309">PROBLEM SUMMARY</div>
-        <h2 class="stitle" style="font-size:56px">問題總結：同一張發包單卡住兩條生命線</h2>
-        <div class="summaryGrid">
-          <div class="summaryCard">
-            <h3>前端問題：訂單無法轉化為產能</h3>
-            <li>發包單沒有被拆解為工序、設備時間與人力需求。</li>
-            <li>老闆只能依靠經驗判斷是否接單。</li>
-            <li>產能空檔被隱藏在排程裡，無法被有效使用。</li>
-          </div>
-          <div class="summaryCard cash">
-            <h3>後端問題：完工無法轉化為現金</h3>
-            <li>完工資料沒有即時確認與彙整。</li>
-            <li>請款仍依賴人工翻找紙本與 Excel 整理。</li>
-            <li>應收帳款建立延遲，現金回收速度變慢。</li>
-          </div>
-        </div>
-        <div class="keybar raised"><span class="tag">核心訊息</span>企業需要的不是更多紙本或更多 Excel，而是一套串起訂單、產能、完工與請款的 ERP 流程。</div>
-      </section>
 
       <!-- ═════ 21 章節 05 ═════ -->
       <section class="slide dark" id="s21">
@@ -1994,82 +2203,316 @@
         <div class="divNum">05</div>
       </section>
 
-      <!-- ═════ 22 解決方法（對應 SAP 模組） ═════ -->
+
+
+      <!-- ═════ 22 解決方法一：帶價發包單 ═════ -->
       <section class="slide" id="s22">
-        <div class="kicker">SOLUTIONS</div>
-        <h2 class="stitle" style="font-size:60px">兩大解法，明確對應 SAP 模組</h2>
-        <div class="painGrid">
-          <div class="painCard blue">
-            <div class="painTarget">針對痛點一｜訂單與金額</div>
-            <h3><span class="pnum">1</span>客戶訂單與請款系統化 → SD ＋ FI</h3>
-            <div class="vchain">
-              <div class="vc">追蹤訂單：接 <b>SD 銷售配銷</b>（報價／定價）</div>
-              <div class="va">↓</div>
-              <div class="vc">同客戶當月多案，系統<b>自動彙整月結</b>（SD）</div>
-              <div class="va">↓</div>
-              <div class="vc gold">完工轉請款 → <b>FI 財務會計</b>：應收帳款</div>
-            </div>
-          </div>
-          <div class="painCard blue">
-            <div class="painTarget">針對痛點二｜產能與排程</div>
-            <h3><span class="pnum">2</span>產能排程可視化 → PP ＋ MM</h3>
-            <div class="vchain">
-              <div class="vc">訂單拆解工序，接 <b>PP 生產規劃</b>（設備／人力／工時）</div>
-              <div class="va">↓</div>
-              <div class="vc">產能負荷可視化（PP）＋ 物料接 <b>MM 物料管理</b></div>
-              <div class="va">↓</div>
-              <div class="vc gold">接單改「<b>經驗 ＋ 系統資料</b>」共同判斷</div>
-            </div>
+        <div class="solutionTop">
+          <div>
+            <div class="kicker">SOLUTION 01｜SD</div>
+            <h2 class="stitle" style="font-size:56px">發包單建立當下即產生金額</h2>
           </div>
         </div>
-        <div class="keybar raised"><span class="tag">核心訊息</span>發包單接進 SD／FI／PP／MM，讓老闆經驗變成可查詢、可交接的營運資料。</div>
+        <div class="tableGrid">
+          <div class="tablePanel">
+            <h3>現況與導入後對照</h3>
+            <table class="solutionTable">
+              <thead>
+                <tr>
+                  <th style="width:30%">項目</th>
+                  <th>現況</th>
+                  <th>導入後</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>建立當下資訊</td>
+                  <td>尺寸、材料、加工；<b>金額缺漏</b></td>
+                  <td>尺寸、材料、加工、<b>金額完整</b></td>
+                </tr>
+                <tr>
+                  <td>價格來源</td>
+                  <td>老闆記憶、歷史報價單</td>
+                  <td><code>VK11</code> 客戶專屬條件記錄</td>
+                </tr>
+                <tr>
+                  <td>累計金額</td>
+                  <td>案件執行中無法查詢</td>
+                  <td><code>VA05</code> 即時查詢</td>
+                </tr>
+                <tr>
+                  <td>老客戶報價</td>
+                  <td>不報價，完工後回頭核算</td>
+                  <td><code>VA41</code> 比照之前訂單</td>
+                </tr>
+                <tr>
+                  <td>後續處理</td>
+                  <td>歸檔待月底人工彙整</td>
+                  <td>系統中已形成待開票金額</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="tablePanel">
+            <h3>四項功能對應 SD 模組</h3>
+            <table class="solutionTable">
+              <thead>
+                <tr>
+                  <th style="width:20%">Tcode</th>
+                  <th style="width:32%">功能</th>
+                  <th>取代現行作法</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><code>VK11</code></td>
+                  <td>客戶 x 材料專屬單價</td>
+                  <td>老闆記憶與歷史報價單</td>
+                </tr>
+                <tr>
+                  <td><code>VA41</code></td>
+                  <td>老客戶年度價值合約</td>
+                  <td>熟客不報價的口頭默契</td>
+                </tr>
+                <tr>
+                  <td><code>VA01</code></td>
+                  <td>銷售訂單，數位發包單</td>
+                  <td>紙本發包單</td>
+                </tr>
+                <tr>
+                  <td><code>VA05</code></td>
+                  <td>客戶當月累計金額</td>
+                  <td><b>人工核對金額</b></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="keybar" style="margin-bottom: 10px;">把老闆記憶與歷史報價單，轉成 SAP
+          可查詢、可累計、可交接的價格資料。</div>
       </section>
 
-      <!-- ═════ 23 預期效益 ═════ -->
-      <section class="slide" id="s23">
-        <div class="kicker">EXPECTED BENEFITS</div>
-        <h2 class="stitle" style="font-size:60px">預期效益</h2>
-        <div class="benTag">💰 現金流效益</div>
-        <div class="benGrid three">
-          <div class="ben">
-            <div class="bi">⚡</div>
-            <div class="bt">請款縮短至一個月內</div>
-            <div class="bd">完工即形成請款資料</div>
+      <!-- ═════ 23 解決方法二：現金週期 ═════ -->
+      <section class="slide dark" id="s23">
+
+        <div class="solutionTop">
+          <div>
+            <div class="kicker" style="color:var(--sky)">SOLUTION 02｜SD + FI</div>
+            <h2 class="stitle" style="font-size:56px">現金週期由 193 天縮短至 80 天</h2>
           </div>
-          <div class="ben">
-            <div class="bi">✅</div>
-            <div class="bt">減少漏請款項</div>
-            <div class="bd">降低手動輸入錯誤</div>
+
+
+        </div>
+        <div class="quoteStrip" style="margin-bottom: 15px;">老闆說：「案子結束後，可能三到五個月後，我們才請到這個款。」</div>
+        <div class="cashGrid">
+          <div class="tablePanel">
+            <h3>現金週期對照</h3>
+            <table class="solutionTable">
+              <thead>
+                <tr>
+                  <th style="width:24%">時間點</th>
+                  <th>現況</th>
+                  <th>導入後</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Day 0</td>
+                  <td>完工，100+ 張發包單收回辦公室</td>
+                  <td><code>VL01N</code> 交貨過帳</td>
+                </tr>
+                <tr>
+                  <td>Day 1-90</td>
+                  <td>發包單歸檔待處理</td>
+                  <td>資料已在系統內</td>
+                </tr>
+                <tr>
+                  <td>Day 90-150</td>
+                  <td>逐張核對、彙整 Excel</td>
+                  <td><b>Day 7</b> 以 <code>VF04</code> 篩選待開票</td>
+                </tr>
+                <tr>
+                  <td>開立發票</td>
+                  <td>平均 Day 120</td>
+                  <td><code>VF01</code> 批次開票</td>
+                </tr>
+                <tr>
+                  <td><b>總計</b></td>
+                  <td><b>193 天</b></td>
+                  <td><b>80 天</b></td>
+                </tr>
+              </tbody>
+            </table>
           </div>
-          <div class="ben">
-            <div class="bi">📈</div>
-            <div class="bt">金額即時掌握</div>
-            <div class="bd">當月累積可請款一目了然</div>
+          <div class="tablePanel">
+            <h3>流程橫跨 SD 與 FI</h3>
+            <table class="solutionTable">
+              <thead>
+                <tr>
+                  <th style="width:20%">模組</th>
+                  <th style="width:24%">Tcode</th>
+                  <th>功能</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>SD</td>
+                  <td><code>VL01N</code></td>
+                  <td>完工交貨／施工過帳</td>
+                </tr>
+                <tr>
+                  <td>SD</td>
+                  <td><code>VF04</code></td>
+                  <td>查詢待開票清單</td>
+                </tr>
+                <tr>
+                  <td>SD</td>
+                  <td><code>VF01</code></td>
+                  <td>開立發票，自動過帳至 FI</td>
+                </tr>
+                <tr>
+                  <td>FI</td>
+                  <td><code>FBL5N</code></td>
+                  <td>應收帳款明細與逾期天數</td>
+                </tr>
+                <tr>
+                  <td>FI</td>
+                  <td><code>F-28</code></td>
+                  <td>收款沖銷</td>
+                </tr>
+              </tbody>
+            </table>
           </div>
         </div>
-        <div class="benTag">🏭 營運效益</div>
-        <div class="benGrid">
-          <div class="ben">
-            <div class="bi">🎯</div>
-            <div class="bt">接單有依據</div>
-            <div class="bd">降低做不完／不敢接</div>
+
+      </section>
+
+      <!-- ═════ 23A 量化效益：營運資金 ═════ -->
+      <section class="slide" id="s23a">
+        <div class="solutionTop">
+          <div>
+            <div class="kicker">QUANTIFIED IMPACT</div>
+            <h2 class="stitle" style="font-size:56px">1,084 萬營運資金，可由請款流程釋放</h2>
           </div>
-          <div class="ben">
-            <div class="bi">🔎</div>
-            <div class="bt">產能看得見</div>
-            <div class="bd">設備、人力負荷透明</div>
+
+        </div>
+        <div class="tableGrid">
+          <div class="tablePanel">
+            <h3>每延遲一天，佔用 95,900 元</h3>
+            <table class="solutionTable">
+              <thead>
+                <tr>
+                  <th style="width:32%">項目</th>
+                  <th style="width:26%">數值</th>
+                  <th>說明</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>4 月未稅營收</td>
+                  <td>2,919,656</td>
+                  <td>4 月份請款明細表總計</td>
+                </tr>
+                <tr>
+                  <td>推估年營收</td>
+                  <td><b>約 3,500 萬</b></td>
+                  <td>2,919,656 x 12</td>
+                </tr>
+                <tr>
+                  <td>每日營收</td>
+                  <td><b>約 95,900 元</b></td>
+                  <td>3,500 萬 ÷ 365</td>
+                </tr>
+              </tbody>
+            </table>
           </div>
-          <div class="ben">
-            <div class="bi">🔄</div>
-            <div class="bt">可追蹤訂單</div>
-            <div class="bd">不再依賴個人記憶經驗</div>
-          </div>
-          <div class="ben">
-            <div class="bi">🛡️</div>
-            <div class="bt">降低經營風險</div>
-            <div class="bd">避免現金流失控危機</div>
+          <div class="tablePanel">
+            <h3>縮短天數全部來自公司可控部分</h3>
+            <table class="solutionTable">
+              <thead>
+                <tr>
+                  <th style="width:24%">情境</th>
+                  <th>現金週期</th>
+                  <th>營運資金佔用</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>現況</td>
+                  <td>120 天 + 73 天 = <b>193 天</b></td>
+                  <td>95,900 x 193 = <b>約 1,851 萬</b></td>
+                </tr>
+                <tr>
+                  <td>導入後</td>
+                  <td>7 天 + 73 天 = <b>80 天</b></td>
+                  <td>95,900 x 80 = <b>約 767 萬</b></td>
+                </tr>
+                <tr>
+                  <td>差額</td>
+                  <td><b>縮短 113 天</b></td>
+                  <td><b>釋放約 1,084 萬</b></td>
+                </tr>
+              </tbody>
+            </table>
           </div>
         </div>
+        <div class="cashMetricRow">
+          <div class="cashMetric">
+            <div class="num">193 天</div>
+            <div class="label">現況：完工到收款總週期</div>
+          </div>
+          <div class="cashMetric">
+            <div class="num">80 天</div>
+            <div class="label">導入後：保留客戶付款條件</div>
+          </div>
+          <div class="cashMetric gold">
+            <div class="num">113 天</div>
+            <div class="label">公司內部流程可控縮短天數</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ═════ 23B 三項效益可量化 ═════ -->
+      <section class="slide" id="s23b">
+        <div class="solutionTop">
+          <div>
+            <div class="kicker">BENEFITS｜三項效益可量化</div>
+            <h2 class="stitle" style="font-size:56px">從金流壓力，到可追蹤的應收管理</h2>
+          </div>
+
+        </div>
+        <div class="quoteStrip" style="margin-top:30px">老闆訪談原話：「我們一直有嚴重金流的壓力。」</div>
+        <div class="benefitMatrix" style="margin-top:60px">
+          <div class="benefitCard gold">
+            <div class="idx">BENEFIT 01</div>
+            <h3>回流營運資金</h3>
+            <div class="compare">
+              <div>現況<br><b>1,851 萬佔用</b></div>
+              <div>導入後<br><b>767 萬佔用</b></div>
+            </div>
+            <div class="result"> 1,084 萬現金</div>
+          </div>
+          <div class="benefitCard green">
+            <div class="idx">BENEFIT 02</div>
+            <h3>應收帳款可視化</h3>
+            <div class="compare">
+              <div>現況<br><b>62.5% 無追蹤</b></div>
+              <div>導入後<br><b><code>FBL5N</code> 帳齡分析</b></div>
+            </div>
+            <div class="result">追蹤覆蓋率 37.5% → 100%</div>
+          </div>
+          <div class="benefitCard">
+            <div class="idx">BENEFIT 03</div>
+            <h3>建單即知金額</h3>
+            <div class="compare">
+              <div>現況<br><b>發包單無金額</b></div>
+              <div>導入後<br><b><code>VK11</code> 自動帶價</b></div>
+            </div>
+            <div class="result">金額可視延遲 120 天 → 0 天</div>
+          </div>
+        </div>
+
+        <div class="keybar" style="margin-bottom:60px">本推算未調整「開發票→收款」73 天；1,084 萬效益全數來自公司內部即可改善的 113 天。</div>
       </section>
 
       <!-- ═════ 24 Our Team ═════ -->
