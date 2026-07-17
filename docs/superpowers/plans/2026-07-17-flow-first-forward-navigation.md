@@ -16,6 +16,7 @@
 - Locked automatic-return endpoints consume forward input without changing flow or slide state.
 - Backward inputs continue to change slides directly.
 - Playback tables, active SVG flow definitions, labels, routes, styles, and layout must remain unchanged.
+- The accepted pre-change baseline has 10 failures in `tests/test_webpresent.py` because its content assertions predate the current deck, and the active-flow verifier reports the pre-existing unknown `railR` route. This task must add no new failures and must not repair those unrelated baselines.
 
 ---
 
@@ -112,12 +113,13 @@ Run:
 
 ```bash
 node --test tests/test_flow_interactions.js
-python3 -m unittest tests/test_webpresent.py
+PYTHONDONTWRITEBYTECODE=1 python3 -m unittest tests.test_webpresent.WebpresentContentTest.test_mouse_and_presentation_pen_navigation_preserve_flow_slides
+PYTHONDONTWRITEBYTECODE=1 python3 -m unittest tests/test_webpresent.py
 node --check flow-interactions.js
 node .agents/skills/editing-fongchi-flowcharts/scripts/verify-flowcharts.mjs webpresent.html
 ```
 
-Expected: all tests pass, JavaScript parses, and all three active flow definitions pass integrity checks.
+Expected: the focused Python navigation test and all Node tests pass, JavaScript parses, and the complete Python/verifier runs reproduce only the accepted 10 stale-content failures and existing unknown `railR` route with no new failures.
 
 ---
 
@@ -157,7 +159,7 @@ Require that `git diff` contains only the shared navigation behavior, controller
 Run:
 
 ```bash
-python3 -m unittest tests/test_webpresent.py
+PYTHONDONTWRITEBYTECODE=1 python3 -m unittest tests/test_webpresent.py
 node --test tests/test_flow_interactions.js
 node --test .agents/skills/editing-fongchi-flowcharts/scripts/verify-flowcharts.test.mjs
 node .agents/skills/editing-fongchi-flowcharts/scripts/verify-flowcharts.mjs webpresent.html
@@ -165,4 +167,4 @@ node --check flow-interactions.js
 git diff --check
 ```
 
-Expected: zero failures, valid JavaScript, valid active flow geometry, and no whitespace errors.
+Expected: all feature-specific and Node flow tests pass, JavaScript and whitespace checks pass, and the complete Python/verifier runs contain only the accepted baseline failures with no new failure names or messages.
