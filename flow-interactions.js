@@ -130,6 +130,18 @@
       return boxId ? advance(boxId) : { status: 'inactive' };
     }
 
+    function advanceActiveUntilComplete() {
+      const activeSlide = documentRef?.querySelector('.slide.active');
+      const boxId = activeSlide && FLOW_BY_SLIDE[activeSlide.id];
+      if (!boxId) return { status: 'inactive' };
+      const state = states[boxId];
+      if (state.locked) return { status: 'locked', boxId, id: state.currentId };
+      if (state.index === FLOW_PLAYBACK[boxId].length - 1) {
+        return { status: 'complete', boxId, id: state.currentId };
+      }
+      return advance(boxId);
+    }
+
     function startAt(boxId, nodeId) {
       const steps = FLOW_PLAYBACK[boxId];
       if (!steps) return { status: 'inactive' };
@@ -155,6 +167,8 @@
         const activeSlide = documentRef?.querySelector('.slide.active');
         const boxId = activeSlide && FLOW_BY_SLIDE[activeSlide.id];
         if (!boxId) return;
+
+        if (event.target?.closest?.('[data-flow-navigation]')) return;
 
         const resetTarget = event.target?.closest?.('[data-flow-reset]');
         if (resetTarget) {
@@ -185,7 +199,9 @@
       pointerHandler = null;
     }
 
-    return { advance, advanceActive, startAt, bindGlobalPointer, reset, getState, destroy };
+    return {
+      advance, advanceActive, advanceActiveUntilComplete, startAt, bindGlobalPointer, reset, getState, destroy,
+    };
   }
 
   return { AUTO_RETURN_MS, FLOW_BY_SLIDE, FLOW_PLAYBACK, createFlowInteractionController };

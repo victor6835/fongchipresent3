@@ -62,6 +62,12 @@ class FakeResetTarget {
   }
 }
 
+class FakeFlowNavigationTarget {
+  closest(selector) {
+    return selector === '[data-flow-navigation]' ? this : null;
+  }
+}
+
 class FakeDocument {
   constructor(playback) {
     this.slides = new Map();
@@ -294,6 +300,42 @@ test('keeps page state independent and binds only active left-pointer presses', 
   documentRef.dispatchPointer({ button: 0 });
   assert.equal(controller.getState('fbox1').currentId, 'st');
   assert.equal(controller.getState('fbox2').currentId, 'c1');
+});
+
+test('active flow forward advances, locks, completes, and ignores normal slides', () => {
+  const { controller, documentRef, timers } = createFixture();
+
+  documentRef.setActiveSlide('s1');
+  assert.deepEqual(controller.advanceActiveUntilComplete(), { status: 'inactive' });
+
+  documentRef.setActiveSlide('s9');
+  assert.equal(controller.advanceActiveUntilComplete().status, 'advanced');
+  advanceTimes(controller, 'fbox3', 5);
+  assert.deepEqual(controller.advanceActiveUntilComplete(), {
+    status: 'locked', boxId: 'fbox3', id: 'c1b',
+  });
+  timers.runNext();
+  advanceTimes(controller, 'fbox3', 5);
+  assert.deepEqual(controller.advanceActiveUntilComplete(), {
+    status: 'complete', boxId: 'fbox3', id: 'fin',
+  });
+  assert.equal(controller.getState('fbox3').currentId, 'fin');
+
+  documentRef.setActiveSlide('s8');
+  advanceTimes(controller, 'fbox2', 6);
+  assert.deepEqual(controller.advanceActiveUntilComplete(), {
+    status: 'locked', boxId: 'fbox2', id: 'b3',
+  });
+});
+
+test('navigation controls do not advance an active flow through global pointers', () => {
+  const { controller, documentRef } = createFixture();
+  controller.bindGlobalPointer(documentRef);
+  documentRef.setActiveSlide('s9');
+
+  documentRef.dispatchPointer({ button: 0, target: new FakeFlowNavigationTarget() });
+
+  assert.equal(controller.getState('fbox3').index, -1);
 });
 
 test('global pointer prioritizes reset and node targets without double advancement', () => {

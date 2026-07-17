@@ -2556,7 +2556,7 @@
     </div>
   </div>
 
-  <div id="navBtns"><button id="btnPrev">‹</button><button id="btnNext">›</button></div>
+  <div id="navBtns"><button id="btnPrev" data-flow-navigation>‹</button><button id="btnNext" data-flow-navigation>›</button></div>
 
   <script>
     const slides = [...document.querySelectorAll('.slide')];
@@ -2577,13 +2577,19 @@
     }
     const interactiveNavigationSelector = 'button, a, input, select, textarea, [data-go]';
     const isInteractiveNavigationTarget = target => target?.closest?.(interactiveNavigationSelector);
+    function advancePresentation() {
+      const result = window.dioFlowController?.advanceActiveUntilComplete();
+      if (!result || result.status === 'inactive' || result.status === 'complete') {
+        go(cur + 1);
+      }
+    }
 
     document.getElementById('stage').addEventListener('click', e => {
       if (e.button !== 0 || isInteractiveNavigationTarget(e.target)) return;
       if (window.FongchiFlowInteractions?.FLOW_BY_SLIDE[slides[cur].id]) return;
       go(cur + 1);
     });
-    document.getElementById('btnNext').onclick = () => go(cur + 1);
+    document.getElementById('btnNext').onclick = advancePresentation;
     document.getElementById('btnPrev').onclick = () => go(cur - 1);
     addEventListener('keydown', e => {
       if (isInteractiveNavigationTarget(e.target)) return;
@@ -2591,7 +2597,7 @@
       const previousKeys = ['ArrowLeft', 'ArrowUp', 'PageUp', 'Backspace'];
       if (nextKeys.includes(e.key)) {
         e.preventDefault();
-        go(cur + 1);
+        advancePresentation();
         return;
       }
       if (previousKeys.includes(e.key)) {

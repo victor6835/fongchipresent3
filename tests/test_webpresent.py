@@ -152,7 +152,12 @@ class WebpresentContentTest(unittest.TestCase):
             "if (window.FongchiFlowInteractions?.FLOW_BY_SLIDE[slides[cur].id]) return",
             normalized,
         )
-        self.assertIn("go(cur + 1)", normalized)
+        self.assertIn('function advancePresentation()', normalized)
+        self.assertIn('window.dioFlowController?.advanceActiveUntilComplete()', normalized)
+        self.assertIn("if (!result || result.status === 'inactive' || result.status === 'complete')", normalized)
+        self.assertIn('advancePresentation();', normalized)
+        self.assertIn("document.getElementById('btnNext').onclick = advancePresentation", normalized)
+        self.assertIn('data-flow-navigation', self.source)
 
         self.assertIn(
             "const nextKeys = ['ArrowRight', 'ArrowDown', 'PageDown', ' ', 'Enter']",
