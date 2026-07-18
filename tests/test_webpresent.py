@@ -154,9 +154,15 @@ class WebpresentContentTest(unittest.TestCase):
         )
         self.assertIn('function advancePresentation()', normalized)
         self.assertIn('window.dioFlowController?.advanceActiveUntilComplete()', normalized)
-        self.assertIn("if (!result || result.status === 'inactive' || result.status === 'complete')", normalized)
+        self.assertIn("result.status === 'complete'", normalized)
+        self.assertIn('function retreatPresentation()', normalized)
+        self.assertIn('window.dioFlowController?.retreatActiveUntilStart()', normalized)
+        self.assertIn("result.status === 'start-boundary'", normalized)
+        self.assertIn('window.dioFlowController?.resetActive()', normalized)
+        self.assertIn("document.getElementById('btnNext').onclick = () => go(cur + 1)", normalized)
+        self.assertIn("document.getElementById('btnPrev').onclick = () => go(cur - 1)", normalized)
         self.assertIn('advancePresentation();', normalized)
-        self.assertIn("document.getElementById('btnNext').onclick = advancePresentation", normalized)
+        self.assertIn('retreatPresentation();', normalized)
         self.assertIn('data-flow-navigation', self.source)
 
         self.assertIn(
@@ -173,6 +179,10 @@ class WebpresentContentTest(unittest.TestCase):
         self.assertGreaterEqual(normalized.count("e.preventDefault()"), 2)
         self.assertIn("if (e.key === 'Home') go(0)", normalized)
         self.assertIn("if (e.key === 'End') go(slides.length - 1)", normalized)
+
+    def test_preserves_user_updated_flowchart_wording(self):
+        for wording in ["產能充足？", "新舊案?", "報價異議", "舊案沿用歷史價格"]:
+            self.assertIn(wording, self.source)
 
     def test_page_2_keeps_only_toc_headings(self):
         source = section_source(self.source, "s2")

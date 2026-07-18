@@ -2556,7 +2556,8 @@
     </div>
   </div>
 
-  <div id="navBtns"><button id="btnPrev" data-flow-navigation>‹</button><button id="btnNext" data-flow-navigation>›</button></div>
+  <div id="navBtns"><button id="btnPrev" data-flow-navigation>‹</button><button id="btnNext"
+      data-flow-navigation>›</button></div>
 
   <script>
     const slides = [...document.querySelectorAll('.slide')];
@@ -2571,7 +2572,9 @@
       s.appendChild(p);
     });
     function go(i) {
-      cur = Math.max(0, Math.min(slides.length - 1, i));
+      const next = Math.max(0, Math.min(slides.length - 1, i));
+      if (next !== cur) window.dioFlowController?.resetActive();
+      cur = next;
       slides.forEach((s, k) => s.classList.toggle('active', k === cur));
       document.getElementById('progress').style.width = ((cur + 1) / slides.length * 100) + '%';
     }
@@ -2579,9 +2582,12 @@
     const isInteractiveNavigationTarget = target => target?.closest?.(interactiveNavigationSelector);
     function advancePresentation() {
       const result = window.dioFlowController?.advanceActiveUntilComplete();
-      if (!result || result.status === 'inactive' || result.status === 'complete') {
-        go(cur + 1);
-      }
+      if (!result || result.status === 'inactive' || result.status === 'complete') go(cur + 1);
+    }
+
+    function retreatPresentation() {
+      const result = window.dioFlowController?.retreatActiveUntilStart();
+      if (!result || result.status === 'inactive' || result.status === 'start-boundary') go(cur - 1);
     }
 
     document.getElementById('stage').addEventListener('click', e => {
@@ -2589,7 +2595,7 @@
       if (window.FongchiFlowInteractions?.FLOW_BY_SLIDE[slides[cur].id]) return;
       go(cur + 1);
     });
-    document.getElementById('btnNext').onclick = advancePresentation;
+    document.getElementById('btnNext').onclick = () => go(cur + 1);
     document.getElementById('btnPrev').onclick = () => go(cur - 1);
     addEventListener('keydown', e => {
       if (isInteractiveNavigationTarget(e.target)) return;
@@ -2602,7 +2608,7 @@
       }
       if (previousKeys.includes(e.key)) {
         e.preventDefault();
-        go(cur - 1);
+        retreatPresentation();
         return;
       }
       if (e.key === 'Home') go(0);
@@ -2656,22 +2662,22 @@
         lanes: ['業務', '客戶', '設計', '會計'], laneW: 440,
         nodes: [
           { id: 'a1', l: 0, r: 0, sh: 'r', t: '查看生產排程', acc: 1 },
-          { id: 'a2', l: 0, r: 1, sh: 'd', t: '是否接單？' },
+          { id: 'a2', l: 0, r: 1, sh: 'd', t: '產能充足？' },
           { id: 'a2n', l: 0, r: 1, dx: 330, sh: 's', t: '結束', w: 170, term: 1 },
-          { id: 'a3', l: 0, r: 2, sh: 'd', t: '客戶區分' },
-          { id: 'a4a', l: 1, r: 3, sh: 'p', t: '提供檔案', st: '新客戶提供' },
-          { id: 'a4b', l: 2, r: 3, sh: 'p', t: '提供檔案', st: '舊客戶・設計留檔' },
+          { id: 'a3', l: 0, r: 2, sh: 'd', t: '新舊案?' },
+          { id: 'a4a', l: 1, r: 3, sh: 'p', t: '提供檔案', st: '報案提供' },
+          { id: 'a4b', l: 2, r: 3, sh: 'p', t: '提供檔案', st: '舊案・設計留檔' },
           { id: 'a5', l: 0, r: 4, sh: 'r', t: '接洽報價' },
           { id: 'a6', l: 3, r: 5, sh: 'r', t: '正式報價' },
           { id: 'a7', l: 1, r: 6, sh: 'd', t: '客戶確認' },
-          { id: 'a7n', l: 0, r: 6, sh: 'r', t: '對報價不滿', w: 280 },
+          { id: 'a7n', l: 0, r: 6, sh: 'r', t: '報價異議', w: 280 },
           { id: 'a8', l: 2, r: 7, sh: 'r', t: '溝通與整理檔案' },
           { id: 'a9', l: 2, r: 8, sh: 'r', t: '建立發包單', st: '客戶訂單／作業依據', acc: 1 },
           { id: 'a10', l: 3, r: 8, sh: 's', t: '接流程 ②', term: 1, w: 240 }
         ],
         edges: [
           { f: 'a1', t: 'a2' }, { f: 'a2', t: 'a2n', side: 1, lb: 'N', lc: '#E4574D' }, { f: 'a2', t: 'a3', lb: 'Y', lc: '#1FA265' },
-          { f: 'a3', t: 'a4a', lb: '新客戶' }, { f: 'a3', t: 'a4b', lb: '舊客戶' }, { f: 'a4a', t: 'a5' }, { f: 'a4b', t: 'a8' },
+          { f: 'a3', t: 'a4a', lb: '報案' }, { f: 'a3', t: 'a4b', lb: '舊案' }, { f: 'a4a', t: 'a5' }, { f: 'a4b', t: 'a8' },
           { f: 'a5', t: 'a6' }, { f: 'a6', t: 'a7' }, { f: 'a7', t: 'a7n', side: 1, lb: 'N', lc: '#E4574D' }, { f: 'a7n', t: 'a5', up: 1, lb: '重新議價' },
           { f: 'a7', t: 'a8', lb: 'Y', lc: '#1FA265' }, { f: 'a8', t: 'a9' }, { f: 'a9', t: 'a10', side: 1 }
         ],
@@ -2707,7 +2713,7 @@
           { id: 'c3', l: 0, r: 3, sh: 'r', t: '現場定位與安裝', w: 340 },
           { id: 'c4', l: 0, r: 4, sh: 'd', t: '客戶驗收' },
           { id: 'c4n', l: 2, r: 4, sh: 'r', t: '重新修正', st: '回流程①提供檔案' },
-          { id: 'c5', l: 1, r: 5, sh: 'r', t: '通知請款', st: '舊客戶沿用歷史價格' },
+          { id: 'c5', l: 1, r: 5, sh: 'r', t: '通知請款', st: '舊案沿用歷史價格' },
           { id: 'c6', l: 1, r: 6, sh: 'r', t: '產生請款單', acc: 1 },
           { id: 'c7', l: 1, r: 7, sh: 'r', t: '開立發票', st: '記錄發票／請款狀態' },
           { id: 'c8', l: 2, r: 7, sh: 'r', t: '付款', st: '月結・匯款・支票' },
@@ -2791,19 +2797,19 @@
       const nodes = [
         { id: 'st', l: 0, r: 0, sh: 'hex', t: '開始', w: 180, h: 56, css: 'blue' },
         { id: 'n1', l: 1, r: 0, sh: 'r', t: '查看生產排程', w: 250, h: 58, css: 'red' },
-        { id: 'n2', l: 1, r: 1, sh: 'd', t: '是否接單？', w: 230, h: 78, css: 'dec' },
+        { id: 'n2', l: 1, r: 1, sh: 'd', t: '產能充足？', w: 230, h: 78, css: 'dec' },
         { id: 'yes', l: 1, r: 2, dx: -95, sh: 'r', t: '是', w: 90, h: 50, css: 'white' },
         { id: 'no', l: 1, r: 2, dx: 95, sh: 'r', t: '否', w: 90, h: 50, css: 'white' },
         { id: 'end1', l: 1, r: 3, dx: 95, sh: 's', t: '結束', w: 120, h: 48, css: 'blue' },
-        { id: 'n3', l: 1, r: 4, dx: -60, sh: 'd', t: '客戶區分', w: 210, h: 76, css: 'dec' },
-        { id: 'nc', l: 1, r: 5, dx: -100, sh: 'r', t: '新客戶', w: 150, h: 52, css: 'white' },
-        { id: 'oc', l: 1, r: 5, dx: 90, sh: 'r', t: '舊客戶', w: 150, h: 52, css: 'white' },
+        { id: 'n3', l: 1, r: 4, dx: -60, sh: 'd', t: '新舊案?', w: 210, h: 76, css: 'dec' },
+        { id: 'nc', l: 1, r: 5, dx: -100, sh: 'r', t: '是', w: 150, h: 52, css: 'white' },
+        { id: 'oc', l: 1, r: 5, dx: 90, sh: 'r', t: '否', w: 150, h: 52, css: 'white' },
         { id: 'f1', l: 0, r: 6, sh: 'p', t: '提供檔案', w: 220, h: 56, css: 'blue' },
         { id: 'f2', l: 2, r: 6, sh: 'p', t: '提供檔案', w: 220, h: 56, css: 'blue' },
         { id: 'n5', l: 1, r: 7, sh: 'r', t: '接洽報價', w: 210, h: 58, css: 'blue' },
         { id: 'n6', l: 6, r: 8, sh: 'r', t: '正式報價', w: 210, h: 58, css: 'blue' },
         { id: 'n7', l: 0, r: 9, sh: 'd', t: '客戶確認', w: 220, h: 80, css: 'dec' },
-        { id: 'n7n', l: 0, r: 10, sh: 'r', t: '對報價不滿', w: 210, h: 54, css: 'blue' },
+        { id: 'n7n', l: 0, r: 10, sh: 'r', t: '報價異議', w: 210, h: 54, css: 'blue' },
         { id: 'n8', l: 2, r: 10, sh: 'r', t: '溝通與整理檔案', w: 270, h: 58, css: 'blue' },
         { id: 'end2', l: 0, r: 11, sh: 's', t: '結束', w: 130, h: 50, css: 'blue' },
         { id: 'n9', l: 2, r: 11, sh: 'r', t: '建立發包單', st: '客戶訂單／作業依據', w: 250, h: 72, css: 'red' },
@@ -2834,7 +2840,7 @@
         const A = byId[e.f], B = byId[e.t];
         const ax = cx(A), bx = cx(B);
         let d, lx, ly;
-        if (e.custom === 'loop') { /* 對報價不滿 → 接洽報價（右側繞上） */
+        if (e.custom === 'loop') { /* 報價異議 → 接洽報價（右側繞上） */
           const gx = laneX[1] - 8;
           d = `M${rgt(A)},${cy(A)} L${gx},${cy(A)} L${gx},${cy(B)} L${lft(B)},${cy(B)}`;
         } else if (e.custom === 'yside') { /* 客戶確認 Y → 溝通與整理檔案（左側進入） */
@@ -2968,19 +2974,19 @@
     buildDio('fbox1', 'arP1', [320, 500, 320, 230, 300, 240, 290], 12, 80, [
       { id: 'st', l: 0, r: 0, sh: 'hex', t: '開始', w: 180, h: 54, css: 'blue' },
       { id: 'n1', l: 1, r: 0, sh: 'r', t: '查看生產排程', w: 250, h: 56, css: 'red' },
-      { id: 'n2', l: 1, r: 1.2, sh: 'd', t: '是否接單？', w: 230, h: 74, css: 'dec' },
+      { id: 'n2', l: 1, r: 1.2, sh: 'd', t: '產能充足？', w: 230, h: 74, css: 'dec' },
       { id: 'yes', l: 1, r: 2.4, dx: -110, sh: 'r', t: '是', w: 90, h: 48, css: 'white' },
       { id: 'no', l: 1, r: 2.4, dx: 60, sh: 'r', t: '否', w: 90, h: 48, css: 'white' },
       { id: 'end1', l: 1, r: 2.4, dx: 190, sh: 's', t: '結束', w: 110, h: 46, css: 'blue' },
-      { id: 'n3', l: 1, r: 3.6, dx: -60, sh: 'd', t: '客戶區分', w: 210, h: 72, css: 'dec' },
-      { id: 'nc', l: 1, r: 4.8, dx: -110, sh: 'r', t: '新客戶', w: 150, h: 50, css: 'white' },
-      { id: 'oc', l: 1, r: 4.8, dx: 110, sh: 'r', t: '舊客戶', w: 150, h: 50, css: 'white' },
+      { id: 'n3', l: 1, r: 3.6, dx: -60, sh: 'd', t: '新舊案?', w: 210, h: 72, css: 'dec' },
+      { id: 'nc', l: 1, r: 4.8, dx: -110, sh: 'r', t: '是', w: 150, h: 50, css: 'white' },
+      { id: 'oc', l: 1, r: 4.8, dx: 110, sh: 'r', t: '否', w: 150, h: 50, css: 'white' },
       { id: 'f1', l: 0, r: 6, sh: 'p', t: '提供檔案', w: 220, h: 54, css: 'blue' },
       { id: 'f2', l: 2, r: 6, sh: 'p', t: '提供檔案', w: 220, h: 54, css: 'blue' },
       { id: 'n5', l: 1, r: 7, sh: 'r', t: '接洽報價', w: 210, h: 56, css: 'blue' },
       { id: 'n6', l: 6, r: 7, sh: 'r', t: '正式報價', w: 210, h: 56, css: 'blue' },
       { id: 'n7', l: 0, r: 8.3, sh: 'd', t: '客戶確認', w: 220, h: 76, css: 'dec' },
-      { id: 'n7n', l: 0, r: 9.9, sh: 'r', t: '對報價不滿', w: 210, h: 52, css: 'blue' },
+      { id: 'n7n', l: 0, r: 9.9, sh: 'r', t: '報價異議', w: 210, h: 52, css: 'blue' },
       { id: 'n8', l: 2, r: 9.4, sh: 'r', t: '溝通與整理檔案', w: 270, h: 56, css: 'blue' },
       { id: 'end2', l: 0, r: 10.9, sh: 's', t: '結束', w: 130, h: 48, css: 'blue' },
       { id: 'c2', l: 2, r: 10.7, sh: 'op', t: '1', w: 80, h: 78, css: 'conn' }
@@ -3051,7 +3057,7 @@
       { f: 'w3', t: 'w4' },
       { f: 'w4', t: 'c1b', side: 1, lb: 'N', lc: '#E4392E' },
       { f: 'w4', t: 'a1', route: 'brR', lb: 'Y', lc: '#18A66A' },
-      { f: 'a1', t: 'a2', lb: '舊客戶沿用歷史價格', small: 1, la: 'center' },
+      { f: 'a1', t: 'a2', lb: '舊案沿用歷史價格', small: 1, la: 'center' },
       { f: 'a2', t: 'a3' },
       { f: 'a3', t: 'pay', lb: '收款', small: 1 },
       { f: 'pay', t: 'fin' }
