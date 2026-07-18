@@ -205,6 +205,28 @@ test('page 14 clears the shortage branch and visibly advances from b3 to b4', ()
   assert.equal(node(documentRef, 'fbox2', 'b3').classList.contains('flow-visited'), true);
 });
 
+test('page 14 retreat from b4 restores b3 and its shortage branch', () => {
+  const { controller, documentRef } = createFixture();
+  advanceTimes(controller, 'fbox2', 7);
+  assert.equal(controller.getState('fbox2').currentId, 'b4');
+  assert.equal(node(documentRef, 'fbox2', 'b2n').classList.contains('flow-visited'), false);
+
+  assert.equal(controller.retreat('fbox2').id, 'b3');
+  assert.equal(node(documentRef, 'fbox2', 'b3').classList.contains('flow-current'), true);
+  assert.equal(node(documentRef, 'fbox2', 'b2n').classList.contains('flow-visited'), true);
+});
+
+test('page 15 retreat from a1 restores c1b', () => {
+  const { controller, documentRef } = createFixture();
+  advanceTimes(controller, 'fbox3', 7);
+  assert.equal(controller.getState('fbox3').currentId, 'a1');
+  assert.equal(node(documentRef, 'fbox3', 'c1b').classList.contains('flow-visited'), false);
+
+  assert.equal(controller.retreat('fbox3').id, 'c1b');
+  assert.equal(node(documentRef, 'fbox3', 'c1b').classList.contains('flow-current'), true);
+  assert.equal(node(documentRef, 'fbox3', 'a1').classList.contains('flow-current'), false);
+});
+
 test('reports flow boundaries without restarting or changing state', () => {
   const { controller, documentRef } = createFixture();
   documentRef.setActiveSlide('s9');

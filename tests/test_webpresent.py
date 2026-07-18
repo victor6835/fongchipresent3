@@ -146,6 +146,11 @@ class WebpresentContentTest(unittest.TestCase):
             "target?.closest?.(interactiveNavigationSelector)",
             normalized,
         )
+        self.assertIn(
+            "const isDeckNavigationTarget = target => "
+            "target?.closest?.('[data-flow-navigation]')",
+            normalized,
+        )
         self.assertIn("document.getElementById('stage').addEventListener('click', e =>", normalized)
         self.assertIn("if (e.button !== 0 || isInteractiveNavigationTarget(e.target)) return", normalized)
         self.assertIn(
@@ -173,7 +178,10 @@ class WebpresentContentTest(unittest.TestCase):
             "const previousKeys = ['ArrowLeft', 'ArrowUp', 'PageUp', 'Backspace']",
             normalized,
         )
-        self.assertIn("if (isInteractiveNavigationTarget(e.target)) return", normalized)
+        self.assertIn(
+            "if (isInteractiveNavigationTarget(e.target) && !isDeckNavigationTarget(e.target)) return",
+            normalized,
+        )
         self.assertIn("if (nextKeys.includes(e.key))", normalized)
         self.assertIn("if (previousKeys.includes(e.key))", normalized)
         self.assertGreaterEqual(normalized.count("e.preventDefault()"), 2)

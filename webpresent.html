@@ -2580,6 +2580,7 @@
     }
     const interactiveNavigationSelector = 'button, a, input, select, textarea, [data-go]';
     const isInteractiveNavigationTarget = target => target?.closest?.(interactiveNavigationSelector);
+    const isDeckNavigationTarget = target => target?.closest?.('[data-flow-navigation]');
     function advancePresentation() {
       const result = window.dioFlowController?.advanceActiveUntilComplete();
       if (!result || result.status === 'inactive' || result.status === 'complete') go(cur + 1);
@@ -2598,7 +2599,7 @@
     document.getElementById('btnNext').onclick = () => go(cur + 1);
     document.getElementById('btnPrev').onclick = () => go(cur - 1);
     addEventListener('keydown', e => {
-      if (isInteractiveNavigationTarget(e.target)) return;
+      if (isInteractiveNavigationTarget(e.target) && !isDeckNavigationTarget(e.target)) return;
       const nextKeys = ['ArrowRight', 'ArrowDown', 'PageDown', ' ', 'Enter'];
       const previousKeys = ['ArrowLeft', 'ArrowUp', 'PageUp', 'Backspace'];
       if (nextKeys.includes(e.key)) {
