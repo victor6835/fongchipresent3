@@ -61,7 +61,13 @@ class FakeResetTarget {
 
 class FakeFlowNavigationTarget {
   closest(selector) {
-    return selector === '[data-flow-navigation]' ? this : null;
+    return selector.includes('[data-flow-navigation]') ? this : null;
+  }
+}
+
+class FakeDataGoTarget {
+  closest(selector) {
+    return selector.includes('[data-go]') ? this : null;
   }
 }
 
@@ -251,6 +257,14 @@ test('global pointer prioritizes navigation, reset, and direct node selection', 
   assert.equal(controller.getState('fbox2').index, 5);
   documentRef.dispatchPointer({ button: 0, target: new FakeResetTarget('fbox2') });
   assert.deepEqual(controller.getState('fbox2'), { index: -1, currentId: null });
+});
+
+test('global pointer does not advance an active flow for pager targets', () => {
+  const { controller, documentRef } = createFixture();
+  controller.bindGlobalPointer(documentRef);
+  documentRef.setActiveSlide('s7');
+  documentRef.dispatchPointer({ button: 0, target: new FakeDataGoTarget() });
+  assert.deepEqual(controller.getState('fbox1'), { index: -1, currentId: null });
 });
 
 test('completed background pointers stay complete and destroy removes routing', () => {

@@ -143,7 +143,7 @@
         if (event.button !== 0) return;
         const boxId = activeBoxId();
         if (!boxId) return;
-        if (event.target?.closest?.('[data-flow-navigation]')) return;
+        if (event.target?.closest?.('[data-flow-navigation], [data-go]')) return;
 
         const resetTarget = event.target?.closest?.('[data-flow-reset]');
         if (resetTarget) {
