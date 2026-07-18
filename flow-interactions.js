@@ -5,47 +5,40 @@
 })(typeof globalThis !== 'undefined' ? globalThis : this, function createApi(root) {
   'use strict';
 
-  const AUTO_RETURN_MS = 700;
   const FLOW_BY_SLIDE = Object.freeze({ s7: 'fbox1', s8: 'fbox2', s9: 'fbox3' });
-  const freezeSteps = (steps) => Object.freeze(steps.map((step) => Object.freeze(
-    typeof step === 'string' ? { id: step } : { ...step },
-  )));
+  const freezeSteps = (steps) => Object.freeze(steps.map((step) => {
+    const normalized = typeof step === 'string' ? { id: step } : { ...step };
+    if (normalized.resumeVia) normalized.resumeVia = Object.freeze([...normalized.resumeVia]);
+    return Object.freeze(normalized);
+  }));
   const FLOW_PLAYBACK = Object.freeze({
     fbox1: freezeSteps([
-      'st', 'n1', 'n2', 'no', { id: 'end1', autoReturn: 'n2' },
-      'yes', 'n3', 'nc', 'f1', 'n5', 'n6', 'n7', 'n7n',
-      { id: 'end2', autoReturn: 'n7' }, 'n7n', 'n5', 'n6', 'n7', 'n8',
-      { id: 'c2', autoReturn: 'n3' }, 'oc', 'f2', 'n8', 'c2',
+      'st', 'n1', 'n2', 'no', 'end1',
+      { id: 'yes', resumeFrom: 'n2' }, 'n3', 'nc', 'f1', 'n5', 'n6', 'n7', 'n7n', 'end2',
+      { id: 'n7n', resumeFrom: 'n7' }, 'n5', 'n6', 'n7', 'n8', 'c2',
+      { id: 'oc', resumeFrom: 'n3' }, 'f2', 'n8', 'c2',
     ]),
     fbox2: freezeSteps([
-      'c1', 'n9', 'b1', 'b2', 'b2n', { id: 'b3', autoReturn: 'b2' },
-      'b3', 'b4', 'b5', 'b6', 'b6n', 'b4', 'b5', 'b6', 'c3',
+      'c1', 'n9', 'b1', 'b2', 'b2n', 'b3',
+      { id: 'b4', resumeFrom: 'b2', resumeVia: ['b3'] }, 'b5', 'b6', 'b6n', 'b4', 'b5', 'b6', 'c3',
     ]),
     fbox3: freezeSteps([
-      'c2b', 'w1', 'w2', 'w3', 'w4', { id: 'c1b', autoReturn: 'w4' },
-      'a1', 'a2', 'a3', 'pay', 'fin',
+      'c2b', 'w1', 'w2', 'w3', 'w4', 'c1b', { id: 'a1', resumeFrom: 'w4' },
+      'a2', 'a3', 'pay', 'fin',
     ]),
   });
 
   function createFlowInteractionController(options) {
     const settings = options || {};
     const documentRef = settings.documentRef || root.document;
-    const setTimer = settings.setTimer || root.setTimeout.bind(root);
-    const clearTimer = settings.clearTimer || root.clearTimeout.bind(root);
-    const autoReturnMs = settings.autoReturnMs === undefined ? AUTO_RETURN_MS : settings.autoReturnMs;
     let states = Object.freeze(Object.fromEntries(
-      Object.keys(FLOW_PLAYBACK).map((boxId) => [boxId, Object.freeze({
-        index: -1, currentId: null, locked: false, timerId: null,
-      })]),
+      Object.keys(FLOW_PLAYBACK).map((boxId) => [boxId, Object.freeze({ index: -1, currentId: null })]),
     ));
     let boundTarget = null;
     let pointerHandler = null;
 
-    function replaceState(boxId, patch) {
-      states = Object.freeze({
-        ...states,
-        [boxId]: Object.freeze({ ...states[boxId], ...patch }),
-      });
+    function replaceState(boxId, state) {
+      states = Object.freeze({ ...states, [boxId]: Object.freeze(state) });
       return states[boxId];
     }
 
@@ -59,103 +52,87 @@
       });
     }
 
-    function clearTimerFor(boxId) {
-      const state = states[boxId];
-      if (state.timerId !== null) clearTimer(state.timerId);
-      replaceState(boxId, { timerId: null });
+    function visiblePathAt(boxId, index) {
+      const visiblePath = [];
+      FLOW_PLAYBACK[boxId].slice(0, index + 1).forEach((step) => {
+        if (step.resumeFrom) {
+          const resumeIndex = visiblePath.lastIndexOf(step.resumeFrom);
+          visiblePath.splice(resumeIndex + 1);
+          (step.resumeVia || []).forEach((nodeId) => visiblePath.push(nodeId));
+        }
+        visiblePath.push(step.id);
+      });
+      return visiblePath;
+    }
+
+    function renderAtIndex(boxId, index) {
+      clearClasses(boxId);
+      const visiblePath = visiblePathAt(boxId, index);
+      const currentId = visiblePath.at(-1) || null;
+      new Set(visiblePath.slice(0, -1)).forEach((nodeId) => {
+        findNode(boxId, nodeId)?.classList.add('flow-visited');
+      });
+      const currentNode = findNode(boxId, currentId);
+      currentNode?.classList.remove('flow-visited');
+      currentNode?.classList.add('flow-current');
+      return replaceState(boxId, { index, currentId });
     }
 
     function reset(boxId) {
       if (!FLOW_PLAYBACK[boxId]) return { status: 'inactive' };
-      clearTimerFor(boxId);
-      clearClasses(boxId);
-      replaceState(boxId, { index: -1, currentId: null, locked: false });
+      renderAtIndex(boxId, -1);
       return { status: 'reset' };
-    }
-
-    function scheduleAutoReturn(boxId, step) {
-      if (!step.autoReturn) return states[boxId];
-      const timerId = setTimer(() => returnFromEndpoint(boxId, step.autoReturn), autoReturnMs);
-      return replaceState(boxId, { locked: true, timerId });
-    }
-
-    function clearStepRange(boxId, fromIndex, throughIndex) {
-      const ids = new Set(
-        FLOW_PLAYBACK[boxId].slice(fromIndex, throughIndex + 1).map((step) => step.id),
-      );
-      ids.forEach((nodeId) => {
-        findNode(boxId, nodeId)?.classList.remove('flow-current', 'flow-visited');
-      });
-    }
-
-    function returnFromEndpoint(boxId, returnId) {
-      const state = states[boxId];
-      const steps = FLOW_PLAYBACK[boxId];
-      let decisionIndex = state.index - 1;
-      while (decisionIndex >= 0 && steps[decisionIndex].id !== returnId) decisionIndex -= 1;
-      clearStepRange(boxId, Math.max(0, decisionIndex + 1), state.index);
-      const returnNode = findNode(boxId, returnId);
-      returnNode?.classList.remove('flow-visited');
-      returnNode?.classList.add('flow-current');
-      replaceState(boxId, { currentId: returnId, locked: false, timerId: null });
     }
 
     function advance(boxId) {
       const steps = FLOW_PLAYBACK[boxId];
       if (!steps) return { status: 'inactive' };
       const state = states[boxId];
-      if (state.locked) return { status: 'locked' };
-      let index = state.index + 1;
-      let restarted = false;
-      if (index >= steps.length) {
-        reset(boxId);
-        index = 0;
-        restarted = true;
-      }
-      const previousNode = restarted ? null : findNode(boxId, state.currentId);
-      const step = steps[index];
-      const nextNode = findNode(boxId, step.id);
-      previousNode?.classList.add('flow-visited');
-      previousNode?.classList.remove('flow-current');
-      nextNode?.classList.remove('flow-visited');
-      nextNode?.classList.add('flow-current');
-      replaceState(boxId, { index, currentId: step.id });
-      scheduleAutoReturn(boxId, step);
-      return { status: 'advanced', id: step.id, restarted };
+      if (state.index >= steps.length - 1) return { status: 'complete', boxId, id: state.currentId };
+      const nextState = renderAtIndex(boxId, state.index + 1);
+      return { status: 'advanced', boxId, id: nextState.currentId };
+    }
+
+    function retreat(boxId) {
+      const steps = FLOW_PLAYBACK[boxId];
+      if (!steps) return { status: 'inactive' };
+      const state = states[boxId];
+      if (state.index <= 0) return { status: 'start-boundary', boxId, id: state.currentId };
+      const nextState = renderAtIndex(boxId, state.index - 1);
+      return { status: 'retreated', boxId, id: nextState.currentId };
+    }
+
+    function activeBoxId() {
+      const activeSlide = documentRef?.querySelector('.slide.active');
+      return activeSlide && FLOW_BY_SLIDE[activeSlide.id];
     }
 
     function advanceActive() {
-      const activeSlide = documentRef?.querySelector('.slide.active');
-      const boxId = activeSlide && FLOW_BY_SLIDE[activeSlide.id];
+      const boxId = activeBoxId();
       return boxId ? advance(boxId) : { status: 'inactive' };
     }
 
     function advanceActiveUntilComplete() {
-      const activeSlide = documentRef?.querySelector('.slide.active');
-      const boxId = activeSlide && FLOW_BY_SLIDE[activeSlide.id];
-      if (!boxId) return { status: 'inactive' };
-      const state = states[boxId];
-      if (state.locked) return { status: 'locked', boxId, id: state.currentId };
-      if (state.index === FLOW_PLAYBACK[boxId].length - 1) {
-        return { status: 'complete', boxId, id: state.currentId };
-      }
-      return advance(boxId);
+      const boxId = activeBoxId();
+      return boxId ? advance(boxId) : { status: 'inactive' };
+    }
+
+    function retreatActiveUntilStart() {
+      const boxId = activeBoxId();
+      return boxId ? retreat(boxId) : { status: 'inactive' };
+    }
+
+    function resetActive() {
+      const boxId = activeBoxId();
+      return boxId ? reset(boxId) : { status: 'inactive' };
     }
 
     function startAt(boxId, nodeId) {
       const steps = FLOW_PLAYBACK[boxId];
       if (!steps) return { status: 'inactive' };
       const index = steps.findIndex((step) => step.id === nodeId);
-      const nextNode = index >= 0 ? findNode(boxId, nodeId) : null;
-      if (index < 0 || !nextNode) return { status: 'inactive' };
-
-      clearTimerFor(boxId);
-      clearClasses(boxId);
-      nextNode.classList.add('flow-current');
-      replaceState(boxId, {
-        index, currentId: nodeId, locked: false, timerId: null,
-      });
-      scheduleAutoReturn(boxId, steps[index]);
+      if (index < 0 || !findNode(boxId, nodeId)) return { status: 'inactive' };
+      renderAtIndex(boxId, index);
       return { status: 'started', id: nodeId, index };
     }
 
@@ -164,10 +141,8 @@
       boundTarget = eventTarget || documentRef;
       pointerHandler = (event) => {
         if (event.button !== 0) return;
-        const activeSlide = documentRef?.querySelector('.slide.active');
-        const boxId = activeSlide && FLOW_BY_SLIDE[activeSlide.id];
+        const boxId = activeBoxId();
         if (!boxId) return;
-
         if (event.target?.closest?.('[data-flow-navigation]')) return;
 
         const resetTarget = event.target?.closest?.('[data-flow-reset]');
@@ -193,16 +168,25 @@
     }
 
     function destroy() {
-      Object.keys(FLOW_PLAYBACK).forEach((boxId) => clearTimerFor(boxId));
       boundTarget?.removeEventListener('pointerdown', pointerHandler, true);
       boundTarget = null;
       pointerHandler = null;
     }
 
     return {
-      advance, advanceActive, advanceActiveUntilComplete, startAt, bindGlobalPointer, reset, getState, destroy,
+      advance,
+      retreat,
+      advanceActive,
+      advanceActiveUntilComplete,
+      retreatActiveUntilStart,
+      reset,
+      resetActive,
+      startAt,
+      bindGlobalPointer,
+      getState,
+      destroy,
     };
   }
 
-  return { AUTO_RETURN_MS, FLOW_BY_SLIDE, FLOW_PLAYBACK, createFlowInteractionController };
+  return { FLOW_BY_SLIDE, FLOW_PLAYBACK, createFlowInteractionController };
 });
