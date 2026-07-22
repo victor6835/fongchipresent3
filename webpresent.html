@@ -2919,6 +2919,9 @@
     }
 
     .arMiniNote {
+      margin-bottom: 36px;
+      margin-left: 16px;
+      margin-right: 16px;
       border-radius: 16px;
       background: linear-gradient(90deg, var(--blue-d), var(--blue));
       color: #fff;
@@ -3062,7 +3065,7 @@
         <div class="divInner">
           <div class="divTag">CHAPTER 02</div>
           <div class="divTitle">訂單完整過程</div>
-          <div class="divSub">把六站現場作業，濃縮成三段管理流程</div>
+          <div class="divSub">廠內三段作業流程</div>
           <div style="display:flex;gap:14px;margin-top:46px;flex-wrap:wrap">
             <span class="chip sky">① 需求整檔與發包</span><span class="chip sky">② 列印與後加工</span><span class="chip sky">③
               清點交付與請款</span>
@@ -3096,7 +3099,7 @@
               <p>將規格轉成現場作業單。</p>
             </div>
           </div>
-          <div class="productStep hot">
+          <div class="productStep">
             <div class="productImage"><img src="img/order-wall.jpg">
               <div class="stepNo">03</div>
             </div>
@@ -3140,7 +3143,7 @@
               <p>上膜保護，貼合板材。</p>
             </div>
           </div>
-          <div class="productStep hot">
+          <div class="productStep">
             <div class="productImage"><img src="img/laser-cutter.jpg">
               <div class="stepNo">07</div>
             </div>
@@ -3158,8 +3161,17 @@
         <div class="productStage">完工交付｜清點到驗收</div>
         <div class="productFlow">
           <div class="productStep">
-            <div class="productImage"><img src="img/finished-goods.jpg">
+            <div class="productImage"><img src="img/special-material.jpg">
               <div class="stepNo">08</div>
+            </div>
+            <div class="productCopy">
+              <h3>特殊加工</h3>
+              <p>特殊件組裝、製作</p>
+            </div>
+          </div>
+          <div class="productStep">
+            <div class="productImage"><img src="img/finished-goods.jpg">
+              <div class="stepNo">09</div>
             </div>
             <div class="productCopy">
               <h3>成品清點</h3>
@@ -3167,15 +3179,6 @@
             </div>
           </div>
           <div class="productStep">
-            <div class="productImage"><img src="img/special-material.jpg">
-              <div class="stepNo">09</div>
-            </div>
-            <div class="productCopy">
-              <h3>包裝備料</h3>
-              <p>特殊件與施工工具備齊。</p>
-            </div>
-          </div>
-          <div class="productStep hot">
             <div class="productImage"><img src="img/site-installation.jpg" style="object-position:center center">
               <div class="stepNo">10</div>
             </div>
@@ -3242,7 +3245,7 @@
         <div class="kicker">CORE DIAGNOSIS</div>
         <h2 class="stitle" style="font-size:60px">流程中的問題點，讓營收無法完整轉化</h2>
         <div class="processFlow"
-          style="grid-template-columns:1.05fr .22fr .24fr .22fr 1.05fr .22fr .78fr .22fr 1.05fr .22fr .24fr .22fr 1.05fr;margin-top:34px">
+          style="margin-top: 25px; grid-template-columns:1.05fr .22fr .24fr .22fr 1.05fr .22fr .78fr .22fr 1.05fr .22fr .24fr .22fr 1.05fr;margin-top:34px">
           <div class="processNode">客戶接洽</div>
           <div class="processArrow">→</div>
           <div class="questionMark">?</div>
@@ -3257,7 +3260,7 @@
           <div class="processArrow">→</div>
           <div class="processNode">請款收款</div>
         </div>
-        <div class="breakGrid">
+        <div class="breakGrid" style="margin-top: 60px;">
           <div class="breakCard blue">
             <span class="eyebrow">問題點</span>
             <h3>訂單沒有轉成可計算產能</h3>
@@ -3269,7 +3272,8 @@
             <div class="miniImpact">收入流失｜漏請款、少請款</div>
           </div>
         </div>
-        <div class="keybar warn"><span class="tag">核心訊息</span>風琦不是沒有訂單，而是缺少一條能追蹤訂單、產能、完工與請款的數位路徑。</div>
+        <div class="keybar warn" style="margin-bottom: 60px;"><span
+            class="tag">核心訊息</span>風琦不是沒有訂單，而是缺少一條能追蹤訂單、產能、完工與請款的數位路徑。</div>
       </section>
 
       <section class="slide storySlide" id="pain-billing">
@@ -3390,7 +3394,8 @@
             </div>
           </div>
         </div>
-        <div class="keybar warn"><span class="tag">核心訊息</span>產能不是沒有，而是沒有被看見、計算與管理；接單決策仍壓在老闆一個人身上。</div>
+        <div style="margin-bottom: 40px;" class="keybar warn"><span
+            class="tag">核心訊息</span>產能不是沒有，而是沒有被看見、計算與管理；接單決策仍壓在老闆一個人身上。</div>
       </section>
 
       <section class="slide storySlide" id="solution-capacity">
@@ -3418,7 +3423,8 @@
             <li>接單前看見<b>缺料風險</b>。</li>
           </div>
         </div>
-        <div class="keybar warn"><span class="tag">管理轉變</span>接單從「老闆覺得做不做得完」，轉成「系統看見負荷、材料與可承諾交期」。</div>
+        <div style="margin-bottom: 40px;" class="keybar warn"><span
+            class="tag">管理轉變</span>接單從「老闆覺得做不做得完」，轉成「系統看見負荷、材料與可承諾交期」。</div>
       </section>
 
       <section class="slide dark" id="s21">
