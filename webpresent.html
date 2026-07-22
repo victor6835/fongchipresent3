@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>風琦有限公司 × SAP 導入評估｜第一次報告</title>
+  <title>風琦有限公司 × SAP 導入評估｜第二次報告</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
   <script src="flow-interactions.js"></script>
@@ -1790,6 +1790,1149 @@
       font-size: 28px;
       padding: 18px 30px
     }
+
+    /* Codex restored additions: merged second-report visual system */
+    .slide.active {
+      display: block;
+      opacity: 1;
+      transform: none
+    }
+
+    .productStage {
+      margin-top: 20px;
+      color: var(--blue-d);
+      font-size: 34px;
+      font-weight: 900
+    }
+
+    .productFlow {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 26px;
+      margin-top: 28px;
+      justify-content: center;
+    }
+
+    .productStep {
+      background: #fff;
+      border-radius: 24px;
+      box-shadow: var(--sh);
+      overflow: hidden;
+      min-height: 430px;
+      border-top: 9px solid var(--blue)
+    }
+
+    .productStep.hot {
+      border-top-color: var(--amber)
+    }
+
+    .productImage {
+      height: 255px;
+      position: relative;
+      background: #EAF2FF;
+      overflow: hidden
+    }
+
+    .productImage img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block
+    }
+
+    .stepNo {
+      position: absolute;
+      left: 18px;
+      top: 18px;
+      width: 54px;
+      height: 54px;
+      border-radius: 14px;
+      background: rgba(13, 43, 92, .92);
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 28px;
+      font-weight: 900
+    }
+
+    .productCopy {
+      padding: 24px 28px
+    }
+
+    .productCopy h3 {
+      font-size: 38px;
+      line-height: 1.15;
+      color: var(--blue-d);
+      font-weight: 900
+    }
+
+    .productCopy p {
+      margin-top: 12px;
+      color: var(--mut);
+      font-size: 27px;
+      line-height: 1.35;
+      font-weight: 760
+    }
+
+    .storySlide {
+      background: var(--bg)
+    }
+
+    .processFlow {
+      display: grid;
+      gap: 14px;
+      align-items: center;
+      margin-top: 32px
+    }
+
+    .processNode,
+    .breakNode {
+      min-height: 118px;
+      border-radius: 24px;
+      box-shadow: var(--sh);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 18px 16px;
+      font-size: 29px;
+      line-height: 1.25;
+      font-weight: 900
+    }
+
+    .processNode {
+      background: #fff;
+      color: var(--blue-d)
+    }
+
+    .processNode.hot {
+      background: #FFF7E8;
+      color: #B45309
+    }
+
+    .breakNode {
+      background: #FFF7E8;
+      color: #B45309;
+      border: 4px dashed rgba(245, 158, 11, .55)
+    }
+
+    .processArrow {
+      text-align: center;
+      color: var(--blue);
+      font-size: 40px;
+      font-weight: 900
+    }
+
+    .questionMark {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #B45309;
+      font-size: 58px;
+      line-height: 1;
+      font-weight: 900;
+      text-shadow: 0 10px 22px rgba(180, 83, 9, .18)
+    }
+
+    #pain-core .processNode {
+      min-height: 112px;
+      font-size: 27px;
+      padding: 16px 10px
+    }
+
+    #pain-core .processArrow {
+      font-size: 34px
+    }
+
+    #pain-core .questionMark {
+      font-size: 54px
+    }
+
+    .breakGrid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 28px;
+      margin-top: 34px
+    }
+
+    .breakCard {
+      position: relative;
+      overflow: hidden;
+      border-radius: 26px;
+      background: #fff;
+      box-shadow: var(--sh);
+      padding: 30px 36px;
+      min-height: 218px
+    }
+
+    .breakCard::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 0;
+      right: 0;
+      height: 10px;
+      background: linear-gradient(90deg, var(--amber), #FBBF24)
+    }
+
+    .breakCard.blue::before {
+      background: linear-gradient(90deg, var(--blue), var(--sky))
+    }
+
+    .breakCard .eyebrow {
+      display: inline-flex;
+      border-radius: 12px;
+      padding: 6px 16px;
+      background: #FFF7E8;
+      color: #B45309;
+      font-size: 24px;
+      font-weight: 900
+    }
+
+    .breakCard.blue .eyebrow {
+      background: #EAF2FF;
+      color: var(--blue)
+    }
+
+    .breakCard h3 {
+      margin-top: 16px;
+      color: var(--blue-d);
+      font-size: 35px;
+      line-height: 1.25;
+      font-weight: 900
+    }
+
+    .miniImpact {
+      display: inline-flex;
+      margin-top: 18px;
+      border-radius: 999px;
+      padding: 8px 22px;
+      background: linear-gradient(135deg, #B45309, var(--amber));
+      color: #fff;
+      font-size: 26px;
+      font-weight: 900
+    }
+
+    .breakCard.blue .miniImpact {
+      background: linear-gradient(135deg, var(--blue-d), var(--blue))
+    }
+
+    .painGrid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 30px;
+      margin-top: 36px
+    }
+
+    .painCard {
+      background: #fff;
+      border-radius: 26px;
+      box-shadow: var(--sh);
+      padding: 34px 40px;
+      min-height: 410px;
+      border-top: 10px solid var(--amber)
+    }
+
+    .painCard.blue {
+      border-top-color: var(--blue)
+    }
+
+    .painCard h3 {
+      font-size: 38px;
+      color: var(--blue-d);
+      font-weight: 900;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 22px
+    }
+
+    .pnum {
+      width: 58px;
+      height: 58px;
+      border-radius: 16px;
+      background: #EAF2FF;
+      color: var(--blue);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 900
+    }
+
+    .painCard:not(.blue) .pnum {
+      background: #FFF7E8;
+      color: #B45309
+    }
+
+    .painCard li {
+      list-style: none;
+      position: relative;
+      margin-top: 16px;
+      padding-left: 26px;
+      font-size: 30px;
+      line-height: 1.45;
+      font-weight: 760;
+      color: var(--txt)
+    }
+
+    .painCard li::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: .65em;
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--blue)
+    }
+
+    .painCard:not(.blue) li::before {
+      background: var(--amber)
+    }
+
+    .painCard b {
+      color: var(--blue-d);
+      font-weight: 900
+    }
+
+    .keybar {
+      position: absolute;
+      left: 90px;
+      right: 90px;
+      bottom: 52px;
+      background: linear-gradient(90deg, var(--blue-d), var(--blue));
+      color: #fff;
+      border-radius: 22px;
+      padding: 20px 34px;
+      font-size: 31px;
+      font-weight: 700;
+      line-height: 1.4;
+      box-shadow: var(--sh);
+      display: flex;
+      gap: 20px;
+      align-items: center
+    }
+
+    .keybar .tag {
+      flex: none;
+      background: rgba(255, 255, 255, .92);
+      color: var(--blue-d);
+      border-radius: 12px;
+      padding: 4px 20px;
+      font-size: 26px;
+      font-weight: 900
+    }
+
+    .keybar.warn {
+      background: linear-gradient(90deg, #B45309, var(--amber))
+    }
+
+    .keybar.warn .tag {
+      color: #B45309
+    }
+
+    .keybar.raised {
+      bottom: 100px
+    }
+
+    .p5Visual {
+      display: grid;
+      grid-template-columns: 1fr 210px 1fr;
+      gap: 24px;
+      margin-top: 28px;
+      align-items: stretch
+    }
+
+    .p5Panel {
+      background: #fff;
+      border-radius: 26px;
+      box-shadow: var(--sh);
+      padding: 30px 34px;
+      border-top: 10px solid var(--blue)
+    }
+
+    .p5Panel.risk {
+      border-top-color: var(--amber)
+    }
+
+    .p5Panel h3 {
+      font-size: 34px;
+      color: var(--blue-d);
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 20px
+    }
+
+    .p5Point {
+      display: grid;
+      grid-template-columns: 92px 1fr;
+      gap: 16px;
+      align-items: center;
+      background: #F5F8FE;
+      border-radius: 16px;
+      padding: 15px 16px;
+      margin-top: 14px
+    }
+
+    .p5Point .label {
+      border-radius: 12px;
+      background: #EAF2FF;
+      color: var(--blue);
+      text-align: center;
+      font-size: 24px;
+      font-weight: 900;
+      padding: 10px 0
+    }
+
+    .p5Point .text {
+      font-size: 26px;
+      line-height: 1.35;
+      font-weight: 760;
+      color: var(--txt)
+    }
+
+    .p5Hub {
+      display: flex;
+      align-items: center;
+      justify-content: center
+    }
+
+    .hubBox {
+      width: 190px;
+      height: 190px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--blue-d), var(--blue));
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      box-shadow: var(--sh-lg)
+    }
+
+    .hubBox .main {
+      font-size: 34px;
+      line-height: 1.2;
+      font-weight: 900
+    }
+
+    .hubBox .sub {
+      margin-top: 10px;
+      font-size: 20px;
+      line-height: 1.25;
+      color: #BAD9FF;
+      font-weight: 800
+    }
+
+    .riskLine {
+      border-radius: 16px;
+      background: #FFF7E8;
+      color: #8A3F05;
+      padding: 16px 18px;
+      margin-top: 16px;
+      font-size: 26px;
+      line-height: 1.35;
+      font-weight: 780
+    }
+
+    .riskLine b {
+      color: var(--blue-d)
+    }
+
+    .riskLine .arrow {
+      color: #B45309;
+      font-weight: 900
+    }
+
+    .riskLine.final {
+      background: #F5F8FE
+    }
+
+    .storyGrid,
+    .twoGrid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 30px;
+      margin-top: 30px
+    }
+
+    .threeGrid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      margin-top: 30px
+    }
+
+    .moduleCard {
+      position: relative;
+      overflow: hidden;
+      background: #fff;
+      border-radius: 26px;
+      box-shadow: var(--sh);
+      padding: 30px 34px;
+      min-height: 430px
+    }
+
+    .moduleCard::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 0;
+      height: 10px;
+      background: linear-gradient(90deg, var(--blue), var(--sky))
+    }
+
+    .moduleCard.gold::before {
+      background: linear-gradient(90deg, var(--amber), #FBBF24)
+    }
+
+    .moduleCard .label {
+      display: inline-flex;
+      border-radius: 12px;
+      padding: 6px 16px;
+      background: #EAF2FF;
+      color: var(--blue);
+      font-size: 23px;
+      font-weight: 900
+    }
+
+    .moduleCard.gold .label {
+      background: #FFF7E8;
+      color: #B45309
+    }
+
+    .moduleCard h3 {
+      margin-top: 16px;
+      color: var(--blue-d);
+      font-size: 35px;
+      line-height: 1.22;
+      font-weight: 900
+    }
+
+    .moduleCard li {
+      list-style: none;
+      position: relative;
+      margin-top: 15px;
+      padding-left: 24px;
+      font-size: 27px;
+      line-height: 1.38;
+      font-weight: 760;
+      color: var(--txt)
+    }
+
+    .moduleCard li::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: .65em;
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background: var(--blue)
+    }
+
+    .moduleCard.gold li::before {
+      background: var(--amber)
+    }
+
+    .moduleCard b {
+      color: var(--blue-d)
+    }
+
+    .vchain {
+      margin-top: 22px
+    }
+
+    .vc {
+      border-radius: 16px;
+      background: #F5F8FE;
+      color: var(--blue-d);
+      padding: 16px 18px;
+      font-size: 25px;
+      line-height: 1.35;
+      font-weight: 800
+    }
+
+    .vc.gold {
+      background: #FFF7E8;
+      color: #8A3F05
+    }
+
+    .va {
+      text-align: center;
+      color: var(--blue);
+      font-size: 28px;
+      font-weight: 900;
+      margin: 8px 0
+    }
+
+    .dualLoop {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 28px;
+      margin-top: 30px
+    }
+
+    .loop {
+      position: relative;
+      border-radius: 28px;
+      padding: 34px 38px;
+      min-height: 430px;
+      background: #fff;
+      box-shadow: var(--sh);
+      overflow: hidden
+    }
+
+    .loop::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 0;
+      height: 10px;
+      background: linear-gradient(90deg, var(--blue), var(--sky))
+    }
+
+    .loop.gold::before {
+      background: linear-gradient(90deg, var(--amber), #FBBF24)
+    }
+
+    .loop h3 {
+      color: var(--blue-d);
+      font-size: 38px;
+      font-weight: 900;
+      line-height: 1.25
+    }
+
+    .loopStep {
+      margin-top: 18px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      font-size: 29px;
+      font-weight: 760;
+      line-height: 1.35
+    }
+
+    .loopStep span {
+      flex: none;
+      width: 48px;
+      height: 48px;
+      border-radius: 14px;
+      background: #EAF2FF;
+      color: var(--blue);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 900
+    }
+
+    .loop.gold .loopStep span {
+      background: #FFF7E8;
+      color: #B45309
+    }
+
+    .billingTableCard {
+      position: relative;
+      overflow: hidden;
+      margin-top: 24px;
+      border-radius: 26px;
+      background: #fff;
+      box-shadow: var(--sh);
+      padding: 28px 30px 30px;
+      border-top: 10px solid var(--blue)
+    }
+
+    .billingTable {
+      width: 100%;
+      border-collapse: separate;
+      border-spacing: 0 12px;
+      table-layout: fixed
+    }
+
+    .billingTable th {
+      padding: 0 16px 10px;
+      color: var(--blue-d);
+      font-size: 24px;
+      line-height: 1.2;
+      font-weight: 900;
+      text-align: left
+    }
+
+    .billingTable td {
+      background: #F5F8FE;
+      padding: 16px 16px;
+      color: var(--txt);
+      font-size: 23px;
+      line-height: 1.32;
+      font-weight: 760;
+      vertical-align: middle
+    }
+
+    .billingTable tr td:first-child {
+      border-radius: 16px 0 0 16px;
+      color: var(--blue-d);
+      font-weight: 900
+    }
+
+    .billingTable tr td:last-child {
+      border-radius: 0 16px 16px 0;
+      text-align: center;
+      color: #B45309;
+      font-weight: 900
+    }
+
+    .billingTable .after {
+      background: #EAF2FF;
+      color: var(--blue-d);
+      font-weight: 850
+    }
+
+    .billingTable .tcode {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 98px;
+      border-radius: 12px;
+      background: #FFF7E8;
+      padding: 7px 12px;
+      color: #B45309;
+      font-size: 22px;
+      font-weight: 900
+    }
+
+    .billingLead {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      margin-top: 16px;
+      border-radius: 20px;
+      background: #fff;
+      box-shadow: var(--sh);
+      padding: 16px 24px;
+      color: var(--blue-d);
+      font-size: 28px;
+      line-height: 1.35;
+      font-weight: 850
+    }
+
+    .billingLead b {
+      flex: none;
+      border-radius: 13px;
+      background: #EAF2FF;
+      color: var(--blue);
+      padding: 8px 16px;
+      font-size: 27px;
+      font-weight: 900
+    }
+
+    #solution-billing .billingLead {
+      margin-top: 12px;
+      padding: 14px 24px;
+      font-size: 25px;
+      line-height: 1.28
+    }
+
+    #solution-billing .billingLead b {
+      font-size: 24px;
+      padding: 8px 15px
+    }
+
+    #solution-billing .billingTableCard {
+      margin-top: 22px;
+      padding: 0;
+      background: transparent;
+      border-top: 0;
+      box-shadow: none;
+      border-radius: 0;
+      overflow: visible
+    }
+
+    #solution-billing .billingTable {
+      border-collapse: separate;
+      border-spacing: 14px 11px
+    }
+
+    #solution-billing .billingTable th {
+      padding: 0 16px 4px;
+      font-size: 24px
+    }
+
+    #solution-billing .billingTable td {
+      border-radius: 16px !important;
+      padding: 13px 16px;
+      font-size: 22px;
+      line-height: 1.24;
+      box-shadow: 0 10px 26px rgba(13, 43, 92, .08)
+    }
+
+    #solution-billing .billingTable tr td:first-child {
+      background: #EAF2FF;
+      color: var(--blue-d)
+    }
+
+    #solution-billing .billingTable tr td:nth-child(2) {
+      background: #FFF7E8;
+      color: #8A3F05
+    }
+
+    #solution-billing .billingTable .after {
+      background: #EAF2FF;
+      color: var(--blue-d);
+      font-weight: 900
+    }
+
+    #solution-billing .billingTable tr td:last-child {
+      background: #fff;
+      text-align: center
+    }
+
+    #solution-billing .billingTable .tcode {
+      min-width: 92px;
+      padding: 7px 10px;
+      font-size: 21px
+    }
+
+    #solution-billing .keybar {
+      bottom: 72px;
+      padding: 14px 24px;
+      border-radius: 18px;
+      font-size: 24px;
+      line-height: 1.25
+    }
+
+    #solution-billing .keybar .tag {
+      font-size: 22px;
+      padding: 5px 15px
+    }
+
+    .qualLead {
+      margin-top: 18px;
+      display: grid;
+      grid-template-columns: 190px 1fr;
+      gap: 24px;
+      align-items: center;
+      border-radius: 22px;
+      background: #fff;
+      box-shadow: var(--sh);
+      padding: 18px 28px;
+      color: var(--blue-d);
+      font-size: 31px;
+      line-height: 1.34;
+      font-weight: 800
+    }
+
+    .qualLead b {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 58px;
+      border-radius: 14px;
+      background: #EAF2FF;
+      color: var(--blue);
+      font-size: 32px;
+      font-weight: 900
+    }
+
+    .qualImpactGrid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      margin-top: 26px
+    }
+
+    .qualImpactCard {
+      position: relative;
+      overflow: hidden;
+      min-height: 374px;
+      border-radius: 24px;
+      background: #fff;
+      box-shadow: var(--sh);
+      padding: 30px 30px 32px;
+      border-top: 10px solid var(--blue)
+    }
+
+    .qualImpactCard.gold {
+      border-top-color: var(--amber)
+    }
+
+    .qualImpactCard.green {
+      border-top-color: var(--green)
+    }
+
+    .qualImpactCard .pill {
+      display: inline-flex;
+      border-radius: 12px;
+      padding: 6px 16px;
+      background: #EAF2FF;
+      color: var(--blue);
+      font-size: 26px;
+      line-height: 1;
+      font-weight: 900
+    }
+
+    .qualImpactCard.gold .pill {
+      background: #FFF7E8;
+      color: #B45309
+    }
+
+    .qualImpactCard.green .pill {
+      background: #E9F8F0;
+      color: #0F6E56
+    }
+
+    .qualImpactCard h3 {
+      margin-top: 16px;
+      color: var(--blue-d);
+      font-size: 38px;
+      line-height: 1.22;
+      font-weight: 900
+    }
+
+    .qualImpactCard .beforeAfter {
+      margin-top: 20px;
+      display: grid;
+      gap: 12px
+    }
+
+    .qualImpactCard .beforeAfter div {
+      border-radius: 16px;
+      background: #F5F8FE;
+      padding: 17px 18px;
+      color: var(--mut);
+      font-size: 26px;
+      line-height: 1.35;
+      font-weight: 760
+    }
+
+    .qualImpactCard .beforeAfter b {
+      color: var(--blue-d);
+      font-weight: 900
+    }
+
+    .quantStrip {
+      margin-top: 18px;
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      border-radius: 22px;
+      background: #fff;
+      box-shadow: var(--sh);
+      padding: 18px 28px;
+      color: var(--blue-d);
+      font-size: 28px;
+      line-height: 1.35;
+      font-weight: 800
+    }
+
+    .quantStrip b {
+      flex: none;
+      min-width: 150px;
+      color: #B45309;
+      font-size: 46px;
+      line-height: 1;
+      font-weight: 900
+    }
+
+    .quantStrip.blue b {
+      color: var(--blue)
+    }
+
+    .quantLayout {
+      display: grid;
+      grid-template-columns: 420px 1fr;
+      gap: 28px;
+      margin-top: 24px;
+      align-items: stretch
+    }
+
+    .quantVisual {
+      min-height: 426px;
+      border-radius: 26px;
+      background: #fff;
+      box-shadow: var(--sh);
+      padding: 22px 26px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      align-items: stretch;
+      justify-content: center;
+      overflow: hidden
+    }
+
+    .cashPanel {
+      border-radius: 26px;
+      background: #fff;
+      box-shadow: var(--sh);
+      padding: 26px 30px;
+      min-height: 398px;
+      border-top: 10px solid var(--amber)
+    }
+
+    .cashPanel .cashBig {
+      color: #B45309;
+      font-size: 68px;
+      line-height: 1;
+      font-weight: 900
+    }
+
+    .cashPanel .cashLabel {
+      margin-top: 10px;
+      color: var(--blue-d);
+      font-size: 29px;
+      line-height: 1.25;
+      font-weight: 900
+    }
+
+    .cashDelta {
+      margin-top: 22px;
+      display: grid;
+      grid-template-columns: 1fr 44px 1fr;
+      align-items: center;
+      gap: 12px
+    }
+
+    .cashDelta div {
+      border-radius: 18px;
+      background: #F5F8FE;
+      padding: 14px 10px;
+      text-align: center;
+      color: var(--blue-d);
+      font-size: 30px;
+      font-weight: 900
+    }
+
+    .cashDelta .arr {
+      background: transparent;
+      color: var(--blue);
+      padding: 0;
+      font-size: 38px
+    }
+
+    .cashNote {
+      margin-top: 18px;
+      border-radius: 18px;
+      background: #FFF7E8;
+      color: #8A3F05;
+      padding: 14px 18px;
+      font-size: 22px;
+      line-height: 1.4;
+      font-weight: 800
+    }
+
+    .cashNote b {
+      color: #B45309
+    }
+
+    .arTimelineVisual {
+      width: 100%;
+      min-height: 328px;
+      border-radius: 22px;
+      background: #fff;
+      display: grid;
+      align-content: center;
+      gap: 26px;
+      padding: 32px 36px
+    }
+
+    .arTimelineVisual .row {
+      display: grid;
+      grid-template-columns: 80px 1fr 96px;
+      gap: 16px;
+      align-items: center
+    }
+
+    .arTimelineVisual .label {
+      color: var(--blue-d);
+      font-size: 24px;
+      font-weight: 900
+    }
+
+    .arTimelineVisual .barWrap {
+      position: relative;
+      height: 52px
+    }
+
+    .arTimelineVisual .bar {
+      position: absolute;
+      top: 0;
+      height: 52px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      padding: 0 16px;
+      color: var(--blue-d);
+      font-size: 21px;
+      font-weight: 800;
+      border: 2px solid transparent
+    }
+
+    .arTimelineVisual .bar.blue {
+      left: 0;
+      width: 70%;
+      background: #BAD9FF;
+      border-color: #378ADD
+    }
+
+    .arTimelineVisual .bar.gray {
+      left: 70%;
+      width: 24%;
+      background: #E2E1DA;
+      color: #2C2C2A;
+      border-color: #98978F
+    }
+
+    .arTimelineVisual .row.after .bar.blue {
+      width: 42px;
+      justify-content: center;
+      padding: 0
+    }
+
+    .arTimelineVisual .row.after .bar.gray {
+      left: 48px;
+      width: 240px
+    }
+
+    .arTimelineVisual .total {
+      color: var(--txt);
+      font-size: 24px;
+      font-weight: 900
+    }
+
+    .arTimelineVisual .improve {
+      margin-left: 128px;
+      width: 70%;
+      height: 42px;
+      border-radius: 8px;
+      background: #FFD28A;
+      border: 2px solid #F59E0B;
+      color: #8A3F05;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 21px;
+      font-weight: 900
+    }
+
+    .arMiniNote {
+      border-radius: 16px;
+      background: linear-gradient(90deg, var(--blue-d), var(--blue));
+      color: #fff;
+      padding: 14px 20px;
+      font-size: 23px;
+      line-height: 1.35;
+      font-weight: 800;
+      box-shadow: 0 12px 30px rgba(13, 43, 92, .16)
+    }
+
+    .arMiniNote b {
+      color: #fff;
+      font-weight: 900
+    }
   </style>
 </head>
 
@@ -1803,7 +2946,7 @@
         <canvas id="coverCanvas"></canvas>
         <div class="coverInner">
           <div style="display:flex;gap:16px;margin-bottom:34px">
-            <span class="chip solid">SAP 導入評估</span><span class="chip line">第一次報告</span><span
+            <span class="chip solid">SAP 導入評估</span><span class="chip line">第二次報告</span><span
               class="chip line">大圖輸出產業</span>
           </div>
           <div class="cover-title">風琦有限公司<br><span class="g">從 Excel 到 SAP</span><br>數位轉型起點</div>
@@ -1817,7 +2960,6 @@
         <div class="coverBar"></div>
       </section>
 
-      <!-- ═════ 2 目錄 ═════ -->
       <section class="slide" id="s2">
         <div class="kicker">CONTENTS</div>
         <h2 class="stitle">目錄</h2>
@@ -1834,40 +2976,39 @@
               <div class="t">訂單完整過程</div>
             </div>
           </div>
-          <div class="tocItem" data-go="12">
+          <div class="tocItem" data-go="9">
             <div class="no">03</div>
             <div>
               <div class="t">流程圖</div>
             </div>
           </div>
-          <div class="tocItem" data-go="16">
+          <div class="tocItem" data-go="13">
             <div class="no">04</div>
             <div>
-              <div class="t">痛點</div>
+              <div class="t">痛點與解決方法</div>
             </div>
           </div>
-          <div class="tocItem" data-go="18">
+          <div class="tocItem" data-go="19">
             <div class="no">05</div>
             <div>
-              <div class="t">解決方法</div>
+              <div class="t">預期效益</div>
             </div>
           </div>
-          <div class="tocItem" data-go="21">
+          <div class="tocItem" data-go="22">
             <div class="no">06</div>
             <div>
-              <div class="t">預期效益</div>
+              <div class="t">Our Team</div>
             </div>
           </div>
           <div class="tocItem" data-go="23">
             <div class="no">07</div>
             <div>
-              <div class="t">Our Team</div>
+              <div class="t">Thank You</div>
             </div>
           </div>
         </div>
       </section>
 
-      <!-- ═════ 3 章節 01 ═════ -->
       <section class="slide dark" id="s3">
         <div class="divInner">
           <div class="divTag">CHAPTER 01</div>
@@ -1879,7 +3020,6 @@
         <div class="divNum">01</div>
       </section>
 
-      <!-- ═════ 4 公司簡介 ═════ -->
       <section class="slide" id="s4">
         <div class="kicker">COMPANY PROFILE</div>
         <h2 class="stitle">風琦有限公司</h2>
@@ -1918,16 +3058,14 @@
         </div>
       </section>
 
-      <!-- ═════ 10 章節 03 ═════ -->
       <section class="slide dark" id="s10">
         <div class="divInner">
           <div class="divTag">CHAPTER 02</div>
           <div class="divTitle">訂單完整過程</div>
-          <div class="divSub">從印刷開始到完成品，六站現場實錄</div>
+          <div class="divSub">把六站現場作業，濃縮成三段管理流程</div>
           <div style="display:flex;gap:14px;margin-top:46px;flex-wrap:wrap">
-            <span class="chip sky">① 設計整檔</span><span class="chip sky">② 接單發包</span><span class="chip sky">③
-              噴墨列印</span><span class="chip sky">④ 冷裱貼合</span><span class="chip sky">⑤ 裁切雷切</span><span
-              class="chip sky">⑥ 清點出貨</span>
+            <span class="chip sky">① 需求整檔與發包</span><span class="chip sky">② 列印與後加工</span><span class="chip sky">③
+              清點交付與請款</span>
           </div>
           <div class="dots"><span></span><span class="on"></span><span></span><span></span><span></span><span></span>
           </div>
@@ -1935,186 +3073,120 @@
         <div class="divNum">02</div>
       </section>
 
-      <!-- ═════ 11 設計整檔（STEP1） ═════ -->
-      <section class="slide hasPhoto" id="s11">
-        <div class="kicker">STEP 1／6</div>
-        <h2 class="stitle" style="font-size:64px">設計與整檔</h2>
-        <div class="stepTrail"><span
-            class="on">①設計整檔</span><span>②接單發包</span><span>③噴墨列印</span><span>④冷裱貼合</span><span>⑤裁切雷切</span><span>⑥清點出貨</span>
-        </div>
-        <div class="ptList">
-          <div class="ptItem">
-            <div class="ic">💬</div>
-            <div class="tx">與客戶<b>溝通並整理檔案</b></div>
+      <section class="slide" id="s11">
+        <div class="kicker">PRODUCT PROCESS｜01</div>
+        <h2 class="stitle" style="font-size:60px">產品製作流程</h2>
+        <div class="productStage">前置作業｜需求確認到現場派工</div>
+        <div class="productFlow">
+          <div class="productStep">
+            <div class="productImage"><img src="img/design-dept.jpg" style="object-position:left center">
+              <div class="stepNo">01</div>
+            </div>
+            <div class="productCopy">
+              <h3>設計整檔</h3>
+              <p>確認檔案、尺寸、色彩與材質。</p>
+            </div>
           </div>
-          <div class="ptItem">
-            <div class="ic">🎯</div>
-            <div class="tx">確認色彩、尺寸後<b>開立發包單</b></div>
+          <div class="productStep">
+            <div class="productImage contain"><img src="img/order-form.png">
+              <div class="stepNo">02</div>
+            </div>
+            <div class="productCopy">
+              <h3>建立發包單</h3>
+              <p>將規格轉成現場作業單。</p>
+            </div>
           </div>
-        </div>
-        <div class="photoSide">
-          <div class="phFill"><img src="img/design-dept.jpg" style="object-position:left center">
-            <div class="pcap">設計部｜輸出前整檔</div>
-          </div>
-        </div>
-      </section>
-
-      <!-- ═════ 12 接單發包（STEP2） ═════ -->
-      <section class="slide hasPhoto" id="s12">
-        <div class="kicker">STEP 2／6</div>
-        <h2 class="stitle" style="font-size:64px">接單與發包單</h2>
-        <div class="stepTrail"><span>①設計整檔</span><span
-            class="on">②接單發包</span><span>③噴墨列印</span><span>④冷裱貼合</span><span>⑤裁切雷切</span><span>⑥清點出貨</span></div>
-        <div class="ptList">
-          <div class="ptItem warn">
-            <div class="ic">🧠</div>
-            <div class="tx">排程靠<b>老闆經驗</b>判斷</div>
-          </div>
-          <div class="ptItem">
-            <div class="ic">⌨️</div>
-            <div class="tx">需求轉成一張張<b>內部發包單</b></div>
-          </div>
-          <div class="ptItem">
-            <div class="ic">🧱</div>
-            <div class="tx">貼上牆＝現場生產<b>唯一依據</b></div>
-          </div>
-          <div class="ptItem warn">
-            <div class="ic">⚠️</div>
-            <div class="tx">大案子<b>上百張</b></div>
-          </div>
-        </div>
-        <div class="photoSide">
-          <div class="ph"><img src="img/order-wall.jpg">
-            <div class="pcap">發包單牆｜依案件張貼追蹤</div>
-          </div>
-          <div class="ph"><img src="img/order-form.png" style="object-fit:contain;background:#fff">
-            <div class="pcap">發包單｜規格與數量</div>
+          <div class="productStep hot">
+            <div class="productImage"><img src="img/order-wall.jpg">
+              <div class="stepNo">03</div>
+            </div>
+            <div class="productCopy">
+              <h3>現場派工</h3>
+              <p>發包單上牆，安排加工順序。</p>
+            </div>
           </div>
         </div>
       </section>
 
-      <!-- ═════ 13 噴墨列印（STEP3） ═════ -->
-      <section class="slide hasPhoto" id="s13">
-        <div class="kicker">STEP 3／6</div>
-        <h2 class="stitle" style="font-size:64px">噴墨列印</h2>
-        <div class="stepTrail"><span>①設計整檔</span><span>②接單發包</span><span
-            class="on">③噴墨列印</span><span>④冷裱貼合</span><span>⑤裁切雷切</span><span>⑥清點出貨</span></div>
-        <div class="ptList">
-          <div class="ptItem">
-            <div class="ic">🖨️</div>
-            <div class="tx"><b>捲料列印 ×3</b>：海報、布旗軟材</div>
+      <section class="slide" id="s12">
+        <div class="kicker">PRODUCT PROCESS｜02</div>
+        <h2 class="stitle" style="font-size:60px">產品製作流程</h2>
+        <div class="productStage">印刷與加工｜輸出到成型</div>
+        <div class="productFlow four">
+          <div class="productStep">
+            <div class="productImage"><img src="img/roll-printers-3.jpg">
+              <div class="stepNo">04</div>
+            </div>
+            <div class="productCopy">
+              <h3>捲料列印</h3>
+              <p>海報、布旗等軟材輸出。</p>
+            </div>
           </div>
-          <div class="ptItem">
-            <div class="ic">💠</div>
-            <div class="tx"><b>UV 平板直噴</b>：板材、壓克力硬材</div>
+          <div class="productStep">
+            <div class="productImage"><img src="img/uv-printer.jpg">
+              <div class="stepNo">05</div>
+            </div>
+            <div class="productCopy">
+              <h3>UV 直噴</h3>
+              <p>板材、壓克力等硬材輸出。</p>
+            </div>
           </div>
-        </div>
-        <div class="photoSide">
-          <div class="ph"><img src="img/roll-printers-3.jpg">
-            <div class="pcap">三台捲料列印機</div>
+          <div class="productStep">
+            <div class="productImage"><img src="img/cold-laminate.jpg">
+              <div class="stepNo">06</div>
+            </div>
+            <div class="productCopy">
+              <h3>冷裱貼合</h3>
+              <p>上膜保護，貼合板材。</p>
+            </div>
           </div>
-          <div class="ph"><img src="img/uv-printer.jpg">
-            <div class="pcap">UV 墨水印刷機</div>
-          </div>
-        </div>
-      </section>
-
-      <!-- ═════ 14 冷裱貼合／後加工（STEP4，三張照片） ═════ -->
-      <section class="slide hasPhoto" id="s14">
-        <div class="kicker">STEP 4／6</div>
-        <h2 class="stitle" style="font-size:64px">後加工｜冷裱・貼合・裁切</h2>
-        <div class="stepTrail"><span>①設計整檔</span><span>②接單發包</span><span>③噴墨列印</span><span
-            class="on">④冷裱貼合</span><span>⑤裁切雷切</span><span>⑥清點出貨</span></div>
-        <div class="ptList">
-          <div class="ptItem">
-            <div class="ic">🛡️</div>
-            <div class="tx"><b>冷裱上膜</b>：防刮、防潑水、耐候</div>
-          </div>
-          <div class="ptItem">
-            <div class="ic">📐</div>
-            <div class="tx"><b>貼合板材</b>：珍珠板、PP 板</div>
-          </div>
-          <div class="ptItem">
-            <div class="ic">✂️</div>
-            <div class="tx"><b>裁切修整</b>：修邊、裁成品尺寸</div>
-          </div>
-        </div>
-        <div class="photoSide">
-          <div class="ph"><img src="img/cold-laminate.jpg">
-            <div class="pcap">冷裱｜表面上膜保護</div>
-          </div>
-          <div class="ph"><img src="img/laminator.jpg">
-            <div class="pcap">貼合機</div>
-          </div>
-          <div class="ph"><img src="img/cutting.jpg">
-            <div class="pcap">裁切修整</div>
+          <div class="productStep hot">
+            <div class="productImage"><img src="img/laser-cutter.jpg">
+              <div class="stepNo">07</div>
+            </div>
+            <div class="productCopy">
+              <h3>裁切雷切</h3>
+              <p>修邊、異形與立體加工。</p>
+            </div>
           </div>
         </div>
       </section>
 
-      <!-- ═════ 15 裁切雷切（STEP5） ═════ -->
-      <section class="slide hasPhoto" id="s15">
-        <div class="kicker">STEP 5／6</div>
-        <h2 class="stitle" style="font-size:64px">雷射切割與特殊加工</h2>
-        <div class="stepTrail"><span>①設計整檔</span><span>②接單發包</span><span>③噴墨列印</span><span>④冷裱貼合</span><span
-            class="on">⑤裁切雷切</span><span>⑥清點出貨</span></div>
-        <div class="ptList">
-          <div class="ptItem">
-            <div class="ic">⚡</div>
-            <div class="tx"><b>雷射切割</b>：壓克力、立體字異形</div>
+      <section class="slide" id="s13">
+        <div class="kicker">PRODUCT PROCESS｜03</div>
+        <h2 class="stitle" style="font-size:60px">產品製作流程</h2>
+        <div class="productStage">完工交付｜清點到驗收</div>
+        <div class="productFlow">
+          <div class="productStep">
+            <div class="productImage"><img src="img/finished-goods.jpg">
+              <div class="stepNo">08</div>
+            </div>
+            <div class="productCopy">
+              <h3>成品清點</h3>
+              <p>確認品項、數量與品質。</p>
+            </div>
           </div>
-          <div class="ptItem">
-            <div class="ic">🧩</div>
-            <div class="tx"><b>特殊加工</b>：立體字、造型道具</div>
+          <div class="productStep">
+            <div class="productImage"><img src="img/special-material.jpg">
+              <div class="stepNo">09</div>
+            </div>
+            <div class="productCopy">
+              <h3>包裝備料</h3>
+              <p>特殊件與施工工具備齊。</p>
+            </div>
           </div>
-          <div class="ptItem">
-            <div class="ic">🔍</div>
-            <div class="tx"><b>品檢</b>：不合格報廢重作</div>
-          </div>
-        </div>
-        <div class="photoSide">
-          <div class="ph"><img src="img/laser-cutter.jpg">
-            <div class="pcap">雷射切割機</div>
-          </div>
-          <div class="ph"><img src="img/special-material.jpg">
-            <div class="pcap">特殊加工物料｜立體字</div>
-          </div>
-        </div>
-      </section>
-
-      <!-- ═════ 16 清點出貨（STEP6） ═════ -->
-      <section class="slide hasPhoto" id="s16">
-        <div class="kicker">STEP 6／6</div>
-        <h2 class="stitle" style="font-size:64px">清點・出貨・施工驗收</h2>
-        <div class="stepTrail">
-          <span>①設計整檔</span><span>②接單發包</span><span>③噴墨列印</span><span>④冷裱貼合</span><span>⑤裁切雷切</span><span
-            class="on">⑥清點出貨</span>
-        </div>
-        <div class="ptList">
-          <div class="ptItem">
-            <div class="ic">📦</div>
-            <div class="tx"><b>清點</b>品項、數量、施工工具</div>
-          </div>
-          <div class="ptItem">
-            <div class="ic">🚚</div>
-            <div class="tx"><b>配送＋現場安裝</b>，客戶驗收</div>
-          </div>
-          <div class="ptItem warn">
-            <div class="ic">💸</div>
-            <div class="tx"><b>完成品經人工彙整後請款</b></div>
-          </div>
-        </div>
-        <div class="photoSide">
-          <div class="ph"><img src="img/finished-goods.jpg">
-            <div class="pcap">成品清點區</div>
-          </div>
-          <div class="ph"><img src="img/site-installation.jpg" style="object-position:center center">
-            <div class="pcap">現場施工｜展覽館攤位安裝</div>
+          <div class="productStep hot">
+            <div class="productImage"><img src="img/site-installation.jpg" style="object-position:center center">
+              <div class="stepNo">10</div>
+            </div>
+            <div class="productCopy">
+              <h3>施工驗收</h3>
+              <p>配送安裝，完成客戶驗收。</p>
+            </div>
           </div>
         </div>
       </section>
 
-      <!-- ═════ 6 章節 02 ═════ -->
       <section class="slide dark" id="s6">
         <div class="divInner">
           <div class="divTag">CHAPTER 03</div>
@@ -2130,11 +3202,10 @@
         <div class="divNum">03</div>
       </section>
 
-      <!-- ═════ 7-9 流程圖 ═════ -->
       <section class="slide" id="s7" style="padding:36px 40px 40px">
         <div class="flowHead">
           <h2 style="white-space:nowrap">流程圖 ①｜接單與報價</h2>
-          <div class="flowPager"><span class="on">① 接單報價</span><span data-go="14">② 生產製造</span><span data-go="15">③
+          <div class="flowPager"><span class="on">① 接單報價</span><span data-go="11">② 生產製造</span><span data-go="12">③
               交付請款</span></div>
         </div>
         <div class="flowFull" id="fbox1"></div>
@@ -2142,7 +3213,7 @@
       <section class="slide" id="s8" style="padding:36px 40px 40px">
         <div class="flowHead">
           <h2 style="white-space:nowrap">流程圖 ②｜生產製造</h2>
-          <div class="flowPager"><span data-go="13">① 接單報價</span><span class="on">② 生產製造</span><span data-go="15">③
+          <div class="flowPager"><span data-go="10">① 接單報價</span><span class="on">② 生產製造</span><span data-go="12">③
               交付請款</span></div>
         </div>
         <div class="flowFull" id="fbox2"></div>
@@ -2150,17 +3221,16 @@
       <section class="slide" id="s9" style="padding:36px 40px 40px">
         <div class="flowHead">
           <h2 style="white-space:nowrap">流程圖 ③｜交付與請款</h2>
-          <div class="flowPager"><span data-go="13">① 接單報價</span><span data-go="14">② 生產製造</span><span class="on">③
+          <div class="flowPager"><span data-go="10">① 接單報價</span><span data-go="11">② 生產製造</span><span class="on">③
               交付請款</span></div>
         </div>
         <div class="flowFull" id="fbox3"></div>
       </section>
 
-      <!-- ═════ 17 章節 04 痛點 ═════ -->
       <section class="slide dark" id="s17">
         <div class="divInner">
           <div class="divTag">CHAPTER 04</div>
-          <div class="divTitle">痛點</div>
+          <div class="divTitle">痛點與解決方法</div>
 
           <div class="dots"><span></span><span></span><span></span><span class="on"></span><span></span><span></span>
           </div>
@@ -2168,35 +3238,194 @@
         <div class="divNum">04</div>
       </section>
 
-      <!-- ═════ 18 痛點一 現況→後果 ═════ -->
-      <section class="slide" id="s18">
-        <div class="kicker" style="color:#B45309">PAIN｜現況 → 後果</div>
-        <h2 class="stitle" style="font-size:60px">痛點：發包單無法即時追蹤訂單＆金額</h2>
+      <section class="slide storySlide" id="pain-core">
+        <div class="kicker">CORE DIAGNOSIS</div>
+        <h2 class="stitle" style="font-size:60px">流程中的問題點，讓營收無法完整轉化</h2>
+        <div class="processFlow"
+          style="grid-template-columns:1.05fr .22fr .24fr .22fr 1.05fr .22fr .78fr .22fr 1.05fr .22fr .24fr .22fr 1.05fr;margin-top:34px">
+          <div class="processNode">客戶接洽</div>
+          <div class="processArrow">→</div>
+          <div class="questionMark">?</div>
+          <div class="processArrow">→</div>
+          <div class="processNode">生產排程</div>
+          <div class="processArrow">→</div>
+          <div class="processNode">生產</div>
+          <div class="processArrow">→</div>
+          <div class="processNode">完工回報</div>
+          <div class="processArrow">→</div>
+          <div class="questionMark">?</div>
+          <div class="processArrow">→</div>
+          <div class="processNode">請款收款</div>
+        </div>
+        <div class="breakGrid">
+          <div class="breakCard blue">
+            <span class="eyebrow">問題點</span>
+            <h3>訂單沒有轉成可計算產能</h3>
+            <div class="miniImpact">成長受限｜不敢接單、少賺錢</div>
+          </div>
+          <div class="breakCard">
+            <span class="eyebrow">問題點</span>
+            <h3>完工資料沒有即時形成請款依據</h3>
+            <div class="miniImpact">收入流失｜漏請款、少請款</div>
+          </div>
+        </div>
+        <div class="keybar warn"><span class="tag">核心訊息</span>風琦不是沒有訂單，而是缺少一條能追蹤訂單、產能、完工與請款的數位路徑。</div>
+      </section>
+
+      <section class="slide storySlide" id="pain-billing">
+        <div class="kicker" style="color:#B45309">PAIN 1｜現況 → 後果</div>
+        <h2 class="stitle" style="font-size:60px">痛點一：工作做完，不一定完整變成收入</h2>
         <div class="painGrid">
           <div class="painCard blue">
             <h3><span class="pnum">現</span>現況</h3>
-            <li>老客戶<b>月結</b>、做完才請款，<b>沒有正式報價</b></li>
-            <li>沿用歷史價格，大案<b>上百張發包單</b></li>
-            <li>發包單是生產依據，<b>單上沒有價格</b></li>
-            <li><b>發包單＝報價單＝生產單＝訂單＝請款依據</b></li>
+            <li>老客戶常以月結處理，<b>未建立報價單</b>。</li>
+            <li>追加與修改多靠口頭或人工紀錄，<b>追加缺乏制度化紀錄</b>。</li>
+            <li>完工後才回收發包單與 Excel，請款依據需要人工彙整。</li>
           </div>
           <div class="painCard">
-            <h3><span class="pnum">果</span>後果</h3>
-            <li>月底一張張人工核對，容易<b>漏請、少請</b></li>
-            <li>完工無法即時形成<b>應收帳款</b></li>
-            <li>常<b>延後 3–5 個月請款</b>，成本先付、現金流吃緊</li>
+            <h3><span class="pnum">果</span>後果/風險</h3>
+            <li>案件進行中無法即時掌握可請款金額。</li>
+            <li>月底人工逐張核對，容易<b>漏請、少請</b>。</li>
+            <li><b>延後 3-5 個月</b>請款，材料與人力成本先墊付。</li>
           </div>
         </div>
-        <div class="keybar warn raised"><span class="tag">核心訊息</span>發包單不能即時帶出金額，完工就不會自動變成請款資料，收款一延就是 3–5 個月。</div>
+        <div class="keybar warn raised"><span class="tag">核心訊息</span>漏請款不是行政小錯，而是公司已完成的工作，沒有完整轉成收入。</div>
       </section>
 
+      <section class="slide storySlide" id="solution-billing">
+        <div class="kicker">SOLUTION 1｜SD + FI-AR</div>
+        <h2 class="stitle" style="font-size:52px">把報價依據先建進 SAP，避免月底漏請少請</h2>
+        <div class="billingLead">
+          <b>管理轉變</b>
+          <span>請款風險往前控管：從「完工後找金額」轉為「接單時即建立可請款依據」。</span>
+        </div>
+        <div class="billingTableCard">
+          <table class="billingTable" aria-label="P19 報價與請款解法表">
+            <colgroup>
+              <col style="width:20%">
+              <col style="width:26%">
+              <col style="width:36%">
+              <col style="width:18%">
+            </colgroup>
+            <thead>
+              <tr>
+                <th>項目</th>
+                <th>現況問題</th>
+                <th>導入後做法</th>
+                <th>SAP 對應</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>建立當下資訊</td>
+                <td>金額容易缺漏</td>
+                <td class="after">尺寸、材料、加工與金額一次完整建立</td>
+                <td><span class="tcode">VK11 / VA01</span></td>
+              </tr>
+              <tr>
+                <td>價格來源</td>
+                <td>靠老闆記憶與歷史報價</td>
+                <td class="after">客戶專屬價格條件記錄</td>
+                <td><span class="tcode">VK11</span></td>
+              </tr>
+              <tr>
+                <td>累計金額</td>
+                <td>執行中無法即時查詢</td>
+                <td class="after">查詢客戶當月累計金額</td>
+                <td><span class="tcode">VA05</span></td>
+              </tr>
+              <tr>
+                <td>老客戶報價</td>
+                <td>完工後才回頭核算</td>
+                <td class="after">年度條件或既有訂單比價</td>
+                <td><span class="tcode">VA41</span></td>
+              </tr>
+              <tr>
+                <td>後續處理</td>
+                <td>月底人工彙整</td>
+                <td class="after">系統資料銜接開票流程</td>
+                <td><span class="tcode">VA01</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="keybar"><span class="tag">核心訊息</span>在接單與報價當下建立金額、價格條件與累計查詢依據，讓後續開票不再依賴人工回想與月底彙整。</div>
+      </section>
 
-      <!-- ═════ 21 章節 05 ═════ -->
+      <section class="slide storySlide" id="pain-capacity">
+        <div class="kicker" style="color:#B45309">PAIN 2｜現況 → 後果</div>
+        <h2 class="stitle" style="font-size:60px">痛點二：生產排程靠老闆經驗</h2>
+        <div class="p5Visual">
+          <div class="p5Panel">
+            <h3><span class="pnum">現</span>現況</h3>
+            <div class="p5Point">
+              <div class="label">接單</div>
+              <div class="text">能否接單，主要依賴<b>老闆經驗</b>判斷。</div>
+            </div>
+            <div class="p5Point">
+              <div class="label">負荷</div>
+              <div class="text">缺乏<b>設備、人力</b>即時負荷資訊。</div>
+            </div>
+            <div class="p5Point">
+              <div class="label">產能</div>
+              <div class="text">產能尚未被<b>系統化</b>記錄與計算。</div>
+            </div>
+          </div>
+          <div class="p5Hub">
+            <div class="hubBox">
+              <div class="main">經驗<br>判斷</div>
+              <div class="sub">不可量化<br>不可交接</div>
+            </div>
+          </div>
+          <div class="p5Panel risk">
+            <h3><span class="pnum">果</span>後果</h3>
+            <div class="riskLine">
+              <b>高估產能</b> <span class="arrow">→</span> 接了做不完：延誤、加班、品質風險
+            </div>
+            <div class="riskLine">
+              <b>低估產能</b> <span class="arrow">→</span> 不敢接：營收機會流失
+            </div>
+            <div class="riskLine final">
+              判斷集中在老闆，<b>無法交接與驗證</b>
+            </div>
+          </div>
+        </div>
+        <div class="keybar warn"><span class="tag">核心訊息</span>產能不是沒有，而是沒有被看見、計算與管理；接單決策仍壓在老闆一個人身上。</div>
+      </section>
+
+      <section class="slide storySlide" id="solution-capacity">
+        <div class="kicker">SOLUTION 2｜SD + PP + MM</div>
+        <h2 class="stitle" style="font-size:60px">把訂單轉成可計算、可承諾的產能</h2>
+        <div class="threeGrid">
+          <div class="moduleCard">
+            <span class="label">SD 銷售配銷</span>
+            <h3>訂單需求數位化</h3>
+            <li>客戶需求先轉成<b>銷售訂單</b>。</li>
+            <li>交期承諾回到系統狀態，不只留在行事曆。</li>
+            <li>可回看客戶、品項、金額與交付紀錄。</li>
+          </div>
+          <div class="moduleCard">
+            <span class="label">PP 生產規劃</span>
+            <h3>工序與工作中心</h3>
+            <li>印刷、冷裱、裁切、施工拆成<b>可排程工作</b>。</li>
+            <li>看見設備、人力負荷與瓶頸。</li>
+            <li>實際工時與重工可回寫，形成改善依據。</li>
+          </div>
+          <div class="moduleCard gold">
+            <span class="label">MM 物料管理</span>
+            <h3>材料與採購需求</h3>
+            <li>確認卷材、墨水、板材是否足夠。</li>
+            <li>接單前看見<b>缺料風險</b>。</li>
+          </div>
+        </div>
+        <div class="keybar warn"><span class="tag">管理轉變</span>接單從「老闆覺得做不做得完」，轉成「系統看見負荷、材料與可承諾交期」。</div>
+      </section>
+
       <section class="slide dark" id="s21">
         <div class="divInner">
           <div class="divTag">CHAPTER 05</div>
-          <div class="divTitle">解決方法與效益</div>
-          <div class="divSub">把老闆經驗，變成可查詢、可彙整、可交接的營運資料</div>
+          <div class="divTitle">預期效益</div>
+          <div class="divSub">質化、量化效益</div>
           <div class="dots"><span></span><span></span><span></span><span></span><span class="on"></span><span></span>
           </div>
         </div>
@@ -2205,317 +3434,86 @@
 
 
 
-      <!-- ═════ 22 解決方法一：帶價發包單 ═════ -->
-      <section class="slide" id="s22">
-        <div class="solutionTop">
-          <div>
-            <div class="kicker">SOLUTION 01｜SD</div>
-            <h2 class="stitle" style="font-size:56px">發包單建立當下即產生金額</h2>
-          </div>
+      <section class="slide storySlide" id="benefit-scheduling-qual">
+        <div class="kicker">質化效益｜PP VISIBILITY</div>
+        <h2 class="stitle" style="font-size:58px">生產排程可視化：接得更多、管得更輕鬆</h2>
+        <div class="qualLead">
+          <b>預期效益</b>
+          <span>產能看得見，接單更有把握；老闆也能把時間從盯現場轉回客戶關係與經營決策。</span>
         </div>
-        <div class="tableGrid">
-          <div class="tablePanel">
-            <h3>現況與導入後對照</h3>
-            <table class="solutionTable">
-              <thead>
-                <tr>
-                  <th style="width:30%">項目</th>
-                  <th>現況</th>
-                  <th>導入後</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>建立當下資訊</td>
-                  <td>尺寸、材料、加工；<b>金額缺漏</b></td>
-                  <td>尺寸、材料、加工、<b>金額完整</b></td>
-                </tr>
-                <tr>
-                  <td>價格來源</td>
-                  <td>老闆記憶、歷史報價單</td>
-                  <td><code>VK11</code> 客戶專屬條件記錄</td>
-                </tr>
-                <tr>
-                  <td>累計金額</td>
-                  <td>案件執行中無法查詢</td>
-                  <td><code>VA05</code> 即時查詢</td>
-                </tr>
-                <tr>
-                  <td>老客戶報價</td>
-                  <td>不報價，完工後回頭核算</td>
-                  <td><code>VA41</code> 比照之前訂單</td>
-                </tr>
-                <tr>
-                  <td>後續處理</td>
-                  <td>歸檔待月底人工彙整</td>
-                  <td>系統中已形成待開票金額</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-          <div class="tablePanel">
-            <h3>四項功能對應 SD 模組</h3>
-            <table class="solutionTable">
-              <thead>
-                <tr>
-                  <th style="width:20%">Tcode</th>
-                  <th style="width:32%">功能</th>
-                  <th>取代現行作法</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td><code>VK11</code></td>
-                  <td>客戶 x 材料專屬單價</td>
-                  <td>老闆記憶與歷史報價單</td>
-                </tr>
-                <tr>
-                  <td><code>VA41</code></td>
-                  <td>老客戶年度價值合約</td>
-                  <td>熟客不報價的口頭默契</td>
-                </tr>
-                <tr>
-                  <td><code>VA01</code></td>
-                  <td>銷售訂單，數位發包單</td>
-                  <td>紙本發包單</td>
-                </tr>
-                <tr>
-                  <td><code>VA05</code></td>
-                  <td>客戶當月累計金額</td>
-                  <td><b>人工核對金額</b></td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-        <div class="keybar" style="margin-bottom: 10px;">把老闆記憶與歷史報價單，轉成 SAP
-          可查詢、可累計、可交接的價格資料。</div>
-      </section>
-
-      <!-- ═════ 23 解決方法二：現金週期 ═════ -->
-      <section class="slide dark" id="s23">
-
-        <div class="solutionTop">
-          <div>
-            <div class="kicker" style="color:var(--sky)">SOLUTION 02｜SD + FI</div>
-            <h2 class="stitle" style="font-size:56px">現金週期由 193 天縮短至 80 天</h2>
-          </div>
-
-
-        </div>
-        <div class="quoteStrip" style="margin-bottom: 15px;">老闆說：「案子結束後，可能三到五個月後，我們才請到這個款。」</div>
-        <div class="cashGrid">
-          <div class="tablePanel">
-            <h3>現金週期對照</h3>
-            <table class="solutionTable">
-              <thead>
-                <tr>
-                  <th style="width:24%">時間點</th>
-                  <th>現況</th>
-                  <th>導入後</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>Day 0</td>
-                  <td>完工，100+ 張發包單收回辦公室</td>
-                  <td><code>VL01N</code> 交貨過帳</td>
-                </tr>
-                <tr>
-                  <td>Day 1-90</td>
-                  <td>發包單歸檔待處理</td>
-                  <td>資料已在系統內</td>
-                </tr>
-                <tr>
-                  <td>Day 90-150</td>
-                  <td>逐張核對、彙整 Excel</td>
-                  <td><b>Day 7</b> 以 <code>VF04</code> 篩選待開票</td>
-                </tr>
-                <tr>
-                  <td>開立發票</td>
-                  <td>平均 Day 120</td>
-                  <td><code>VF01</code> 批次開票</td>
-                </tr>
-                <tr>
-                  <td><b>總計</b></td>
-                  <td><b>193 天</b></td>
-                  <td><b>80 天</b></td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-          <div class="tablePanel">
-            <h3>流程橫跨 SD 與 FI</h3>
-            <table class="solutionTable">
-              <thead>
-                <tr>
-                  <th style="width:20%">模組</th>
-                  <th style="width:24%">Tcode</th>
-                  <th>功能</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>SD</td>
-                  <td><code>VL01N</code></td>
-                  <td>完工交貨／施工過帳</td>
-                </tr>
-                <tr>
-                  <td>SD</td>
-                  <td><code>VF04</code></td>
-                  <td>查詢待開票清單</td>
-                </tr>
-                <tr>
-                  <td>SD</td>
-                  <td><code>VF01</code></td>
-                  <td>開立發票，自動過帳至 FI</td>
-                </tr>
-                <tr>
-                  <td>FI</td>
-                  <td><code>FBL5N</code></td>
-                  <td>應收帳款明細與逾期天數</td>
-                </tr>
-                <tr>
-                  <td>FI</td>
-                  <td><code>F-28</code></td>
-                  <td>收款沖銷</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-
-      </section>
-
-      <!-- ═════ 23A 量化效益：營運資金 ═════ -->
-      <section class="slide" id="s23a">
-        <div class="solutionTop">
-          <div>
-            <div class="kicker">QUANTIFIED IMPACT</div>
-            <h2 class="stitle" style="font-size:56px">1,084 萬營運資金，可由請款流程釋放</h2>
-          </div>
-
-        </div>
-        <div class="tableGrid">
-          <div class="tablePanel">
-            <h3>每延遲一天，佔用 95,900 元</h3>
-            <table class="solutionTable">
-              <thead>
-                <tr>
-                  <th style="width:32%">項目</th>
-                  <th style="width:26%">數值</th>
-                  <th>說明</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>4 月未稅營收</td>
-                  <td>2,919,656</td>
-                  <td>4 月份請款明細表總計</td>
-                </tr>
-                <tr>
-                  <td>推估年營收</td>
-                  <td><b>約 3,500 萬</b></td>
-                  <td>2,919,656 x 12</td>
-                </tr>
-                <tr>
-                  <td>每日營收</td>
-                  <td><b>約 95,900 元</b></td>
-                  <td>3,500 萬 ÷ 365</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-          <div class="tablePanel">
-            <h3>縮短天數全部來自公司可控部分</h3>
-            <table class="solutionTable">
-              <thead>
-                <tr>
-                  <th style="width:24%">情境</th>
-                  <th>現金週期</th>
-                  <th>營運資金佔用</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>現況</td>
-                  <td>120 天 + 73 天 = <b>193 天</b></td>
-                  <td>95,900 x 193 = <b>約 1,851 萬</b></td>
-                </tr>
-                <tr>
-                  <td>導入後</td>
-                  <td>7 天 + 73 天 = <b>80 天</b></td>
-                  <td>95,900 x 80 = <b>約 767 萬</b></td>
-                </tr>
-                <tr>
-                  <td>差額</td>
-                  <td><b>縮短 113 天</b></td>
-                  <td><b>釋放約 1,084 萬</b></td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-        <div class="cashMetricRow">
-          <div class="cashMetric">
-            <div class="num">193 天</div>
-            <div class="label">現況：完工到收款總週期</div>
-          </div>
-          <div class="cashMetric">
-            <div class="num">80 天</div>
-            <div class="label">導入後：保留客戶付款條件</div>
-          </div>
-          <div class="cashMetric gold">
-            <div class="num">113 天</div>
-            <div class="label">公司內部流程可控縮短天數</div>
-          </div>
-        </div>
-      </section>
-
-      <!-- ═════ 23B 三項效益可量化 ═════ -->
-      <section class="slide" id="s23b">
-        <div class="solutionTop">
-          <div>
-            <div class="kicker">BENEFITS｜三項效益可量化</div>
-            <h2 class="stitle" style="font-size:56px">從金流壓力，到可追蹤的應收管理</h2>
-          </div>
-
-        </div>
-        <div class="quoteStrip" style="margin-top:30px">老闆訪談原話：「我們一直有嚴重金流的壓力。」</div>
-        <div class="benefitMatrix" style="margin-top:60px">
-          <div class="benefitCard gold">
-            <div class="idx">BENEFIT 01</div>
-            <h3>回流營運資金</h3>
-            <div class="compare">
-              <div>現況<br><b>1,851 萬佔用</b></div>
-              <div>導入後<br><b>767 萬佔用</b></div>
+        <div class="qualImpactGrid">
+          <div class="qualImpactCard">
+            <span class="pill">接單機會</span>
+            <h3>提高產能判斷精準度</h3>
+            <div class="beforeAfter">
+              <div><b>導入前</b>：訂單集中時看不清實際產能，容易因「感覺很滿」而保守拒單。</div>
+              <div><b>導入後</b>：依據設備、人力與工序負荷判斷可承接訂單與排程調整。</div>
             </div>
-            <div class="result"> 1,084 萬現金</div>
           </div>
-          <div class="benefitCard green">
-            <div class="idx">BENEFIT 02</div>
-            <h3>應收帳款可視化</h3>
-            <div class="compare">
-              <div>現況<br><b>62.5% 無追蹤</b></div>
-              <div>導入後<br><b><code>FBL5N</code> 帳齡分析</b></div>
+          <div class="qualImpactCard gold">
+            <span class="pill">管理時間</span>
+            <h3>降低老闆親自盯產線</h3>
+            <div class="beforeAfter">
+              <div><b>導入前</b>：現場進度、插單、重工與生產時間都需要老闆親自確認。</div>
+              <div><b>導入後</b>：生產進度、工序狀態與異常資訊在系統中呈現。</div>
             </div>
-            <div class="result">追蹤覆蓋率 37.5% → 100%</div>
           </div>
-          <div class="benefitCard">
-            <div class="idx">BENEFIT 03</div>
-            <h3>建單即知金額</h3>
-            <div class="compare">
-              <div>現況<br><b>發包單無金額</b></div>
-              <div>導入後<br><b><code>VK11</code> 自動帶價</b></div>
+          <div class="qualImpactCard green">
+            <span class="pill">知識累積</span>
+            <h3>建立可交接的排程知識</h3>
+            <div class="beforeAfter">
+              <div><b>導入前</b>：排程經驗與客戶溝通多留在人身上，難以複製與交接。</div>
+              <div><b>導入後</b>：預估工時、實際工時、修改內容與完工狀態可累積成紀錄。</div>
             </div>
-            <div class="result">金額可視延遲 120 天 → 0 天</div>
           </div>
         </div>
-
-        <div class="keybar" style="margin-bottom:60px">本推算未調整「開發票→收款」73 天；1,084 萬效益全數來自公司內部即可改善的 113 天。</div>
       </section>
 
-      <!-- ═════ 24 Our Team ═════ -->
+      <section class="slide storySlide" id="benefit-cash-release">
+        <div class="kicker">量化效益｜AR COLLECTION</div>
+        <h2 class="stitle" style="font-size:58px">縮短 113 天，收回應收 1,084 萬帳款</h2>
+        <div class="quantStrip blue">
+          <b>非利潤</b>
+          <span>這是把原本應收的帳款提早收回，降低墊款與週轉壓力，屬現金流改善效果。</span>
+        </div>
+        <div class="quantLayout">
+          <div class="cashPanel">
+            <div class="cashBig">113 天</div>
+            <div class="cashLabel">縮短全部來自完工到開發票流程</div>
+            <div class="cashDelta">
+              <div>193 天</div>
+              <div class="arr">→</div>
+              <div>80 天</div>
+            </div>
+            <div class="cashNote">
+              客戶付款條件 <b>73 天不動</b>；改善重點是把完工到開發票由約 <b>120 天</b> 壓縮至 <b>7 天內</b>。
+            </div>
+          </div>
+          <div class="quantVisual">
+            <div class="arTimelineVisual" aria-label="完工到開發票與應收帳款收回週期">
+              <div class="row">
+                <div class="label">現況</div>
+                <div class="barWrap">
+                  <div class="bar blue">完工到開發票 120 天</div>
+                  <div class="bar gray">客戶 73 天</div>
+                </div>
+                <div class="total">= 193 天</div>
+              </div>
+              <div class="row after">
+                <div class="label">導入後</div>
+                <div class="barWrap">
+                  <div class="bar blue">7天</div>
+                  <div class="bar gray">客戶 73 天</div>
+                </div>
+                <div class="total">= 80 天</div>
+              </div>
+              <div class="improve">縮短 113 天 - 公司內部即可自主改善</div>
+            </div>
+            <div class="arMiniNote">每日營收約 <b>95,900 元</b> × <b>113 天</b>，可提早收回約 <b>1,084 萬</b>應收帳款，改善現金周轉能力。</div>
+          </div>
+        </div>
+      </section>
+
       <section class="slide" id="s24">
         <div class="kicker">OUR TEAM</div>
         <h2 class="stitle" style="font-size:60px">顧問團隊 ALIVE｜SAP 模組分工</h2>
@@ -2523,14 +3521,14 @@
           <div class="member"><img src="img/team-betty.jpg" alt="Betty">
             <div class="nm">Betty</div><span class="rl">SD 銷售配銷</span>
           </div>
-          <div class="member"><img src="img/team-lisa.jpg" alt="Lisa">
-            <div class="nm">Lisa</div><span class="rl">MM 物料管理</span>
+          <div class="member"><img src="img/team-yao.jpg" alt="Yao">
+            <div class="nm">Yao</div><span class="rl">FI 財務會計</span>
           </div>
           <div class="member"><img src="img/team-victor.jpg" alt="Victor">
             <div class="nm">Victor</div><span class="rl">PP 生產規劃</span>
           </div>
-          <div class="member"><img src="img/team-yao.jpg" alt="Yao">
-            <div class="nm">Yao</div><span class="rl">FI 財務會計</span>
+          <div class="member"><img src="img/team-lisa.jpg" alt="Lisa">
+            <div class="nm">Lisa</div><span class="rl">MM 物料管理</span>
           </div>
           <div class="member"><img src="img/team-bella.jpg" alt="Bella">
             <div class="nm">Bella</div><span class="rl">CO 成本控制</span>
@@ -2538,7 +3536,6 @@
         </div>
       </section>
 
-      <!-- ═════ 25 謝謝 ═════ -->
       <section class="slide dark" id="s25">
         <div
           style="position:relative;z-index:2;height:100%;display:grid;grid-template-columns:1fr 700px;gap:70px;align-items:center">
@@ -2565,7 +3562,7 @@
     slides.forEach((s, i) => {
       if (i > 0) {
         const f = document.createElement('div'); f.className = 'foot';
-        f.innerHTML = '<b>風琦有限公司</b> × SAP 導入評估｜第一次報告';
+        f.innerHTML = '<b>風琦有限公司</b> × SAP 導入評估｜第二次報告';
         s.appendChild(f);
       }
       const p = document.createElement('div'); p.className = 'pgno'; p.textContent = (i + 1) + ' / ' + slides.length;

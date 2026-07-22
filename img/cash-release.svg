@@ -1,0 +1,32 @@
+<svg viewBox="0 0 680 400" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="訂單到收款週期縮短與營運資金釋放">
+<rect width="680" height="400" fill="#ffffff"/>
+<text x="0" y="22" fill="#0b0b0b" style="font-size:16px;font-weight:500">縮短的 113 天，全部來自公司內部可控流程</text>
+<text x="0" y="42" fill="#52514e" style="font-size:12px">深色＝公司內部可控　淺色＝客戶付款條件（不動）</text>
+<text x="0" y="76" fill="#0b0b0b" style="font-size:13px;font-weight:500">現況</text>
+<rect x="80" y="62" width="373" height="34" rx="4" fill="#B5D4F4" stroke="#378ADD"/>
+<rect x="455" y="62" width="127" height="34" rx="4" fill="#D3D1C7" stroke="#888780"/>
+<text x="88" y="84" fill="#042C53" style="font-size:13px;font-weight:500">內部 120 天</text>
+<text x="463" y="84" fill="#2C2C2A" style="font-size:13px">客戶 73 天</text>
+<text x="640" y="84" text-anchor="end" fill="#0b0b0b" style="font-size:14px;font-weight:500">= 193 天</text>
+<text x="0" y="130" fill="#0b0b0b" style="font-size:13px;font-weight:500">導入後</text>
+<rect x="80" y="116" width="22" height="34" rx="4" fill="#B5D4F4" stroke="#378ADD"/>
+<rect x="104" y="116" width="127" height="34" rx="4" fill="#D3D1C7" stroke="#888780"/>
+<text x="86" y="138" fill="#042C53" style="font-size:12px;font-weight:500">7</text>
+<text x="112" y="138" fill="#2C2C2A" style="font-size:13px">客戶 73 天</text>
+<text x="640" y="138" text-anchor="end" fill="#0b0b0b" style="font-size:14px;font-weight:500">= 80 天</text>
+<rect x="102" y="160" width="351" height="24" rx="4" fill="#FAC775" stroke="#EF9F27"/>
+<text x="277" y="177" text-anchor="middle" fill="#412402" style="font-size:13px;font-weight:500">縮短 113 天 — 公司內部即可自主改善</text>
+<line x1="0" y1="212" x2="680" y2="212" stroke="#c3c2b7" stroke-width="1"/>
+<text x="0" y="240" fill="#0b0b0b" style="font-size:14px;font-weight:500">營運資金佔用：每天 95,900 元 × 週期天數</text>
+<rect x="0" y="256" width="200" height="40" rx="8" fill="#E6F1FB" stroke="#378ADD"/>
+<text x="14" y="281" fill="#185FA5" style="font-size:12px">現況佔用</text>
+<text x="186" y="282" text-anchor="end" fill="#042C53" style="font-size:17px;font-weight:500">1,851 萬</text>
+<rect x="0" y="306" width="200" height="40" rx="8" fill="#E1F5EE" stroke="#1D9E75"/>
+<text x="14" y="331" fill="#0F6E56" style="font-size:12px">導入後佔用</text>
+<text x="186" y="332" text-anchor="end" fill="#04342C" style="font-size:17px;font-weight:500">767 萬</text>
+<text x="210" y="303" text-anchor="middle" fill="#854F0B" style="font-size:18px">→</text>
+<rect x="228" y="256" width="452" height="90" rx="8" fill="#FAEEDA" stroke="#EF9F27"/>
+<text x="248" y="288" fill="#412402" style="font-size:32px;font-weight:500">釋放約 1,080 萬</text>
+<text x="248" y="318" fill="#633806" style="font-size:14px;font-weight:500">營運資金釋放＝週轉改善，非額外利潤</text>
+<text x="248" y="337" fill="#854F0B" style="font-size:11px">差額 1,851 − 767 萬；未動客戶 73 天付款條件</text>
+</svg>

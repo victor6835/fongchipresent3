@@ -1,3 +1,4 @@
+import hashlib
 import re
 import unittest
 from html.parser import HTMLParser
@@ -5,7 +6,30 @@ from pathlib import Path
 
 
 HTML_PATH = Path(__file__).resolve().parents[1] / "webpresent.html"
-SITE_PHOTO_TARGET = HTML_PATH.parent / "img" / "site-installation.jpg"
+FLOW_INTERACTIONS_PATH = HTML_PATH.parent / "flow-interactions.js"
+INDEX_PATH = HTML_PATH.parent / "index.html"
+EXPECTED_SLIDE_IDS = [
+    "s1", "s2", "s3", "s4", "s10", "s11", "s12", "s13", "s6",
+    "s7", "s8", "s9", "s17", "pain-core", "pain-billing",
+    "solution-billing", "pain-capacity", "solution-capacity", "s21",
+    "benefit-scheduling-qual", "benefit-cash-release", "s24", "s25",
+]
+PROTECTED_HASHES = {
+    "flow_interactions": "5cbf2f7384885c5982dd195abfe45688426ad2af83377022023691f40a779729",
+    "flow_slides": "04cf9f0163cb56b2f04f24cd8b1248f990a71dbc3c89a4bbb06111aa81fb1384",
+    "navigation": "b02971e3a06a93c85dff9a3cd4e06301e8619c91644e255102b37747eabe3914",
+    "flow_script": "0f88f1522166de9dbe6a994eb2c3d0ffd6f03efea8d8002206bfa524a323b573",
+}
+
+
+def source_between(source, start_marker, end_marker):
+    start = source.index(start_marker)
+    end = source.index(end_marker, start)
+    return source[start:end]
+
+
+def sha256_text(value):
+    return hashlib.sha256(value.encode("utf-8")).hexdigest()
 
 
 class SlideParser(HTMLParser):
@@ -68,7 +92,8 @@ def section_source(source, section_id):
 
 
 def css_block(source, prelude):
-    match = re.search(rf"{re.escape(prelude)}\s*\{{", source)
+    pattern = re.escape(prelude).replace(",", r",\s*")
+    match = re.search(rf"{pattern}\s*\{{", source)
     if match is None:
         raise AssertionError(f"missing CSS block: {prelude}")
 
@@ -102,36 +127,67 @@ class WebpresentContentTest(unittest.TestCase):
         cls.source, cls.slides = load_deck()
         cls.by_id = {slide["id"]: slide for slide in cls.slides}
 
-    def test_deletes_p5_and_swaps_process_before_flowcharts(self):
-        self.assertEqual(24, len(self.slides))
-        self.assertNotIn("s5", self.by_id)
+    def test_second_report_slide_order_and_unique_ids(self):
+        slide_ids = [slide["id"] for slide in self.slides]
+        self.assertEqual(EXPECTED_SLIDE_IDS, slide_ids)
+        self.assertEqual(len(slide_ids), len(set(slide_ids)))
 
-        expected_markers = [
-            "訂單完整過程",
-            "設計與整檔",
-            "接單與發包單",
-            "噴墨列印",
-            "後加工｜冷裱・貼合・裁切",
-            "雷射切割與特殊加工",
-            "清點・出貨・施工驗收",
-            "流程圖 （As-Is）",
-            "流程圖 ①｜接單與報價",
-            "流程圖 ②｜生產製造",
-            "流程圖 ③｜交付與請款",
-            "痛點 兩個問題",
-        ]
-        ordered_text = [slide["text"] for slide in self.slides[4:16]]
-        for marker, text in zip(expected_markers, ordered_text):
-            self.assertIn(marker, text)
-        self.assertIn("CHAPTER 02", self.slides[4]["text"])
-        self.assertIn("CHAPTER 03", self.slides[11]["text"])
+    def test_second_report_content_markers(self):
+        expected = {
+            "s1": ["第二次報告", "從 Excel 到 SAP 數位轉型起點"],
+            "pain-core": ["流程中的問題點", "營收無法完整轉化"],
+            "pain-billing": ["工作做完，不一定完整變成收入", "漏請、少請"],
+            "solution-billing": ["SD + FI-AR", "接單時即建立可請款依據"],
+            "pain-capacity": ["生產排程靠老闆經驗", "無法交接與驗證"],
+            "solution-capacity": ["SD + PP + MM", "可承諾的產能"],
+            "benefit-scheduling-qual": ["生產排程可視化", "建立可交接的排程知識"],
+            "benefit-cash-release": ["縮短 113 天", "1,084 萬"],
+        }
+        for slide_id, markers in expected.items():
+            for marker in markers:
+                self.assertIn(marker, self.by_id[slide_id]["text"])
 
-    def test_navigation_targets_match_the_new_dom_order(self):
-        toc = self.by_id["s2"]
-        self.assertEqual(["3", "5", "12", "16", "20", "22", "23"], toc["data_go"])
-        self.assertEqual(["14", "15"], self.by_id["s7"]["data_go"])
-        self.assertEqual(["13", "15"], self.by_id["s8"]["data_go"])
-        self.assertEqual(["13", "14"], self.by_id["s9"]["data_go"])
+    def test_navigation_targets_match_second_report_dom_order(self):
+        self.assertEqual(["3", "5", "9", "13", "19", "22", "23"], self.by_id["s2"]["data_go"])
+        self.assertEqual(["11", "12"], self.by_id["s7"]["data_go"])
+        self.assertEqual(["10", "12"], self.by_id["s8"]["data_go"])
+        self.assertEqual(["10", "11"], self.by_id["s9"]["data_go"])
+
+    def test_second_report_title_footer_and_team_order(self):
+        self.assertIn("風琦有限公司 × SAP 導入評估｜第二次報告", self.source)
+        self.assertNotIn("SAP 導入評估｜第一次報告", self.source)
+        self.assertIn("風琦有限公司 SAP 導入評估｜第二次報告", INDEX_PATH.read_text(encoding="utf-8"))
+        team = section_source(self.source, "s24")
+        self.assertEqual(
+            ["Betty", "Yao", "Victor", "Lisa", "Bella"],
+            re.findall(r'<div class="member"><img[^>]+alt="([^"]+)"', team),
+        )
+
+    def test_all_local_resources_exist(self):
+        references = re.findall(r'(?:src|href)="([^"?#]+)"', self.source)
+        local = [ref for ref in references if not re.match(r"^(?:https?:|data:|javascript:)", ref)]
+        missing = [ref for ref in local if not (HTML_PATH.parent / ref).is_file()]
+        self.assertEqual([], missing)
+        for name in ["cash-release.svg", "receivables-risk.svg"]:
+            resource = HTML_PATH.parent / "img" / name
+            self.assertTrue(resource.is_file())
+            self.assertIn("<svg", resource.read_text(encoding="utf-8"))
+
+    def test_protected_flow_sources_match_the_approved_baseline(self):
+        flow_slides = source_between(
+            self.source,
+            '      <section class="slide" id="s7"',
+            '      <section class="slide dark" id="s17"',
+        )
+        navigation = source_between(self.source, "    function go(i) {", "    function fitStage() {")
+        flow_script = source_between(self.source, "    /* 直向泳道流程圖", "  </script>")
+        self.assertEqual(PROTECTED_HASHES["flow_slides"], sha256_text(flow_slides))
+        self.assertEqual(PROTECTED_HASHES["navigation"], sha256_text(navigation))
+        self.assertEqual(PROTECTED_HASHES["flow_script"], sha256_text(flow_script))
+        self.assertEqual(
+            PROTECTED_HASHES["flow_interactions"],
+            hashlib.sha256(FLOW_INTERACTIONS_PATH.read_bytes()).hexdigest(),
+        )
 
     def test_mouse_and_presentation_pen_navigation_preserve_flow_slides(self):
         normalized = re.sub(r"\s+", " ", self.source)
@@ -206,100 +262,6 @@ class WebpresentContentTest(unittest.TestCase):
         ]:
             self.assertNotIn(subtitle, source)
 
-    def test_page_11_uses_uploaded_site_photo_and_revised_copy(self):
-        source = section_source(self.source, "s16")
-        text = self.by_id["s16"]["text"]
-        self.assertIn("完成品經人工彙整後請款", text)
-        self.assertNotIn("完成品 ≠現金", text)
-        self.assertIn('src="img/site-installation.jpg"', source)
-        self.assertIn("現場施工", source)
-        self.assertNotIn('class="placeholder"', source)
-        self.assertTrue(SITE_PHOTO_TARGET.is_file())
-        photo = SITE_PHOTO_TARGET.read_bytes()
-        self.assertGreater(len(photo), 100_000)
-        self.assertTrue(photo.startswith(b"\xff\xd8"))
-        self.assertTrue(photo.endswith(b"\xff\xd9"))
-
-    def test_p18_copy_and_raised_core_message(self):
-        text = self.by_id["s18"]["text"]
-        self.assertIn("痛點一：發包單無法即時追蹤訂單＆金額", text)
-        self.assertIn("單上沒有價格", text)
-        self.assertIn("發包單＝報價單＝生產單＝訂單＝請款依據", text)
-        self.assertNotIn("單上沒有即時金額", text)
-        self.assertRegex(
-            self.source,
-            r'<section class="slide" id="s18">[\s\S]*?<div class="keybar warn raised">',
-        )
-
-    def test_p19_core_message_is_raised(self):
-        self.assertRegex(
-            self.source,
-            r'<section class="slide" id="s19">[\s\S]*?<div class="keybar warn raised">',
-        )
-
-    def test_p20_uses_the_attachment_content(self):
-        text = self.by_id["s20"]["text"]
-        expected = [
-            "問題總結：同一張發包單卡住兩條生命線",
-            "前端問題：訂單無法轉化為產能",
-            "發包單沒有被拆解為工序、設備時間與人力需求。",
-            "老闆只能依靠經驗判斷是否接單。",
-            "產能空檔被隱藏在排程裡，無法被有效使用。",
-            "後端問題：完工無法轉化為現金",
-            "完工資料沒有即時確認與彙整。",
-            "請款仍依賴人工翻找紙本與 Excel 整理。",
-            "應收帳款建立延遲，現金回收速度變慢。",
-            "企業需要的不是更多紙本或更多 Excel，而是一套串起訂單、產能、完工與請款的 ERP 流程。",
-        ]
-        for phrase in expected:
-            self.assertIn(phrase, text)
-
-    def test_p22_maps_each_solution_to_a_pain_point(self):
-        text = self.by_id["s22"]["text"]
-        self.assertIn("針對痛點一", text)
-        self.assertIn("針對痛點二", text)
-        self.assertIn("發包單系統化 → SD ＋ FI", text)
-        self.assertIn("追蹤訂單：接 SD 銷售配銷", text)
-        self.assertNotIn("發包單金額化", text)
-        self.assertNotIn("不是做電子發包單，而是把", text)
-
-    def test_p23_expected_benefit_copy(self):
-        text = self.by_id["s23"]["text"]
-        for phrase in ["減少漏請款項", "可追蹤訂單"]:
-            self.assertIn(phrase, text)
-        for phrase in [
-            "減少漏請少請",
-            "應收更清楚",
-            "縮短 3–5 個月請款延遲",
-            "縮短至一個月請款",
-            "收款更快速",
-            "可交接",
-        ]:
-            self.assertNotIn(phrase, text)
-
-    def test_page_22_removes_module_parentheses_and_one_benefit(self):
-        source = section_source(self.source, "s23")
-        text = self.by_id["s23"]["text"]
-        self.assertIn("現金流效益", text)
-        self.assertIn("營運效益", text)
-        self.assertNotIn("現金流效益（FI／SD）", text)
-        self.assertNotIn("營運效益（PP／MM）", text)
-        self.assertNotIn("縮短至一個月請款", text)
-        self.assertNotIn("收款更快速", text)
-        self.assertEqual(7, source.count('<div class="ben">'))
-        self.assertIn('<div class="benGrid three">', source)
-
-    def test_team_members_follow_sd_mm_pp_fi_co_order(self):
-        source = section_source(self.source, "s24")
-        self.assertEqual(
-            ["Betty", "Lisa", "Victor", "Yao", "Bella"],
-            re.findall(r'<div class="member"><img[^>]+alt="([^"]+)"', source),
-        )
-        modules = re.findall(r'<span class="rl">([^<]+)</span>', source)
-        self.assertEqual(
-            ["SD 銷售配銷", "MM 物料管理", "PP 生產規劃", "FI 財務會計", "CO 成本控制"],
-            modules,
-        )
 
     def test_photo_slide_page_numbers_are_visible(self):
         match = re.search(r"\.hasPhoto \.pgno\s*\{([^}]*)\}", self.source)
@@ -428,7 +390,7 @@ class WebpresentContentTest(unittest.TestCase):
                     "drop-shadow(0 0 9px rgba(255, 138, 0, .55))"
                 ),
             },
-            css_declarations(css_block(keyframes, "0%, 100%")),
+            css_declarations(css_block(keyframes, "0%,100%")),
         )
         self.assertEqual(
             {
@@ -456,11 +418,6 @@ class WebpresentContentTest(unittest.TestCase):
         match = re.search(r"\.keybar\.raised\s*\{([^}]*)\}", self.source)
         self.assertIsNotNone(match)
         self.assertRegex(match.group(1), r"bottom\s*:\s*(?:[89]\d|1\d\d)px")
-
-    def test_page_19_and_page_21_keybars_are_raised(self):
-        for section_id in ["s20", "s22"]:
-            source = section_source(self.source, section_id)
-            self.assertIn('class="keybar raised"', source)
 
     def test_navigation_buttons_are_centered_on_opposite_screen_edges(self):
         nav = re.search(r"#navBtns\s*\{([^}]*)\}", self.source)

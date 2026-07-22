@@ -1,0 +1,28 @@
+<svg viewBox="0 0 680 400" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="4月應收帳款曝險圖">
+<rect width="680" height="400" fill="#ffffff"/>
+<text x="0" y="22" fill="#0b0b0b" style="font-size:16px;font-weight:500">誰欠、欠多少、欠多久 — 4 月應收帳款曝險</text>
+<text x="0" y="42" fill="#52514e" style="font-size:12px">長度＝欠多少　顏色＝風險　標籤＝欠多久</text>
+<rect x="120" y="66" width="440" height="46" rx="4" fill="#FCEBEB" stroke="#E24B4A"/>
+<text x="8" y="94" fill="#0b0b0b" style="font-size:13px;font-weight:500">客戶 A</text>
+<text x="132" y="88" fill="#501313" style="font-size:15px;font-weight:500">約 149 萬</text>
+<text x="132" y="105" fill="#791F1F" style="font-size:12px">占單月營收 51%　·　★ 無收款追蹤</text>
+<text x="640" y="94" text-anchor="end" fill="#A32D2D" style="font-size:13px;font-weight:500">欠多久？未知</text>
+<rect x="120" y="130" width="180" height="46" rx="4" fill="#FAEEDA" stroke="#EF9F27"/>
+<text x="8" y="158" fill="#0b0b0b" style="font-size:13px;font-weight:500">客戶 B</text>
+<text x="132" y="152" fill="#412402" style="font-size:15px;font-weight:500">約 45 萬</text>
+<text x="132" y="169" fill="#633806" style="font-size:12px">支票付款</text>
+<text x="640" y="158" text-anchor="end" fill="#854F0B" style="font-size:13px;font-weight:500">壓 127 天才入帳</text>
+<rect x="120" y="194" width="190" height="46" rx="4" fill="#E1F5EE" stroke="#1D9E75"/>
+<text x="8" y="222" fill="#0b0b0b" style="font-size:13px;font-weight:500">客戶 C</text>
+<text x="132" y="216" fill="#04342C" style="font-size:15px;font-weight:500">約 48 萬</text>
+<text x="132" y="233" fill="#0F6E56" style="font-size:12px">轉帳，健康基準</text>
+<text x="640" y="222" text-anchor="end" fill="#0F6E56" style="font-size:13px;font-weight:500">36 天入帳</text>
+<line x1="0" y1="264" x2="680" y2="264" stroke="#c3c2b7" stroke-width="1"/>
+<text x="0" y="292" fill="#0b0b0b" style="font-size:14px;font-weight:500">全月請款追蹤覆蓋率（依金額）</text>
+<rect x="0" y="304" width="425" height="34" rx="4" fill="#FCEBEB" stroke="#E24B4A"/>
+<rect x="427" y="304" width="253" height="34" rx="4" fill="#E1F5EE" stroke="#1D9E75"/>
+<text x="12" y="326" fill="#501313" style="font-size:14px;font-weight:500">62.5% 無追蹤</text>
+<text x="439" y="326" fill="#04342C" style="font-size:14px;font-weight:500">37.5% 有追蹤</text>
+<text x="0" y="360" fill="#52514e" style="font-size:12px">1,823,846 ／ 2,919,656　·　開了票卻沒人在追的請款金額占比</text>
+<text x="0" y="382" fill="#A32D2D" style="font-size:12px">導入後：FBL5N 帳齡分析＋信用額度警戒 → 覆蓋率 100%，超過信用警戒先收部分款項再接單</text>
+</svg>
