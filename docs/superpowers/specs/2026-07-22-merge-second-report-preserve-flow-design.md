@@ -35,13 +35,15 @@ The current active flow wording remains authoritative, including `產能充足�
 
 ## Allowed Flow Adjustment
 
-The 7-22 report has 23 slides and places the three flow slides at presentation pages 11, 12, and 13. The `data-go` values in the flow pager must therefore target those new page numbers:
+The 7-22 report has 23 slides and places the three flow slides at presentation pages 10, 11, and 12. The `data-go` values in the flow pager must therefore target those new page numbers:
 
-- Page 11 (`s7`) links to pages 12 and 13.
-- Page 12 (`s8`) links to pages 11 and 13.
-- Page 13 (`s9`) links to pages 11 and 12.
+- Page 10 (`s7`) links to pages 11 and 12.
+- Page 11 (`s8`) links to pages 10 and 12.
+- Page 12 (`s9`) links to pages 10 and 11.
 
 This is a page-order adaptation, not a flow behavior change.
+
+The supplied table of contents still carries stale targets for Our Team and Thank You. Those targets must be corrected from pages 23 and 24 to the actual pages 22 and 23 so every table-of-contents item opens its labelled section.
 
 ## Replaced Content
 
@@ -86,7 +88,7 @@ Verification must include:
 ## Acceptance Criteria
 
 - The presentation renders the 7-22 second-report content in its supplied order.
-- Page 11-13 retain the current flowchart visuals, wording, routes, and interaction model.
+- Page 10-12 retain the current flowchart visuals, wording, routes, and interaction model.
 - Flow pagers navigate to the correct new page positions.
 - Both new SVG assets render successfully.
 - Existing accepted repository test baselines do not gain new failures.
