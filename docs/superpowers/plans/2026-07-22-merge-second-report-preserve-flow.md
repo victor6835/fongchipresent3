@@ -331,6 +331,28 @@ assert.match(integrity.title, /第二次報告/);
 assert.deepEqual(integrity.localImages.filter((image) => !image.complete || image.width === 0), []);
 ```
 
+The supplied 7-22 HTML does not reference its two standalone SVG files. Preserve that supplied slide markup and verify the SVGs directly instead of inserting new images into the deck:
+
+```javascript
+for (const asset of ['img/cash-release.svg', 'img/receivables-risk.svg']) {
+  const assetPage = await page.context().newPage();
+  const response = await assetPage.goto(new URL(asset, url).href, { waitUntil: 'load' });
+  assert.equal(response?.ok(), true, `${asset} failed to load`);
+  const svgMetrics = await assetPage.locator('svg').evaluate((svg) => ({
+    width: svg.getBoundingClientRect().width,
+    height: svg.getBoundingClientRect().height,
+    viewBox: svg.getAttribute('viewBox'),
+  }));
+  assert.ok(svgMetrics.width > 0 && svgMetrics.height > 0, `${asset} rendered blank`);
+  assert.match(svgMetrics.viewBox || '', /^0 0 680 400$/);
+  await assetPage.screenshot({
+    path: `.superpowers/sdd/second-report-${asset.split('/').pop()}.png`,
+    fullPage: true,
+  });
+  await assetPage.close();
+}
+```
+
 Retain all five forward keys, four backward keys, direct button checks, focused-button checks, branch restoration checks, final-node page advance, reset checks, five viewport checks, and the three flow screenshots.
 
 - [ ] **Step 2: Add non-flow content and overflow screenshots**
@@ -371,15 +393,15 @@ Run:
 node .superpowers/sdd/second-report-browser-check.mjs
 ```
 
-Expected: 68 flow behavior cases, 5 viewport checks, 0 page errors, 0 failed local resources, 3 flow screenshots, and 5 second-report screenshots.
+Expected: 68 flow behavior cases, 5 viewport checks, 0 page errors, 0 failed local resources, 3 flow screenshots, 5 second-report screenshots, and 2 directly rendered SVG screenshots.
 
-- [ ] **Step 4: Inspect all eight screenshots**
+- [ ] **Step 4: Inspect all ten screenshots**
 
-Inspect the settled flow screenshots and the five second-report screenshots at original detail. Confirm:
+Inspect the three settled flow screenshots, five second-report screenshots, and two direct SVG screenshots at original detail. Confirm:
 
 - Flow nodes, labels, branches, reset button, page number, and pager do not overlap.
 - The new story and benefit slides have no clipped text or occluded visuals.
-- `cash-release.svg` and `receivables-risk.svg` display rather than blank placeholders.
+- Direct browser pages for `cash-release.svg` and `receivables-risk.svg` render at nonzero dimensions with `viewBox="0 0 680 400"`.
 - The presentation remains framed inside the 1600x900 stage at desktop and mobile scaling.
 
 - [ ] **Step 5: Apply only evidence-backed layout fixes, then rerun all checks**
