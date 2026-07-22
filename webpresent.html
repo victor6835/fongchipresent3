@@ -2744,24 +2744,288 @@
 
     .quantLayout {
       display: grid;
-      grid-template-columns: 420px 1fr;
-      gap: 28px;
+      grid-template-columns: 760px 1fr;
+      gap: 30px;
       margin-top: 24px;
       align-items: stretch
     }
 
     .quantVisual {
-      min-height: 426px;
+      min-height: 486px;
       border-radius: 26px;
       background: #fff;
       box-shadow: var(--sh);
-      padding: 22px 26px;
+      padding: 28px 32px;
       display: flex;
       flex-direction: column;
-      gap: 16px;
+      gap: 18px;
       align-items: stretch;
       justify-content: center;
       overflow: hidden
+    }
+
+    .receiptChartCard {
+      border-top: 10px solid #AD2E31
+    }
+
+    .receiptChartBody {
+      display: grid;
+      grid-template-columns: 330px 1fr;
+      gap: 28px;
+      align-items: center
+    }
+
+    .chartTitle {
+      color: var(--blue-d);
+      font-size: 30px;
+      line-height: 1.22;
+      font-weight: 900
+    }
+
+    .donutWrap {
+      position: relative;
+      min-height: 310px;
+      display: grid;
+      place-items: center
+    }
+
+    .donutChart {
+      position: relative;
+      width: 300px;
+      height: 300px;
+      border-radius: 50%;
+      background:
+        conic-gradient(#AD2E31 0deg 224.64deg,
+          #C98315 224.64deg 350.28deg,
+          #299D82 350.28deg 360deg);
+      box-shadow: inset 0 0 0 1px rgba(13, 43, 92, .08), 0 18px 36px rgba(13, 43, 92, .14)
+    }
+
+    .donutChart::after {
+      content: "";
+      position: absolute;
+      inset: 86px;
+      border-radius: 50%;
+      background: #fff;
+      box-shadow: inset 0 0 0 1px rgba(13, 43, 92, .08)
+    }
+
+    .donutCenter {
+      position: absolute;
+      width: 152px;
+      height: 152px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      text-align: center;
+      color: var(--blue-d);
+      font-weight: 900;
+      z-index: 1
+    }
+
+    .donutCenter b {
+      display: block;
+      font-size: 34px;
+      line-height: 1
+    }
+
+    .donutCenter span {
+      display: block;
+      margin-top: 7px;
+      color: var(--mut);
+      font-size: 18px;
+      line-height: 1.25;
+      font-weight: 800
+    }
+
+    .quantInsightPanel {
+      min-height: 486px;
+      border-radius: 26px;
+      background: #fff;
+      box-shadow: var(--sh);
+      padding: 30px 34px;
+      display: grid;
+      grid-template-rows: auto 1fr auto;
+      gap: 20px;
+      border-top: 10px solid var(--blue)
+    }
+
+    .receiptLegend {
+      display: grid;
+      gap: 14px
+    }
+
+    .receiptItem {
+      display: grid;
+      grid-template-columns: 18px 1fr;
+      gap: 12px 14px;
+      align-items: center;
+      border-radius: 18px;
+      background: #F5F8FE;
+      padding: 16px 18px;
+      color: var(--blue-d)
+    }
+
+    .receiptItem .dot {
+      width: 18px;
+      height: 18px;
+      border-radius: 5px
+    }
+
+    .receiptItem.red .dot {
+      background: #AD2E31
+    }
+
+    .receiptItem.amber .dot {
+      background: #C98315
+    }
+
+    .receiptItem.green .dot {
+      background: #299D82
+    }
+
+    .receiptItem .pct {
+      font-size: 34px;
+      line-height: 1;
+      font-weight: 900
+    }
+
+    .receiptItem .label {
+      grid-column: 2;
+      font-size: 24px;
+      line-height: 1.22;
+      font-weight: 900
+    }
+
+    .receiptItem .amount {
+      grid-column: 2;
+      color: var(--mut);
+      font-size: 22px;
+      line-height: 1.2;
+      font-weight: 800;
+      text-align: left
+    }
+
+    .receiptItem .amount b {
+      display: block;
+      color: var(--blue-d);
+      font-size: 24px;
+      font-weight: 900
+    }
+
+    .timeBarChart {
+      display: grid;
+      gap: 22px
+    }
+
+    .timeBarRow {
+      display: grid;
+      grid-template-columns: 92px 1fr 74px;
+      gap: 14px;
+      align-items: center
+    }
+
+    .timeBarRow .rowLabel {
+      color: var(--blue-d);
+      font-size: 26px;
+      font-weight: 900
+    }
+
+    .timeTrack {
+      position: relative;
+      height: 74px;
+      border-radius: 16px;
+      background: #EEF3FB;
+      overflow: hidden;
+      box-shadow: inset 0 0 0 2px rgba(13, 43, 92, .06)
+    }
+
+    .timeFill {
+      height: 100%;
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      padding-left: 22px;
+      color: #fff;
+      font-size: 25px;
+      line-height: 1.15;
+      font-weight: 900
+    }
+
+    .timeFill.now {
+      width: 100%;
+      background: linear-gradient(90deg, #AD2E31, #C98315)
+    }
+
+    .timeFill.after {
+      width: 50%;
+      background: linear-gradient(90deg, var(--blue), #299D82)
+    }
+
+    .timeBarRow .dayValue {
+      color: var(--blue-d);
+      font-size: 25px;
+      line-height: 1.1;
+      font-weight: 900;
+      text-align: right
+    }
+
+    .timeCut {
+      border-radius: 18px;
+      background: #E9F8F0;
+      color: #0F6E56;
+      padding: 16px 18px;
+      font-size: 24px;
+      line-height: 1.35;
+      font-weight: 900
+    }
+
+    .quantFormula {
+      border-radius: 22px;
+      background: linear-gradient(90deg, var(--blue-d), var(--blue));
+      color: #fff;
+      padding: 22px 24px;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 20px;
+      align-items: center
+    }
+
+    .quantFormula .formulaText {
+      text-align: center;
+      font-size: 26px;
+      line-height: 1.35;
+      font-weight: 850
+    }
+
+    .quantFormula .formulaText b {
+      color: #fff;
+      font-size: 34px;
+      font-weight: 900
+    }
+
+    .quantFormula .formulaResult {
+      color: #FFD28A;
+      font-size: 58px;
+      line-height: 1;
+      font-weight: 900;
+      white-space: nowrap
+    }
+
+    .quantActionNote {
+      align-self: end;
+      border-radius: 18px;
+      background: #FFF7E8;
+      color: #8A3F05;
+      padding: 16px 20px;
+      font-size: 22px;
+      line-height: 1.42;
+      font-weight: 800
+    }
+
+    .quantActionNote b {
+      color: #B45309;
+      font-weight: 900
     }
 
     .cashPanel {
@@ -3444,48 +3708,70 @@
 
       <section class="slide storySlide" id="benefit-cash-release">
         <div class="kicker">量化效益｜AR COLLECTION</div>
-        <h2 class="stitle" style="font-size:58px">縮短 113 天，收回應收 1,084 萬帳款</h2>
-        <div class="quantStrip blue">
-          <b>非利潤</b>
-          <span>這是把原本應收的帳款提早收回，降低墊款與週轉壓力，屬現金流改善效果。</span>
-        </div>
+        <h2 class="stitle" style="font-size:58px">縮短兩個月，降低延後請款比例</h2>
         <div class="quantLayout">
-          <div class="cashPanel">
-            <div class="cashBig">113 天</div>
-            <div class="cashLabel">縮短全部來自完工到開發票流程</div>
-            <div class="cashDelta">
-              <div>193 天</div>
-              <div class="arr">→</div>
-              <div>80 天</div>
-            </div>
-            <div class="cashNote">
-              客戶付款條件 <b>73 天不動</b>；改善重點是把完工到開發票由約 <b>120 天</b> 壓縮至 <b>7 天內</b>。
+          <div class="quantVisual receiptChartCard">
+            <div class="chartTitle">4 月開票金額之收款狀態分布</div>
+            <div class="receiptChartBody">
+              <div class="donutWrap" aria-label="4月開票金額收款狀態：無收款紀錄62.4%，逾30天收回34.9%，30天內收回2.6%">
+                <div class="donutChart"></div>
+                <div class="donutCenter">
+                  <div>
+                    <b style="font-size: 28px;">306.7 萬</b>
+                    <span>4 月開票金額<br>樣本合計</span>
+                  </div>
+                </div>
+              </div>
+              <div class="receiptLegend">
+                <div class="receiptItem red">
+                  <span class="dot"></span>
+                  <div class="pct">62.4%</div>
+                  <div class="label">無收款紀錄</div>
+                  <div class="amount"><b>182萬</b>改善標的</div>
+                </div>
+                <div class="receiptItem amber">
+                  <span class="dot"></span>
+                  <div class="pct">34.9%</div>
+                  <div class="label">逾 30 天收回</div>
+                  <div class="amount"><b>107.2 萬</b>被延後收款</div>
+                </div>
+                <div class="receiptItem green">
+                  <span class="dot"></span>
+                  <div class="pct">2.6%</div>
+                  <div class="label">30 天內收回</div>
+                  <div class="amount"><b>8.0 萬</b>準時收款</div>
+                </div>
+              </div>
             </div>
           </div>
-          <div class="quantVisual">
-            <div class="arTimelineVisual" aria-label="完工到開發票與應收帳款收回週期">
-              <div class="row">
-                <div class="label">現況</div>
-                <div class="barWrap">
-                  <div class="bar blue">完工到開發票 120 天</div>
-                  <div class="bar gray">客戶 73 天</div>
+          <div class="quantInsightPanel">
+            <div class="chartTitle">請款週期時間變化</div>
+            <div class="timeBarChart" aria-label="現況完工到開發票約2到4個月，導入後縮短兩個月">
+              <div class="timeBarRow">
+                <div class="rowLabel">現況</div>
+                <div class="timeTrack">
+                  <div class="timeFill now">完工到開發票約 2-4 個月</div>
                 </div>
-                <div class="total">= 193 天</div>
+                <div class="dayValue">4 個月</div>
               </div>
-              <div class="row after">
-                <div class="label">導入後</div>
-                <div class="barWrap">
-                  <div class="bar blue">7天</div>
-                  <div class="bar gray">客戶 73 天</div>
+              <div class="timeBarRow">
+                <div class="rowLabel">導入後</div>
+                <div class="timeTrack">
+                  <div class="timeFill after">縮短至2個月</div>
                 </div>
-                <div class="total">= 80 天</div>
+                <div class="dayValue">2 個月</div>
               </div>
-              <div class="improve">縮短 113 天 - 公司內部即可自主改善</div>
+              <div class="timeCut">改善重點是把完工後請款追蹤拉回月結節奏，降低延後收款比例。</div>
             </div>
-            <div class="arMiniNote">每日營收約 <b>95,900 元</b> × <b>113 天</b>，可提早收回約 <b>1,084 萬</b>應收帳款，改善現金周轉能力。</div>
+            <div class="quantFormula">
+              <div class="formulaText">
+                每月未追蹤請款金額 <b>182 萬</b><br>縮短至 <b>2 個月</b> 的應收帳款週期
+              </div>
+            </div>
           </div>
         </div>
       </section>
+
       <section class="slide storySlide" id="benefit-scheduling-qual">
         <div class="kicker">質化效益｜PP VISIBILITY</div>
         <h2 class="stitle" style="font-size:58px">生產排程可視化：接得更多、管得更輕鬆</h2>

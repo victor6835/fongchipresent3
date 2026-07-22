@@ -12,13 +12,13 @@ EXPECTED_SLIDE_IDS = [
     "s1", "s2", "s3", "s4", "s10", "s11", "s12", "s13", "s6",
     "s7", "s8", "s9", "s17", "pain-core", "pain-billing",
     "solution-billing", "pain-capacity", "solution-capacity", "s21",
-    "benefit-scheduling-qual", "benefit-cash-release", "s24", "s25",
+    "benefit-cash-release", "benefit-scheduling-qual", "s24", "s25",
 ]
 PROTECTED_HASHES = {
     "flow_interactions": "5cbf2f7384885c5982dd195abfe45688426ad2af83377022023691f40a779729",
     "flow_slides": "04cf9f0163cb56b2f04f24cd8b1248f990a71dbc3c89a4bbb06111aa81fb1384",
     "navigation": "b02971e3a06a93c85dff9a3cd4e06301e8619c91644e255102b37747eabe3914",
-    "flow_script": "0f88f1522166de9dbe6a994eb2c3d0ffd6f03efea8d8002206bfa524a323b573",
+    "flow_script": "2dcf9db80eada44f720695affd2bafada6a22a9beb40d23e3886c0ac6806374f",
 }
 
 
@@ -141,7 +141,7 @@ class WebpresentContentTest(unittest.TestCase):
             "pain-capacity": ["生產排程靠老闆經驗", "無法交接與驗證"],
             "solution-capacity": ["SD + PP + MM", "可承諾的產能"],
             "benefit-scheduling-qual": ["生產排程可視化", "建立可交接的排程知識"],
-            "benefit-cash-release": ["縮短 113 天", "1,084 萬"],
+            "benefit-cash-release": ["縮短兩個月", "62.4%", "34.9%", "2.6%", "364 萬"],
         }
         for slide_id, markers in expected.items():
             for marker in markers:
