@@ -2977,7 +2977,10 @@
       padding: 16px 18px;
       font-size: 24px;
       line-height: 1.35;
-      font-weight: 900
+      font-weight: 900;
+      display: flex;
+      align-items: center;
+      text-align: center;
     }
 
     .quantFormula {
@@ -3708,7 +3711,7 @@
 
       <section class="slide storySlide" id="benefit-cash-release">
         <div class="kicker">量化效益｜AR COLLECTION</div>
-        <h2 class="stitle" style="font-size:58px">縮短兩個月，降低延後請款比例</h2>
+        <h2 class="stitle" style="font-size:58px">完工到開票縮短兩個月，應收提早入帳</h2>
         <div class="quantLayout">
           <div class="quantVisual receiptChartCard">
             <div class="chartTitle">4 月開票金額之收款狀態分布</div>
@@ -3717,7 +3720,7 @@
                 <div class="donutChart"></div>
                 <div class="donutCenter">
                   <div>
-                    <b style="font-size: 28px;">306.7 萬</b>
+                    <b style="font-size: 28px;">306萬</b>
                     <span>4 月開票金額<br>樣本合計</span>
                   </div>
                 </div>
@@ -3727,7 +3730,7 @@
                   <span class="dot"></span>
                   <div class="pct">62.4%</div>
                   <div class="label">無收款紀錄</div>
-                  <div class="amount"><b>182萬</b>改善標的</div>
+                  <div class="amount"><b>191萬</b>改善標的</div>
                 </div>
                 <div class="receiptItem amber">
                   <span class="dot"></span>
@@ -3746,7 +3749,7 @@
           </div>
           <div class="quantInsightPanel">
             <div class="chartTitle">請款週期時間變化</div>
-            <div class="timeBarChart" aria-label="現況完工到開發票約2到4個月，導入後縮短兩個月">
+            <div class="timeBarChart" aria-label="現況完工到開發票約3到5個月，導入後縮短兩個月">
               <div class="timeBarRow">
                 <div class="rowLabel">現況</div>
                 <div class="timeTrack">
@@ -3761,11 +3764,11 @@
                 </div>
                 <div class="dayValue">2 個月</div>
               </div>
-              <div class="timeCut">改善重點是把完工後請款追蹤拉回月結節奏，降低延後收款比例。</div>
+              <div class="timeCut">改善重點是把完工後請款追蹤拉回月結節奏，<br>降低延後收款比例。</div>
             </div>
             <div class="quantFormula">
               <div class="formulaText">
-                每月未追蹤請款金額 <b>182 萬</b><br>縮短至 <b>2 個月</b> 的應收帳款週期
+                每月未追蹤請款金額 <b>191 萬</b><br>縮短至 <b>2 個月</b> 的應收帳款週期
               </div>
             </div>
           </div>
@@ -3774,14 +3777,14 @@
 
       <section class="slide storySlide" id="benefit-scheduling-qual">
         <div class="kicker">質化效益｜PP VISIBILITY</div>
-        <h2 class="stitle" style="font-size:58px">生產排程可視化：接得更多、管得更輕鬆</h2>
+        <h2 class="stitle" style="font-size:58px">生產排程可視化：讓產能被看見、計算、管理</h2>
         <div class="qualLead">
           <b>預期效益</b>
           <span>產能看得見，接單更有把握；老闆也能把時間從盯現場轉回客戶關係與經營決策。</span>
         </div>
         <div class="qualImpactGrid">
           <div class="qualImpactCard">
-            <span class="pill">接單機會</span>
+            <span class="pill">判斷依據</span>
             <h3>提高產能判斷精準度</h3>
             <div class="beforeAfter">
               <div><b>導入前</b>：訂單集中時看不清實際產能，容易因「感覺很滿」而保守拒單。</div>
@@ -3789,8 +3792,8 @@
             </div>
           </div>
           <div class="qualImpactCard gold">
-            <span class="pill">管理時間</span>
-            <h3>降低老闆親自盯產線</h3>
+            <span class="pill">管理負荷</span>
+            <h3>現場狀態不必逐案詢問</h3>
             <div class="beforeAfter">
               <div><b>導入前</b>：現場進度、插單、重工與生產時間都需要老闆親自確認。</div>
               <div><b>導入後</b>：生產進度、工序狀態與異常資訊在系統中呈現。</div>
@@ -3958,7 +3961,7 @@
           { id: 'a3', l: 0, r: 2, sh: 'd', t: '新舊案?' },
           { id: 'a4a', l: 1, r: 3, sh: 'p', t: '提供檔案', st: '報案提供' },
           { id: 'a4b', l: 2, r: 3, sh: 'p', t: '提供檔案', st: '舊案・設計留檔' },
-          { id: 'a5', l: 0, r: 4, sh: 'r', t: '接洽報價' },
+          { id: 'a5', l: 0, r: 4, sh: 'r', t: '接洽' },
           { id: 'a6', l: 3, r: 5, sh: 'r', t: '正式報價' },
           { id: 'a7', l: 1, r: 6, sh: 'd', t: '客戶確認' },
           { id: 'a7n', l: 0, r: 6, sh: 'r', t: '報價異議', w: 280 },
@@ -4097,7 +4100,7 @@
         { id: 'oc', l: 1, r: 5, dx: 90, sh: 'r', t: '舊案', w: 150, h: 52, css: 'white' },
         { id: 'f1', l: 0, r: 6, sh: 'p', t: '提供檔案', w: 220, h: 56, css: 'blue' },
         { id: 'f2', l: 2, r: 6, sh: 'p', t: '提供檔案', w: 220, h: 56, css: 'blue' },
-        { id: 'n5', l: 1, r: 7, sh: 'r', t: '接洽報價', w: 210, h: 58, css: 'blue' },
+        { id: 'n5', l: 1, r: 7, sh: 'r', t: '接洽', w: 210, h: 58, css: 'blue' },
         { id: 'n6', l: 6, r: 8, sh: 'r', t: '正式報價', w: 210, h: 58, css: 'blue' },
         { id: 'n7', l: 0, r: 9, sh: 'd', t: '客戶確認', w: 220, h: 80, css: 'dec' },
         { id: 'n7n', l: 0, r: 10, sh: 'r', t: '報價異議', w: 210, h: 54, css: 'blue' },
@@ -4131,7 +4134,7 @@
         const A = byId[e.f], B = byId[e.t];
         const ax = cx(A), bx = cx(B);
         let d, lx, ly;
-        if (e.custom === 'loop') { /* 報價異議 → 接洽報價（右側繞上） */
+        if (e.custom === 'loop') { /* 報價異議 → 接洽（右側繞上） */
           const gx = laneX[1] - 8;
           d = `M${rgt(A)},${cy(A)} L${gx},${cy(A)} L${gx},${cy(B)} L${lft(B)},${cy(B)}`;
         } else if (e.custom === 'yside') { /* 客戶確認 Y → 溝通與整理檔案（左側進入） */
