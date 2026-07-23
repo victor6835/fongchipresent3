@@ -414,6 +414,19 @@ class WebpresentContentTest(unittest.TestCase):
         self.assertIn("顧問團隊 ALIVE × 風琦有限公司", text)
         self.assertNotIn("期待與您討論下一步", text)
 
+    def test_final_slide_has_a_bottom_right_return_to_contents_button(self):
+        final_slide = section_source(self.source, "s25")
+        self.assertRegex(
+            final_slide,
+            r'<button\b[^>]*class="returnToc"[^>]*data-go="2"[^>]*'
+            r'aria-label="返回目錄"[^>]*>[\s\S]*?返回目錄[\s\S]*?</button>',
+        )
+        style = css_declarations(css_block(self.source, ".returnToc"))
+        self.assertEqual("absolute", style.get("position"))
+        self.assertRegex(style.get("right", ""), r"(?:px|vw|clamp)")
+        self.assertRegex(style.get("bottom", ""), r"(?:px|vh|clamp)")
+        self.assertRegex(style.get("z-index", ""), r"\d+")
+
     def test_raised_keybar_style_exists(self):
         match = re.search(r"\.keybar\.raised\s*\{([^}]*)\}", self.source)
         self.assertIsNotNone(match)
