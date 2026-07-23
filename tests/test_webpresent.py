@@ -17,7 +17,7 @@ EXPECTED_SLIDE_IDS = [
 PROTECTED_HASHES = {
     "flow_interactions": "5cbf2f7384885c5982dd195abfe45688426ad2af83377022023691f40a779729",
     "flow_slides": "04cf9f0163cb56b2f04f24cd8b1248f990a71dbc3c89a4bbb06111aa81fb1384",
-    "navigation": "b02971e3a06a93c85dff9a3cd4e06301e8619c91644e255102b37747eabe3914",
+    "navigation": "88bacaebbb5bc664aaefccfc15a71b874887b15c2356754f7144c3bc222f0ebb",
     "flow_script": "2dcf9db80eada44f720695affd2bafada6a22a9beb40d23e3886c0ac6806374f",
 }
 
@@ -220,7 +220,9 @@ class WebpresentContentTest(unittest.TestCase):
         self.assertIn('window.dioFlowController?.retreatActiveUntilStart()', normalized)
         self.assertIn("result.status === 'start-boundary'", normalized)
         self.assertIn('window.dioFlowController?.resetActive()', normalized)
-        self.assertIn("document.getElementById('btnNext').onclick = () => go(cur + 1)", normalized)
+        self.assertIn('function nextSlideIndex()', normalized)
+        self.assertIn('return cur === slides.length - 1 ? 0 : cur + 1', normalized)
+        self.assertIn("document.getElementById('btnNext').onclick = () => go(nextSlideIndex())", normalized)
         self.assertIn("document.getElementById('btnPrev').onclick = () => go(cur - 1)", normalized)
         self.assertIn('advancePresentation();', normalized)
         self.assertIn('retreatPresentation();', normalized)
@@ -243,6 +245,12 @@ class WebpresentContentTest(unittest.TestCase):
         self.assertGreaterEqual(normalized.count("e.preventDefault()"), 2)
         self.assertIn("if (e.key === 'Home') go(0)", normalized)
         self.assertIn("if (e.key === 'End') go(slides.length - 1)", normalized)
+
+    def test_next_navigation_wraps_from_final_slide_to_first_slide(self):
+        normalized = re.sub(r"\s+", " ", self.source)
+        self.assertIn("function nextSlideIndex()", normalized)
+        self.assertIn("go(nextSlideIndex())", normalized)
+        self.assertNotIn("if (!result || result.status === 'inactive' || result.status === 'complete') go(cur + 1)", normalized)
 
     def test_preserves_user_updated_flowchart_wording(self):
         for wording in ["產能充足？", "新舊案?", "報價異議", "舊案沿用歷史價格"]:

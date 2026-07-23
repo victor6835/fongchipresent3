@@ -3913,12 +3913,15 @@
       slides.forEach((s, k) => s.classList.toggle('active', k === cur));
       document.getElementById('progress').style.width = ((cur + 1) / slides.length * 100) + '%';
     }
+    function nextSlideIndex() {
+      return cur === slides.length - 1 ? 0 : cur + 1;
+    }
     const interactiveNavigationSelector = 'button, a, input, select, textarea, [data-go]';
     const isInteractiveNavigationTarget = target => target?.closest?.(interactiveNavigationSelector);
     const isDeckNavigationTarget = target => target?.closest?.('[data-flow-navigation]');
     function advancePresentation() {
       const result = window.dioFlowController?.advanceActiveUntilComplete();
-      if (!result || result.status === 'inactive' || result.status === 'complete') go(cur + 1);
+      if (!result || result.status === 'inactive' || result.status === 'complete') go(nextSlideIndex());
     }
 
     function retreatPresentation() {
@@ -3929,9 +3932,9 @@
     document.getElementById('stage').addEventListener('click', e => {
       if (e.button !== 0 || isInteractiveNavigationTarget(e.target)) return;
       if (window.FongchiFlowInteractions?.FLOW_BY_SLIDE[slides[cur].id]) return;
-      go(cur + 1);
+      go(nextSlideIndex());
     });
-    document.getElementById('btnNext').onclick = () => go(cur + 1);
+    document.getElementById('btnNext').onclick = () => go(nextSlideIndex());
     document.getElementById('btnPrev').onclick = () => go(cur - 1);
     addEventListener('keydown', e => {
       if (isInteractiveNavigationTarget(e.target) && !isDeckNavigationTarget(e.target)) return;
